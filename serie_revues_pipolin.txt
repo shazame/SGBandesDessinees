@@ -1,0 +1,73 @@
+serie : Pipolin
+1 La Pêche miraculeuse de Pipolin, Éditions Vaillant, nullePart, 10 1957, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+2 Pipolin et le sanglier solitaire, Éditions Vaillant, nullePart, 11 1957, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+3 Les aventures de Pipolin et du nain qui avait trop bu, Éditions Vaillant, nullePart, 12 1957, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+4 Les aventures de Pipolin et du petit chien Floc, Éditions Vaillant, nullePart, 01 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+5 sans titre, Éditions Vaillant, nullePart, 02 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+6 La Voiture de Pipolin, Éditions Vaillant, nullePart, 03 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+7 Pipolin et le poisson d'avril, Éditions Vaillant, nullePart, 04 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+8 Pipolin et le trésor, Éditions Vaillant, nullePart, 05 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+9 Pipolin et le fantôme !, Éditions Vaillant, nullePart, 06 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+10 Pipolin passe l'examen, Éditions Vaillant, nullePart, 07 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+11 Pipolin et la pêche miraculeuse, Éditions Vaillant, nullePart, 08 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+12 Pipolin visite le musée, Éditions Vaillant, nullePart, 09 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+13 L'Anniversaire de Pipolin, Éditions Vaillant, nullePart, 10 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+14 Pipolin et le magicien de la forêt, Éditions Vaillant, nullePart, 11 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+15 Le Noël de Pipolin, Éditions Vaillant, nullePart, 12 1958, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+16 L'Héritage de Pipolin, Éditions Vaillant, nullePart, 01 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+17 Pipolin et la joyeuse mascarade, Éditions Vaillant, nullePart, 02 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+18 Les Aventures de Pipolin au zoo, Éditions Vaillant, nullePart, 03 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+19 La Fête dans la forêt, Éditions Vaillant, nullePart, 04 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+20 Le Cirque est arrivé !, Éditions Vaillant, nullePart, 05 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+21 L'Île aux perroquets, Éditions Vaillant, nullePart, 06 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+22 Pipolin devient chasseur, Éditions Vaillant, nullePart, 07 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+23 Pipolin découvre l'Italie, Éditions Vaillant, nullePart, 08 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+24 Un Retour mouvementé, Éditions Vaillant, nullePart, 09 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+25 Le Rhume attaque Pipolin, Éditions Vaillant, nullePart, 10 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+26 Le Match de football, Éditions Vaillant, nullePart, 11 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+27 Voici Noël, Éditions Vaillant, nullePart, 12 1959, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+28 Les Inventions de Pipolin, Éditions Vaillant, nullePart, 01 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+29 Pipolin et la rage de dents, Éditions Vaillant, nullePart, 02 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+30 Pipolin et les crêpes ensorcelées..., Éditions Vaillant, nullePart, 03 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+31 Pipolin et la gymnastique, Éditions Vaillant, nullePart, 04 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+32 Pipolin chez les cow-boys, Éditions Vaillant, nullePart, 05 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+33 Une Journée bien remplie, Éditions Vaillant, nullePart, 06 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+34 Pipolin contre Kid le musclé, Éditions Vaillant, nullePart, 07 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+35 Pipolin et les animaux fantastiques, Éditions Vaillant, nullePart, 08 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+36 Pipolin dans la jungle, Éditions Vaillant, nullePart, 09 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+37 Pipolin et le pot au lait, Éditions Vaillant, nullePart, 10 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+38 Le Grand-père Pipolin XIV, Éditions Vaillant, nullePart, 11 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+39 L'Arbre de Noël de Pipolin, Éditions Vaillant, nullePart, 12 1960, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+40 L'Hiver attaque Pipolin, Éditions Vaillant, nullePart, 01 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+41 Les Mésaventures de Pipolin, Éditions Vaillant, nullePart, 02 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+42 Une Barbe récalcitrante, Éditions Vaillant, nullePart, 03 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+43 Pipolin et le poisson d'avril, Éditions Vaillant, nullePart, 04 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+44 Bonne fête, Éditions Vaillant, nullePart, 05 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+45 Pipolin et la partie de pêche, Éditions Vaillant, nullePart, 06 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+46 Pipolin fête le 14 juillet, Éditions Vaillant, nullePart, 07 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+47 Le temps des moissons, Éditions Vaillant, nullePart, 08 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+48 Gai, gai, cueillons le raisin !, Éditions Vaillant, nullePart, 09 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+49 Pipolin retourne à l'école, Éditions Vaillant, nullePart, 10 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+50 Pipolin et l'arche de Noé, Éditions Vaillant, nullePart, 11 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+51 Pipolin Père Noël, Éditions Vaillant, nullePart, 12 1961, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+52 Pipolin prépare le championnat, Éditions Vaillant, nullePart, 01 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+53 Des Ennuis pour Pipolin, Éditions Vaillant, nullePart, 02 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+54 Qui a fait le printemps ?, Éditions Vaillant, nullePart, 03 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+55 Comme dans un conte..., Éditions Vaillant, nullePart, 04 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+56 Champion malgré lui, Éditions Vaillant, nullePart, 05 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+57 A qui la faute ?, Éditions Vaillant, nullePart, 06 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+58 Son et lumière, Éditions Vaillant, nullePart, 07 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+59 Pipolin gardien du phare, Éditions Vaillant, nullePart, 08 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+60 Le Grand Départ, Éditions Vaillant, nullePart, 09 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+61 Pipolin et le modèle réduit, Éditions Vaillant, nullePart, 10 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+62 Pipolin et la composition, Éditions Vaillant, nullePart, 11 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+63 Père Noël et compagnie, Éditions Vaillant, nullePart, 12 1962, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+64 Sports d'hiver, Éditions Vaillant, nullePart, 01 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+65 Pipolin et la faim sans fin, Éditions Vaillant, nullePart, 02 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+66 Pipolin fait du nettoyage, Éditions Vaillant, nullePart, 03 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+67 sans titre, Éditions Vaillant, nullePart, 04 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+68 sans titre, Éditions Vaillant, nullePart, 05 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+69 sans titre, Éditions Vaillant, nullePart, 06 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+70 sans titre, Éditions Vaillant, nullePart, 07 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+71 sans titre, Éditions Vaillant, nullePart, 08 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+72 Pipolin cordon bleu, Éditions Vaillant, nullePart, 09 1963, Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
