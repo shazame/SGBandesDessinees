@@ -1,0 +1,14 @@
+collection : toto et titi
+
+serie : les histoires de toto
+1 Toto au ski| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Toto à la plage| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Toto dans l'espace| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Toto et la conquète du marché| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+
+serie : les histoires de titi
+1 Titi au Brésil| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Titi en espagne| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Titi contre Diego| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Titi le retour| The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
+1 Titi, il va tous vous tuer | The SGBDians| somewhere| 2012| Scénario : Foo - Dessin : FUUUUUUUU
