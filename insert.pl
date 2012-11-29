@@ -2,7 +2,7 @@ use 5.010;
 use strict;
 use warnings;
 
-my $nre = qr/[\s\w,\-'"éèêëàâäîïùüûçÉÈÊËÀÂÄÎÏÙÜÛÇ]+/;
+my $nre = qr/[\s\w,\-'"!\?\.éèêëàâäîïùüûöôçÉÈÊËÀÂÄÎÏÙÜÛÖÔÇ]+/;
 
 my $no_serie = 0;
 my $no_auteur = 0;
@@ -24,7 +24,7 @@ while (<>) {
 	}
 
 	#no_serie|titre|editeur|ville|mois annee|Scenario : nom - Dessin : nom ...
-	elsif (/^(\d+)\|($nre)\|($nre)\|\w+\|[\w\s]*(\d+)\|(.*)/) {
+	elsif (/^(\d+)\|($nre)\|($nre)\|\w*\|[\s\d\w]*(\d*)\|(.*)/) {
 
 		print "insert into volume values ($1, '$2', $4);\n";
 

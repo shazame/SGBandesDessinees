@@ -1,0 +1,73 @@
+serie Pipolin
+1|La Pêche miraculeuse de Pipolin|Vaillant||10 1957|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+2|Pipolin et le sanglier solitaire|Vaillant||11 1957|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+3|Les aventures de Pipolin et du nain qui avait trop bu|Vaillant||12 1957|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+4|Les aventures de Pipolin et du petit chien Floc|Vaillant||01 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+5|sans titre|Vaillant||02 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+6|La Voiture de Pipolin|Vaillant||03 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+7|Pipolin et le poisson d'avril|Vaillant||04 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+8|Pipolin et le trésor|Vaillant||05 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+9|Pipolin et le fantôme !|Vaillant||06 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+10|Pipolin passe l'examen|Vaillant||07 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+11|Pipolin et la pêche miraculeuse|Vaillant||08 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+12|Pipolin visite le musée|Vaillant||09 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+13|L'Anniversaire de Pipolin|Vaillant||10 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+14|Pipolin et le magicien de la forêt|Vaillant||11 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+15|Le Noël de Pipolin|Vaillant||12 1958|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+16|L'Héritage de Pipolin|Vaillant||01 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+17|Pipolin et la joyeuse mascarade|Vaillant||02 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+18|Les Aventures de Pipolin au zoo|Vaillant||03 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+19|La Fête dans la forêt|Vaillant||04 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+20|Le Cirque est arrivé !|Vaillant||05 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+21|L'Île aux perroquets|Vaillant||06 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+22|Pipolin devient chasseur|Vaillant||07 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+23|Pipolin découvre l'Italie|Vaillant||08 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+24|Un Retour mouvementé|Vaillant||09 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+25|Le Rhume attaque Pipolin|Vaillant||10 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+26|Le Match de football|Vaillant||11 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+27|Voici Noël|Vaillant||12 1959|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+28|Les Inventions de Pipolin|Vaillant||01 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+29|Pipolin et la rage de dents|Vaillant||02 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+30|Pipolin et les crêpes ensorcelées...|Vaillant||03 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+31|Pipolin et la gymnastique|Vaillant||04 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+32|Pipolin chez les cow-boys|Vaillant||05 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+33|Une Journée bien remplie|Vaillant||06 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+34|Pipolin contre Kid le musclé|Vaillant||07 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+35|Pipolin et les animaux fantastiques|Vaillant||08 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+36|Pipolin dans la jungle|Vaillant||09 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+37|Pipolin et le pot au lait|Vaillant||10 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+38|Le Grand-père Pipolin XIV|Vaillant||11 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+39|L'Arbre de Noël de Pipolin|Vaillant||12 1960|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+40|L'Hiver attaque Pipolin|Vaillant||01 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+41|Les Mésaventures de Pipolin|Vaillant||02 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+42|Une Barbe récalcitrante|Vaillant||03 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+43|Pipolin et le poisson d'avril|Vaillant||04 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+44|Bonne fête|Vaillant||05 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+45|Pipolin et la partie de pêche|Vaillant||06 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+46|Pipolin fête le 14 juillet|Vaillant||07 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+47|Le temps des moissons|Vaillant||08 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+48|Gai, gai, cueillons le raisin !|Vaillant||09 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+49|Pipolin retourne à l'école|Vaillant||10 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+50|Pipolin et l'arche de Noé|Vaillant||11 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+51|Pipolin Père Noël|Vaillant||12 1961|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+52|Pipolin prépare le championnat|Vaillant||01 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+53|Des Ennuis pour Pipolin|Vaillant||02 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+54|Qui a fait le printemps ?|Vaillant||03 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+55|Comme dans un conte...|Vaillant||04 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+56|Champion malgré lui|Vaillant||05 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+57|A qui la faute ?|Vaillant||06 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+58|Son et lumière|Vaillant||07 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+59|Pipolin gardien du phare|Vaillant||08 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+60|Le Grand Départ|Vaillant||09 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+61|Pipolin et le modèle réduit|Vaillant||10 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+62|Pipolin et la composition|Vaillant||11 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+63|Père Noël et compagnie|Vaillant||12 1962|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+64|Sports d'hiver|Vaillant||01 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+65|Pipolin et la faim sans fin|Vaillant||02 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+66|Pipolin fait du nettoyage|Vaillant||03 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+67|sans titre|Vaillant||04 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+68|sans titre|Vaillant||05 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+69|sans titre|Vaillant||06 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+70|sans titre|Vaillant||07 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+71|sans titre|Vaillant||08 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
+72|Pipolin cordon bleu|Vaillant||09 1963|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
