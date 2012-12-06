@@ -2,3 +2,5 @@ Verifier la 3eme forme normale
 jointures externes => classements
 factorisation => vues
 déclencheur -> contraintes d'intégrité, mieux que trick php
+
+no_revue est considéré comme unique (type ISBN) et pas interne à une série
