@@ -169,3 +169,132 @@ alter table Edition_des_revues add constraint edtn_ds_rvs_fk_No_editeur
 alter table Revue add constraint revue_fk_No_revue 
     foreign key (no_revue)
     references Edition_des_revues (no_revue) ;
+
+
+-- The following isn't an automated output !
+
+-- Handling the volume no
+
+CREATE SEQUENCE seq_volume
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_volume
+BEFORE INSERT
+ON VOLUME
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_volume.nextval
+INTO :NEW.NO_VOLUME
+FROM DUAL;
+END;
+/ 
+
+-- Handling the editeur no
+
+CREATE SEQUENCE seq_editeur
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_editeur
+BEFORE INSERT
+ON EDITEUR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_editeur.nextval
+INTO :NEW.NO_EDITEUR
+FROM DUAL;
+END;
+/ 
+
+-- Handling the collection no
+
+CREATE SEQUENCE seq_collection
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_collection
+BEFORE INSERT
+ON COLLECTION
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_collection.nextval
+INTO :NEW.NO_COLLECTION
+FROM DUAL;
+END;
+/ 
+
+-- Handling the histoire no
+
+CREATE SEQUENCE seq_histoire
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_histoire
+BEFORE INSERT
+ON HISTOIRE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_histoire.nextval
+INTO :NEW.NO_HISTOIRE
+FROM DUAL;
+END;
+/ 
+
+-- Handling the auteur no
+
+CREATE SEQUENCE seq_auteur
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_auteur
+BEFORE INSERT
+ON AUTEUR
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_auteur.nextval
+INTO :NEW.NO_AUTEUR
+FROM DUAL;
+END;
+/  
+
+-- Handling the serie no
+
+CREATE SEQUENCE seq_serie
+START WITH 1
+MINVALUE 1
+NOCYCLE
+NOCACHE
+ORDER;
+
+CREATE OR REPLACE TRIGGER trg_serie
+BEFORE INSERT
+ON SERIE
+REFERENCING NEW AS NEW OLD AS OLD
+FOR EACH ROW
+BEGIN
+SELECT seq_serie.nextval
+INTO :NEW.NO_SERIE
+FROM DUAL;
+END;
+/ 
