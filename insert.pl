@@ -65,7 +65,7 @@ use warnings;
 			$collections{$nom}->{no_volume} = 1;
 			$collections{$nom}->{no_editeur} = chk_editeur($editeur);
 
-			print "insert into collectio values ("
+			print "insert into collection values ("
 				. "$collections{$nom}->{no}, "
 				. "'$nom', "
 				. "$collections{$nom}->{no_editeur});\n";
@@ -75,11 +75,30 @@ use warnings;
 	}
 }
 
+{	my %series;
+	my $no_serie;
+
+	sub chk_serie ($) {
+		my ($nom) = @_;
+
+		unless (exists $series{$nom}) {
+			$no_serie++;
+
+			$series{$nom}->{no} = $no_serie;
+
+			print "insert into serie values ("
+				. "$series{$nom}->{no}, "
+				. "'$nom');\n"
+		}
+
+		return $series{$nom};
+	}
+}
 
 
-my $no_serie      = 0;
 my $no_volume     = 0;
 my $no_histoire   = 0;
+my $serie         = undef;
 my $collection    = undef;
 
 my $nre = qr/[\s\w,\-'"!\?\.éèêëàâäîïùüûöôçÉÈÊËÀÂÄÎÏÙÜÛÖÔÇ]*/;
@@ -88,19 +107,27 @@ while (<>) {
 	print;
 	chomp;
 
-	if (/^serie ($nre)/) {
-		$no_serie++;
-		print "insert into series ($no_serie, '$1')\n";
+	if (/^serie ($nre)$/) {
+		$serie = chk_serie($1);
 	}
 
-	if (/^collection ($nre) ($nre)/) {
+	elsif (/^noserie$/) {
+		$serie = undef;
+	}
+
+	elsif (/^collection ($nre) ($nre)$/) {
 		$collection = chk_collection($2, $3);
+	}
+
+	elsif (/^nocollection$/) {
+		$collection = undef;
 	}
 
 	#no_serie|titre|editeur|ville|mois annee|Scenario : nom - Dessin : nom ...
 	elsif (/^(\d+)\|($nre)\|($nre)\|$nre\|$nre(\d+)\|(.*)/) {
 
-		print "insert into volume values ($1, '$2', $4);\n";
+		++$no_volume;
+		print "insert into volume values ($no_volume, '$2', $4);\n";
 
 		my $no_editeur = chk_editeur($3);
 
@@ -120,12 +147,18 @@ while (<>) {
 				. "$no_volume, "
 				. "$no_editeur"
 				. ");\n";
-			}
+		}
 
 		# les histoires
 		for (split(/ - /, $2)) {
-			print "insert into histoire values ($no_histoire, '$_', $4);\n";
 			++$no_histoire;
+			print "insert into histoire values ($no_histoire, '$_', $4);\n";
+			print "insert into contenir values ($no_volume, $no_histoire);\n";
+
+			if (defined $serie) {
+				print "insert into appartenance_serie values ("
+					. "$no_histoire, $serie->{no}, $1);\n";
+			}
 
 			# les auteurs
 			for (split(/ - /, $5)) {
