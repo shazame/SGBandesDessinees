@@ -43,8 +43,8 @@ use warnings;
 
 			print "insert into auteur values ("
 				. "$auteurs{$nom_complet}->{no}, "
-				. "$auteurs{$nom_complet}->{nom}, "
-				. "$auteurs{$nom_complet}->{prenom});\n";
+				. "'$auteurs{$nom_complet}->{nom}', "
+				. "'$auteurs{$nom_complet}->{prenom}');\n";
 		}
 
 		return $auteurs{$nom_complet};
@@ -104,7 +104,7 @@ my $collection    = undef;
 my $nre = qr/[\s\w,\-'"!\?\.éèêëàâäîïùüûöôçÉÈÊËÀÂÄÎÏÙÜÛÖÔÇ]*/;
 
 while (<>) {
-	print;
+	print "-- $_";
 	chomp;
 
 	if (/^serie ($nre)$/) {
@@ -164,11 +164,11 @@ while (<>) {
 			for (split(/ - /, $5)) {
 				my ($role, $nom) = split(/ : /, $_);
 				my $no_auteur = chk_auteur($nom)->{no};
-				print "insert into auteuriser values ($no_auteur, $no_histoire, $role);\n";
+				print "insert into auteuriser values ($no_auteur, $no_histoire, '$role');\n";
 			}
 		}
 	}
 
-	print "================================\n";
+	print "-- ================================\n";
 } 
 

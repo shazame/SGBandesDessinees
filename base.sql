@@ -24,7 +24,7 @@ drop table Contenir;
 drop table Histoire;
 drop table Appartenance_serie;
 drop table Serie;
-drop table Autueuriser;
+drop table Auteuriser;
 drop table Auteur;
 
 -- get_smallpackage_pre_sql 
@@ -94,8 +94,8 @@ create table Auteuriser (
 )   ;
 create table Auteur (
    no_auteur     NUMBER                not null,
-   nom_auteur    varchar(255)   not null         ,
-   prenom_auteur varchar(255)   not null         ,
+   nom_auteur    varchar(255)   not null       ,
+   prenom_auteur varchar(255)   			   ,
    constraint pk_Auteur primary key (no_auteur)
 )   ;
 
