@@ -31,71 +31,71 @@ drop table Auteur;
 
 -- get_schema_create
 create table Revue (
-   no_volume  identity       not null,
-   no_editeur identity               ,
-   no_revue   int = not null         ,
+   no_volume  NUMBER       not null,
+   no_editeur NUMBER               ,
+   no_revue   int   not null         ,
    constraint pk_Revue primary key (no_volume)
 )   ;
 create table Album_sans_collection (
-   no_volume  identity not null,
-   no_editeur identity         ,
+   no_volume  NUMBER not null,
+   no_editeur NUMBER         ,
    constraint pk_Album_sans_collection primary key (no_volume)
 )   ;
 create table Volume (
-   no_volume     identity                not null,
-   titre         varchar(255) = not null         ,
-   annee_edition int = not null                  ,
+   no_volume     NUMBER                not null,
+   titre         varchar(255)	not null         ,
+   annee_edition int   not null                  ,
    constraint pk_Volume primary key (no_volume)
 )   ;
 create table Collection (
-   no_collection  identity                not null,
-   nom_collection varchar(255) = not null         ,
-   no_editeur     identity                        ,
+   no_collection  NUMBER                not null,
+   nom_collection varchar(255)   not null         ,
+   no_editeur     NUMBER                        ,
    constraint pk_Collection primary key (no_collection)
 )   ;
 create table Album_avec_collection (
-   no_volume        identity       not null,
-   no_collection    identity               ,
-   no_ds_collection int = not null         ,
+   no_volume        NUMBER       not null,
+   no_collection    NUMBER               ,
+   no_ds_collection int   not null         ,
    constraint pk_Album_avec_collection primary key (no_volume)
 )   ;
 create table Editeur (
-   no_editeur  identity                not null,
-   nom_editeur varchar(255) = not null         ,
+   no_editeur  NUMBER                not null,
+   nom_editeur varchar(255)   not null         ,
    constraint pk_Editeur primary key (no_editeur)
 )   ;
 create table Contenir (
-   no_volume   identity not null,
-   no_histoire identity not null,
+   no_volume   NUMBER not null,
+   no_histoire NUMBER not null,
    constraint pk_Contenir primary key (no_volume,no_histoire)
 )   ;
 create table Histoire (
-   no_histoire    identity                not null,
-   titre          varchar(255) = not null         ,
-   annee_parution int = not null                  ,
+   no_histoire    NUMBER                not null,
+   titre          varchar(255)   not null         ,
+   annee_parution int   not null                  ,
    constraint pk_Histoire primary key (no_histoire)
 )   ;
 create table Appartenance_serie (
-   no_histoire identity       not null,
-   no_serie    identity       not null,
-   no_ds_serie int = not null         ,
+   no_histoire NUMBER       not null,
+   no_serie    NUMBER       not null,
+   no_ds_serie int   not null         ,
    constraint pk_Appartenance_serie primary key (no_histoire,no_serie)
 )   ;
 create table Serie (
-   no_serie    identity                not null,
-   titre_serie varchar(255) = not null         ,
+   no_serie    NUMBER                not null,
+   titre_serie varchar(255)   not null         ,
    constraint pk_Serie primary key (no_serie)
 )   ;
 create table Auteuriser (
-   no_auteur   identity               not null,
-   no_histoire identity               not null,
-   role        varchar(10) = not null         ,
+   no_auteur   NUMBER               not null,
+   no_histoire NUMBER               not null,
+   role        varchar(10)   not null         ,
    constraint pk_Autueuriser primary key (no_auteur,no_histoire)
 )   ;
 create table Auteur (
-   no_auteur     identity                not null,
-   nom_auteur    varchar(255) = not null         ,
-   prenom_auteur varchar(255) = not null         ,
+   no_auteur     NUMBER                not null,
+   nom_auteur    varchar(255)   not null         ,
+   prenom_auteur varchar(255)   not null         ,
    constraint pk_Auteur primary key (no_auteur)
 )   ;
 
