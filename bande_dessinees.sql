@@ -159,6 +159,7 @@ alter table Revue add constraint revue_fk_No_revue
 
 -- Handling the volume no
 
+drop sequence seq_volume;
 CREATE SEQUENCE seq_volume
 START WITH 1
 MINVALUE 1
@@ -180,6 +181,7 @@ END;
 
 -- Handling the editeur no
 
+drop sequence seq_editeur;
 CREATE SEQUENCE seq_editeur
 START WITH 1
 MINVALUE 1
@@ -201,6 +203,7 @@ END;
 
 -- Handling the collection no
 
+drop sequence seq_collection;
 CREATE SEQUENCE seq_collection
 START WITH 1
 MINVALUE 1
@@ -222,6 +225,7 @@ END;
 
 -- Handling the histoire no
 
+drop sequence seq_histoire;
 CREATE SEQUENCE seq_histoire
 START WITH 1
 MINVALUE 1
@@ -243,6 +247,7 @@ END;
 
 -- Handling the auteur no
 
+drop sequence seq_auteur;
 CREATE SEQUENCE seq_auteur
 START WITH 1
 MINVALUE 1
@@ -264,6 +269,7 @@ END;
 
 -- Handling the serie no
 
+drop sequence seq_serie;
 CREATE SEQUENCE seq_serie
 START WITH 1
 MINVALUE 1
