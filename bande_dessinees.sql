@@ -7,40 +7,24 @@
 -- Generated at       Thu Dec  6 08:39:33 2012                  
 -- Typemap for oracle not found in input file                   
 
--- get_constraints_drop 
-alter table Album_sans_collection drop constraint albm_sns_clctn_fk_No_volume ;
-alter table Revue drop constraint revue_fk_No_volume ;
-alter table Album_avec_collection drop constraint albm_vc_clctn_fk_No_volume ;
-alter table Contenir drop constraint contenir_fk_No_volume ;
-alter table Contenir drop constraint contenir_fk_No_histoire ;
-alter table Album_avec_collection drop constraint albm_vc_clctn_fk_No_collection ;
-alter table Album_sans_collection drop constraint albm_sns_clctn_fk_No_editeur ;
-alter table Collection drop constraint collection_fk_No_editeur ;
-alter table Appartenance_serie drop constraint appartenance_serie_fk_No_serie ;
-alter table Appartenance_serie drop constraint aprtnc_sr_fk_No_histoire ;
-alter table Autorer drop constraint autorer_fk_No_auteur ;
-alter table Autorer drop constraint autorer_fk_No_histoire ;
-alter table Edition_des_revues drop constraint edtn_ds_rvs_fk_No_editeur ;
-alter table Revue drop constraint revue_fk_No_revue ;
-
 -- get_permissions_drop 
 
 -- get_view_drop
 
 -- get_schema_drop
-drop table Revue;
-drop table Album_sans_collection;
-drop table Volume;
-drop table Collection;
-drop table Album_avec_collection;
-drop table Editeur;
-drop table Contenir;
-drop table Histoire;
-drop table Appartenance_serie;
-drop table Serie;
-drop table Autorer;
-drop table Auteur;
-drop table Edition_des_revues;
+drop table Revue cascade constraint;
+drop table Album_sans_collection cascade constraint;
+drop table Volume cascade constraint;
+drop table Collection cascade constraint;
+drop table Album_avec_collection cascade constraint;
+drop table Editeur cascade constraint;
+drop table Contenir cascade constraint;
+drop table Histoire cascade constraint;
+drop table Appartenance_serie cascade constraint;
+drop table Serie cascade constraint;
+drop table Auteuriser cascade constraint;
+drop table Auteur cascade constraint;
+drop table Edition_des_revues cascade constraint;
 
 -- get_smallpackage_pre_sql 
 
@@ -100,16 +84,16 @@ create table Serie (
    titre_serie varchar(255) not null,
    constraint pk_Serie primary key (no_serie)
 )   ;
-create table Autorer (
+create table Auteuriser (
    no_auteur   int         not null,
    no_histoire int         not null,
    role        varchar(10) not null,
-   constraint pk_Autorer primary key (no_auteur,no_histoire)
+   constraint pk_Auteuriser primary key (no_auteur,no_histoire)
 )   ;
 create table Auteur (
    no_auteur     int          not null,
    nom_auteur    varchar(255) not null,
-   prenom_auteur varchar(255) not null,
+   prenom_auteur varchar(255)         ,
    constraint pk_Auteur primary key (no_auteur)
 )   ;
 create table Edition_des_revues (
@@ -157,10 +141,10 @@ alter table Appartenance_serie add constraint appartenance_serie_fk_No_serie
 alter table Appartenance_serie add constraint aprtnc_sr_fk_No_histoire 
     foreign key (no_histoire)
     references Histoire (no_histoire) ;
-alter table Autorer add constraint autorer_fk_No_auteur 
+alter table Auteuriser add constraint autorer_fk_No_auteur 
     foreign key (no_auteur)
     references Auteur (no_auteur) ;
-alter table Autorer add constraint autorer_fk_No_histoire 
+alter table Auteuriser add constraint autorer_fk_No_histoire 
     foreign key (no_histoire)
     references Histoire (no_histoire) ;
 alter table Edition_des_revues add constraint edtn_ds_rvs_fk_No_editeur 

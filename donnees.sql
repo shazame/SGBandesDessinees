@@ -8,7 +8,7 @@ insert into album_sans_collection values (1, 1);
 insert into histoire values (1, 'Tintin au pays des Soviets', 0);
 insert into contenir values (1, 1);
 insert into appartenance_serie values (1, 1, 1);
-insert into auteur values (1, Hergé, );
+insert into auteur values (1, 'Hergé', '');
 insert into auteuriser values (1, 1, 'Scénario');
 insert into auteuriser values (1, 1, 'Dessin');
 -- ================================
@@ -217,9 +217,9 @@ insert into album_sans_collection values (24, 3);
 insert into histoire values (24, 'Astérix le Gaulois', 1);
 insert into contenir values (24, 24);
 insert into appartenance_serie values (24, 2, 1);
-insert into auteur values (2, René, Goscinny);
+insert into auteur values (2, 'René', 'Goscinny');
 insert into auteuriser values (2, 24, 'Scénario');
-insert into auteur values (3, Albert, Uderzo);
+insert into auteur values (3, 'Albert', 'Uderzo');
 insert into auteuriser values (3, 24, 'Dessin');
 -- ================================
 -- 2|La Serpe d'or|Dargaud|Paris|juillet 1962|Scénario : René Goscinny - Dessin : Albert Uderzo
@@ -469,7 +469,7 @@ insert into histoire values (52, 'La Rose et le Glaive', 1);
 insert into contenir values (52, 52);
 insert into appartenance_serie values (52, 2, 29);
 insert into auteuriser values (3, 52, 'Auteur complet');
-insert into auteur values (4, Studio, Legrain);
+insert into auteur values (4, 'Studio', 'Legrain');
 insert into auteuriser values (4, 52, 'Couleurs');
 -- ================================
 -- 30|La Galère d'Obélix|Albert René|Paris|juillet 1996|Auteur complet : Albert Uderzo - Couleurs : Thierry Mébarki
@@ -479,7 +479,7 @@ insert into histoire values (53, 'La Galère d'Obélix', 6);
 insert into contenir values (53, 53);
 insert into appartenance_serie values (53, 2, 30);
 insert into auteuriser values (3, 53, 'Auteur complet');
-insert into auteur values (5, Thierry, Mébarki);
+insert into auteur values (5, 'Thierry', 'Mébarki');
 insert into auteuriser values (5, 53, 'Couleurs');
 -- ================================
 -- 31|Astérix et Latraviata|Albert René|Paris|mars 2001|Auteur complet : Albert Uderzo - Couleurs : Thierry Mébarki
@@ -497,7 +497,7 @@ insert into album_sans_collection values (55, 4);
 insert into histoire values (55, 'Astérix et la Rentrée gauloise1', 3);
 insert into contenir values (55, 55);
 insert into appartenance_serie values (55, 2, 32);
-insert into auteur values (6, Albert, Uderzo);
+insert into auteur values (6, 'Albert', 'Uderzo');
 insert into auteuriser values (6, 55, 'Scénario');
 insert into auteuriser values (3, 55, 'Dessin');
 -- ================================
@@ -536,9 +536,9 @@ insert into album_sans_collection values (58, 5);
 insert into histoire values (59, 'La Pêche miraculeuse de Pipolin', 7);
 insert into contenir values (58, 59);
 insert into appartenance_serie values (59, 3, 1);
-insert into auteur values (7, Gilda, Teixeira);
+insert into auteur values (7, 'Gilda', 'Teixeira');
 insert into auteuriser values (7, 59, 'Scénario');
-insert into auteur values (8, Eduardo, Coelho);
+insert into auteur values (8, 'Eduardo', 'Coelho');
 insert into auteuriser values (8, 59, 'Dessin');
 -- ================================
 -- 2|Pipolin et le sanglier solitaire|Vaillant||11 1957|Scénario : Gilda Teixeira Coelho - Dessin : Eduardo Coelho
