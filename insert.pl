@@ -81,6 +81,7 @@ use warnings;
 #	}
 #}
 
+
 {	my %series;
 	my $no_serie;
 
@@ -92,13 +93,14 @@ use warnings;
 
 			$series{$nom}->{no} = $no_serie;
 
-			print "insert into serie(nom_serie) values ('$nom');\n";
+			print "insert into serie values ("
+				. "$series{$nom}->{no}, "
+				. "'$nom');\n"
 		}
 
 		return $series{$nom};
 	}
 }
-
 
 my $no_volume     = 0;
 my $no_histoire   = 0;
@@ -117,6 +119,10 @@ while (<>) {
 
 	elsif (/^noserie$/) {
 		$serie = undef;
+	}
+
+	elsif (/^nocollection$/) {
+		$collection = undef;
 	}
 
 	#no_serie|titre|editeur|ville|mois annee|Scenario : nom - Dessin : nom ...
