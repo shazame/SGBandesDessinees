@@ -1,0 +1,86 @@
+drop table Revue;
+drop table Album_sans_collection;
+drop table Volume ;
+drop table Collection ;
+drop table Album_avec_collection ;
+drop table Editeur ;
+drop table Contenir ;
+drop table Histoire ;
+drop table Appartenance_serie ;
+drop table Serie ;
+drop table Auteuriser ;
+drop table Auteur ;
+drop table Edition_des_revues ;
+
+create table Revue (
+   no_volume int not null,
+   no_revue  int not null,
+   primary key (no_volume)
+)   ;
+create table Album_sans_collection (
+   no_volume  int not null,
+   no_editeur int not null,
+   primary key (no_volume)
+)   ;
+create table Volume (
+   no_volume     int           not null auto_increment,
+   titre         varchar(255)  not null,
+   annee_edition int           not null,
+   primary key (no_volume)
+)   ;
+create table Collection (
+   no_collection  int           not null auto_increment,
+   nom_collection varchar(255)  not null,
+   no_editeur     int                   ,
+   primary key (no_collection)
+)   ;
+create table Album_avec_collection (
+   no_volume        int not null,
+   no_collection    int not null,
+   no_ds_collection int not null,
+   primary key (no_volume)
+)   ;
+create table Editeur (
+   no_editeur  int          not null auto_increment,
+   nom_editeur varchar(255) not null,
+   primary key (no_editeur)
+)   ;
+create table Contenir (
+   no_volume   int not null,
+   no_histoire int not null,
+   primary key (no_volume,no_histoire)
+)   ;
+create table Histoire (
+   no_histoire    int          not null auto_increment,
+   titre          varchar(255) not null,
+   annee_parution int          not null,
+   primary key (no_histoire)
+)   ;
+create table Appartenance_serie (
+   no_histoire int not null,
+   no_serie    int not null,
+   no_ds_serie int not null,
+   primary key (no_histoire,no_serie)
+)   ;
+create table Serie (
+   no_serie    int          not null auto_increment,
+   titre_serie varchar(255) not null,
+   primary key (no_serie)
+)   ;
+create table Auteuriser (
+   no_auteur   int         not null,
+   no_histoire int         not null,
+   role        varchar(10) not null,
+   primary key (no_auteur,no_histoire)
+)   ;
+create table Auteur (
+   no_auteur     int          not null auto_increment,
+   nom_auteur    varchar(255) not null,
+   prenom_auteur varchar(255)         ,
+   primary key (no_auteur)
+)   ;
+create table Edition_des_revues (
+   no_revue   int not null,
+   no_editeur int not null,
+   primary key (no_revue)
+)   ;
