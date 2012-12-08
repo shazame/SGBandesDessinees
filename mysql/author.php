@@ -16,14 +16,35 @@ if (!mysql_select_db("test", $con)) {
 }
 
 
-$result = mysql_query("SELECT * FROM Auteur");
+if ($_GET['action'] == "add") {
+	$query = "INSERT INTO Auteur (nom_auteur, prenom_auteur) values (";
+	$query .= "'" . $_GET['nom_auteur'] . "', ";
+	$query .= "'" . $_GET['prenom_auteur'] . "'";
+	$query .= ")";
 
-while($row = mysql_fetch_array($result)) {
-	echo $row['nom_auteur'] . " " . $row['prenom_auteur'];
-	echo "<br/>\n";
+	$rv = mysql_query($query);
+
+	if ($rv) {
+		echo "l'ajout a échoué.";
+	}
 }
 
+
+$query = "SELECT * FROM Auteur";
+$result = mysql_query($query);
+
 mysql_close($con);
+
+
+echo "<table border=1> <tr> <td>Nom</td> <td>Prenom</td> </tr>\n";
+while($row = mysql_fetch_array($result)) {
+	echo "<tr>\n";
+	echo "<td>" . $row['nom_auteur']    . "</td>\n";
+	echo "<td>" . $row['prenom_auteur'] . "</td>\n";
+	echo "</tr>\n";
+}
+echo "</table>";
+
 ?>
 
 </html>
