@@ -30,6 +30,15 @@ if ($_POST['action'] == "add") {
 	}
 }
 
+else if ($_POST['action'] == "delete") {
+	$query = "DELETE FROM Editeur "
+	       . "WHERE no_editeur = " . $_POST['no_editeur'] . ";";
+
+	$rv = mysql_query($query);
+
+	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
+}
+
 
 $query = "SELECT * FROM Editeur";
 $result = mysql_query($query);
@@ -42,10 +51,15 @@ echo "<table border=1>
 	<td>Numero</td>
 	<td>Prenom</td>
 	</tr>\n";
-while($row = mysql_fetch_array($result)) {
+while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
-	echo "<td>" . $row['no_editeur'] . "</td>\n";
-	echo "<td>" . $row['nom_editeur'] . "</td>\n";
+	echo "<td>" . $r['no_editeur'] . "</td>\n";
+	echo "<td>" . $r['nom_editeur'] . "</td>\n";
+	// delete button
+	echo "<td> <form action='editor.php' method='post'>"
+	   . "<input type='hidden' name='action' value='delete'>"
+	   . "<input type='hidden' name='no_editeur' value=".$r['no_editeur'].">"
+	   . "<input type='submit' value='Supprimer'> </td>\n";
 	echo "</tr>\n";
 }
 echo "</table>";
