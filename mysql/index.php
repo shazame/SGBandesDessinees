@@ -45,6 +45,7 @@
 </table>
 
 
+<hr>
 <h3>Editeurs</h3>
 
 <form action="editor.php" method="post">
@@ -66,6 +67,7 @@
 </table>
 
 
+<hr>
 <h3>Collection</h3>
 
 <form action="collection.php" method="post">
@@ -100,7 +102,7 @@
 </form>
 </table>
 
-
+<hr>
 <h3>Albums</h3>
 
 <form action="album.php" method="post">
@@ -170,6 +172,7 @@
 </table>
 
 
+<hr>
 <h3>Histoires</h3>
 
 <form action="story.php" method="post">
