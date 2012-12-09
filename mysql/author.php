@@ -45,11 +45,11 @@ $result = mysql_query($query);
 mysql_close($con);
 
 
-echo "<table border=1>
+echo "<table border=1 cellpadding=10>
 	<tr>
-	<td>Numero</td>
-	<td>Nom</td>
-	<td>Prenom</td>
+	<th>Numero</th>
+	<th>Nom</th>
+	<th>Prenom</th>
 	</tr>\n";
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -60,8 +60,7 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td> <form action='author.php' method='post'>"
 	   . "<input type='hidden' name='action' value='delete'>"
 	   . "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">"
-	   . "<input type='submit' value='Supprimer'> </td>\n";
- 
+	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
 	echo "</tr>\n";
 }
 echo "</table>";
