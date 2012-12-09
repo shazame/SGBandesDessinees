@@ -4,7 +4,7 @@
 <h1>Albums</h1>
 
 <?php
-require "config.php"; // globals
+require "include.php"; // globals
 
 $con = mysql_connect($host, $user, $passwd);
 
@@ -83,11 +83,7 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	// delete button
-	echo "<td> <form action='album.php' method='post'>"
-	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='no_volume' value=".$r['no_volume'].">"
-	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
-	echo "</tr>\n";
+	deletebutton('album.php', 'no_volume', $r['no_volume']);
 }
 echo "</table>";
 

@@ -4,48 +4,8 @@
 </head>
 
 <?php
-	require "config.php"; // globals
-
-	$con = mysql_connect($host, $user, $passwd);
-
-	if (!$con) {
-		die("Can't connect: " . mysql_error());
-	}
-
-	if (!mysql_select_db($dbname, $con)) {
-		mysql_close($con);
-		die("Can't select db");
-	}
-
-	function optionrange($i, $j) {
-		for ($x = $i; $x < $j; $x++) {
-			echo "<option value=" . $x . ">" . $x . "</option>\n";
-		}
-	}
-
-
-	function optionselect($from, $attr) {
-		// attr is an array containing all attributes to retrieve
-		// first attribute must be the key as it will be used for each 
-		// option's value
-		$query = "SELECT " . $attr[0];
-		for ($i = 1; $i < count($attr); ++$i) {
-			$query .= ", " . $attr[$i];
-		}
-		$query .= " FROM " . $from;
-
-		$result = mysql_query($query);
-
-		while($r = mysql_fetch_array($result)) {
-			echo "<option value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
-			for ($i = 1; $i < count($attr); ++$i) {
-				echo " - " . $r[$attr[$i]];
-			}
-			echo "</option>";
-		}
-	}
-	?>
-
+	require "include.php"; // globals
+	connectdb();
 ?>
 
 <body>
@@ -172,6 +132,6 @@
 </form>
 </table>
 
-<?php mysql_close($con); ?>
+<?php disconnectdb(); ?>
 </body>
 </html>

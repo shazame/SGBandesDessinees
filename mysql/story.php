@@ -4,18 +4,9 @@
 <h1>Editeurs</h1>
 
 <?php
-require "config.php"; // globals
+require "include.php"; // globals
 
-$con = mysql_connect($host, $user, $passwd);
-
-if (!$con) {
-	die("Can't connect: " . mysql_error());
-}
-
-if (!mysql_select_db($dbname, $con)) {
-	mysql_close($con);
-	die("Can't select db");
-}
+connectdb();
 
 
 if ($_POST['action'] == "add") {
@@ -24,7 +15,6 @@ if ($_POST['action'] == "add") {
 	$query .= $_POST['annee_parution'];
 	$query .= ")";
 
-	echo $query;
 	$rv = mysql_query($query);
 
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
@@ -34,7 +24,6 @@ else if ($_POST['action'] == "delete") {
 	$query = "DELETE FROM Histoire "
 	       . "WHERE no_histoire = " . $_POST['no_histoire'] . ";";
 
-	echo $query;
 	$rv = mysql_query($query);
 
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
@@ -59,13 +48,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_parution'] . "</td>\n";
 	// delete button
-	echo "<td> <form action='story.php' method='post'>"
-	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='no_histoire' value=".$r['no_histoire'].">"
-	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
-	echo "</tr>\n";
+	deletebutton('story.php', 'no_histoire', $r['no_histoire']);
 }
 echo "</table>";
+
+disconnectdb();
 
 ?>
 

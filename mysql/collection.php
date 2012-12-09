@@ -4,18 +4,9 @@
 <h1>Collections</h1>
 
 <?php
-require "config.php"; // globals
+require "include.php"; // globals
 
-$con = mysql_connect($host, $user, $passwd);
-
-if (!$con) {
-	die("Can't connect: " . mysql_error());
-}
-
-if (!mysql_select_db($dbname, $con)) {
-	mysql_close($con);
-	die("Can't select db");
-}
+connectdb();
 
 
 if ($_POST['action'] == "add") {
@@ -54,15 +45,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_collection'] . "</td>\n";
 	echo "<td>" . $r['no_editeur'] . "</td>\n";
 	// delete button
-	echo "<td> <form action='collection.php' method='post'>"
-	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='no_collection' value=".$r['no_collection'].">"
-	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
-	echo "</tr>\n";
+	deletebutton('collection.php', 'no_collection', $r['no_collection']);
 }
 echo "</table>";
 
-mysql_close($con);
+disconnectdb();
 ?>
 
 </html>
