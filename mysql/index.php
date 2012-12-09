@@ -85,6 +85,7 @@ Collection :
 <br />
 Editeur (si pas de collection) :
 <select name="no_editeur">
+<option value="-1">Inconnu</option>
 <?php
 	$result = mysql_query("SELECT no_editeur, nom_editeur FROM Editeur");
 	while($r = mysql_fetch_array($result)) {

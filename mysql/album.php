@@ -19,6 +19,7 @@ if (!mysql_select_db($dbname, $con)) {
 
 
 if ($_POST['action'] == "add") {
+
 	$query = "INSERT INTO Volume (titre, annee_edition) values ("
 	       . "'" . $_POST['titre'] . "', "
 	       . "'" . $_POST['annee_edition'] . "')";
@@ -26,7 +27,7 @@ if ($_POST['action'] == "add") {
 	$rv = mysql_query($query);
 	if (!$rv) { die("l'ajout a échoué."); }
 
-	// get last entry id
+	// get last entry's id
 	$id = mysql_insert_id();
 
 	if ($_POST['no_collection'] > 0) {
@@ -38,10 +39,17 @@ if ($_POST['action'] == "add") {
 	}
 
 	else {
-		$query = "INSERT INTO Album_sans_collection "
-		       . "values ("
-			   . $id . ", "
-		       . $_POST['no_editeur'] . ")";
+		if ($_POST['no_editeur'] > 0) {
+			$query = "INSERT INTO Album_sans_collection "
+				   . "values ("
+				   . $id . ", "
+				   . $_POST['no_editeur'] . ")";
+		}
+
+		else {
+			$query = "INSERT INTO Album_sans_collection (no_volume) "
+				   . "values (" . $id . ");";
+		}
 	}
 
 	$rv = mysql_query($query);
