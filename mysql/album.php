@@ -25,7 +25,7 @@ if ($_POST['action'] == "add") {
 	       . "'" . $_POST['annee_edition'] . "')";
 
 	$rv = mysql_query($query);
-	if (!$rv) { die("l'ajout a échoué."); }
+	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 
 	// get last entry's id
 	$id = mysql_insert_id();
@@ -36,6 +36,7 @@ if ($_POST['action'] == "add") {
 			   . $id . ", "
 			   . $_POST['no_collection'] . ", "
 			   . $_POST['no_ds_collection'] . ")";
+		echo $query;
 	}
 
 	else {
@@ -53,6 +54,7 @@ if ($_POST['action'] == "add") {
 	}
 
 	$rv = mysql_query($query);
+	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
 else if ($_POST['action'] == "delete") {
@@ -65,19 +67,16 @@ else if ($_POST['action'] == "delete") {
 }
 
 
-
-$query = "SELECT * FROM Volume";
-$result = mysql_query($query);
-
-mysql_close($con);
-
-
 echo "<table border=1 cellpadding=10>
 	<tr>
 	<th>Numero</th>
 	<th>Titre</th>
 	<th>Annee edition</th>
 	</tr>\n";
+
+$query = "SELECT * FROM Volume";
+$result = mysql_query($query);
+
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
 	echo "<td>" . $r['no_volume'] . "</td>\n";
@@ -92,6 +91,7 @@ while($r = mysql_fetch_array($result)) {
 }
 echo "</table>";
 
+mysql_close($con);
 ?>
 
 </html>
