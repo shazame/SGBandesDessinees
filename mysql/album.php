@@ -26,34 +26,25 @@ if ($_POST['action'] == "add") {
 	$rv = mysql_query($query);
 	if (!$rv) { die("l'ajout a échoué."); }
 
-	$query = "SELECT no_volume FROM Volume "
-	       . "WHERE titre = '" . $_POST['titre'] . "' "
-		   . "AND annee_edition = " . $_POST['annee_edition'] . ";";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("Can't query: " . mysql_error()); }
+	// get last entry id
+	$id = mysql_insert_id();
 
 	if ($_POST['no_collection'] > 0) {
-		echo "AVEC COLLECTION: " . mysql_result($rv, 0) . "\n";
 		$query = "INSERT INTO Album_avec_collection "
 		       . "values ("
-			   . mysql_result($rv, 0) . ", "
+			   . $id . ", "
 			   . $_POST['no_collection'] . ", "
 			   . $_POST['no_ds_collection'] . ")";
-
-		$rv = mysql_query($query);
 	}
 
 	else {
-		echo "SANS COLLECTION: " . mysql_result($rv, 0) . "\n";
 		$query = "INSERT INTO Album_sans_collection "
 		       . "values ("
-			   . mysql_result($rv, 0) . ", "
+			   . $id . ", "
 		       . $_POST['no_editeur'] . ")";
-
-		$rv = mysql_query($query);
 	}
-		
+
+	$rv = mysql_query($query);
 }
 
 

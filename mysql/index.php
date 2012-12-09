@@ -21,6 +21,7 @@
 <h1>SGBandeDessinees</h1>
 
 <h3>Auteurs</h3>
+
 <form action="author.php" method="post">
 <input type="hidden" name="action" value="list">
 <input type="submit" value="Lister">

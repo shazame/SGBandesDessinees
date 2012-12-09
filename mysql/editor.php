@@ -37,7 +37,11 @@ $result = mysql_query($query);
 mysql_close($con);
 
 
-echo "<table border=1> <tr> <td>Numero</td> <td>Prenom</td> </tr>\n";
+echo "<table border=1>
+	<tr>
+	<td>Numero</td>
+	<td>Prenom</td>
+	</tr>\n";
 while($row = mysql_fetch_array($result)) {
 	echo "<tr>\n";
 	echo "<td>" . $row['no_editeur'] . "</td>\n";
