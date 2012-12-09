@@ -16,8 +16,39 @@
 		mysql_close($con);
 		die("Can't select db");
 	}
+
+	function optionrange($i, $j) {
+		for ($x = $i; $x < $j; $x++) {
+			echo "<option value=" . $x . ">" . $x . "</option>\n";
+		}
+	}
+
+
+	function optionselect($from, $attr) {
+		// attr is an array containing all attributes to retrieve
+		// first attribute must be the key as it will be used for each 
+		// option's value
+		$query = "SELECT " . $attr[0];
+		for ($i = 1; $i < count($attr); ++$i) {
+			$query .= ", " . $attr[$i];
+		}
+		$query .= " FROM " . $from;
+
+		$result = mysql_query($query);
+
+		while($r = mysql_fetch_array($result)) {
+			echo "<option value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+			for ($i = 1; $i < count($attr); ++$i) {
+				echo " - " . $r[$attr[$i]];
+			}
+			echo "</option>";
+		}
+	}
+	?>
+
 ?>
 
+<body>
 <h1>SGBandeDessinees</h1>
 
 <h3>Auteurs</h3>
@@ -30,17 +61,9 @@
 <table>
 <form action="author.php" method="post">
 <input type="hidden" name="action" value="add">
-<tr>
-	<td> Nom: </td>
-	<td> <input type="text" name="nom_auteur"> </td>
-</tr>
-<tr>
-	<td> Prenom: </td>
-	<td> <input type="text" name="prenom_auteur"> </td>
-</tr>
-<tr>
-	<td> <input type="submit" value="Ajouter"> <td>
-<tr>
+<tr> <td> Nom: </td> <td> <input type="text" name="nom_auteur"> </td> </tr>
+<tr> <td> Prenom: </td> <td> <input type="text" name="prenom_auteur"> </td> </tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
 
@@ -56,13 +79,8 @@
 <table>
 <form action="editor.php" method="post">
 <input type="hidden" name="action" value="add">
-<tr>
-	<td> Nom : </td>
-	<td> <input type="text" name="nom_editeur"> </td>
-</tr>
-<tr>
-	<td> <input type="submit" value="Ajouter"> <td>
-<tr>
+<tr> <td> Nom : </td> <td> <input type="text" name="nom_editeur"> </td> </tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
 
@@ -78,27 +96,16 @@
 <table>
 <form action="collection.php" method="post">
 <input type="hidden" name="action" value="add">
-<tr>
-	<td> Nom : </td>
-	<td> <input type="text" name="nom_collection"> </td>
-</tr>
-<tr>
-	<td> Editeur : </td>
-	<td> <select name="no_editeur">
-	     <option value="-1">Inconnu</option>
-	<?php
-		$result = mysql_query("SELECT no_editeur, nom_editeur FROM Editeur");
-		while($r = mysql_fetch_array($result)) {
-			echo "<option value=" . $r['no_editeur'] . ">"
-				. $r['no_editeur'] . " - " . $r['nom_editeur']
-				. "</option>";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> <input type="submit" value="Ajouter"> <td>
-<tr>
+<tr> <td> Nom : </td> <td> <input type="text" name="nom_collection"> </td> </tr>
+
+<tr> <td> Editeur : </td>
+	 <td> <select name="no_editeur">
+	      <option value="-1">Inconnu</option>
+	<?php optionselect("Editeur", array('no_editeur', 'nom_editeur')); ?>
+	</select> 
+	</td> </tr>
+
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
 
@@ -113,61 +120,31 @@
 <table>
 <form action="album.php" method="post">
 <input type="hidden" name="action" value="add">
-<tr>
-	<td> Titre : </td>
-	<td> <input type="text" name="titre"> </td>
-</tr>
-<tr>
-	<td> Annee d'edition : </td>
-	<td> <select name="annee_edition">
-	<?php
-		for ($i = 1900; $i < 2050; $i++) {
-			echo "<option value=" . $i . ">" . $i . "</option>";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> Collection : </td>
-	<td> <select name="no_collection">
-	     <option value="-1">Aucune</option>
-	<?php
-		$result = mysql_query("SELECT no_collection, nom_collection FROM Collection");
-		while($r = mysql_fetch_array($result)) {
-			echo "<option value=" . $r['no_collection'] . ">"
-				. $r['no_collection'] . " - " . $r['nom_collection']
-				. "</option>\n";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> Numero dans la collection : </td>
-	<td> <select name="no_ds_collection">
-	<?php
-		for ($i = 0; $i < 1000; $i++) {
-			echo "<option value=" . $i . ">" . $i . "</option>";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> Editeur (si pas de collection) : </td>
-	<td> <select name="no_editeur">
-	<option value="-1">Inconnu</option>
-	<?php
-		$result = mysql_query("SELECT no_editeur, nom_editeur FROM Editeur");
-		while($r = mysql_fetch_array($result)) {
-			echo "<option value=" . $r['no_editeur'] . ">"
-				. $r['no_editeur'] . " - " . $r['nom_editeur']
-				. "</option>";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> <input type="submit" value="Ajouter"> <td>
-<tr>
+<tr> <td> Titre : </td> <td> <input type="text" name="titre"> </td> </tr>
+
+<tr> <td> Annee d'edition : </td>
+	 <td> <select name="annee_edition">
+	 <?php optionrange(1900, 2050); ?>
+	 </select> </td> </tr>
+
+<tr> <td> Collection : </td>
+	 <td> <select name="no_collection">
+	      <option value="-1">Aucune</option>
+	 <?php optionselect("Collection", array('no_collection', 'nom_collection')); ?>
+	</select> </td> </tr>
+
+<tr> <td> Numero dans la collection : </td>
+	 <td> <select name="no_ds_collection">
+	 <?php optionrange(0, 1000); ?>
+	 </select> </td> </tr>
+
+<tr> <td> Editeur (si pas de collection) : </td>
+	 <td> <select name="no_editeur">
+	 <option value="-1">Inconnu</option>
+	 <?php optionselect("Editeur", array('no_editeur', 'nom_editeur')); ?>
+	 </select> </td> </tr>
+
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
 
@@ -183,27 +160,18 @@
 <table>
 <form action="story.php" method="post">
 <input type="hidden" name="action" value="add">
-<tr>
-	<td> Titre : </td>
-	<td> <input type="text" name="titre"> </td>
-</tr>
-<tr>
-	<td> Annee de premiere parution : </td>
-	<td> <select name="annee_parution">
-	<?php
-		for ($i = 1900; $i < 2050; $i++) {
-			echo "<option value=" . $i . ">" . $i . "</option>";
-		}
-	?>
-	</select> </td>
-</tr>
-<tr>
-	<td> <input type="submit" value="Ajouter"> <td>
-<tr>
+<tr> <td> Titre : </td> <td> <input type="text" name="titre"> </td> </tr>
+
+<tr> <td> Annee de premiere parution : </td>
+	 <td> <select name="annee_parution">
+	      <?php optionrange(1900, 2050); ?>
+		  </select>
+	 </td> </tr>
+
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
 
-<?php
-	mysql_close($con);
-?>
+<?php mysql_close($con); ?>
+</body>
 </html>
