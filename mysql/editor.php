@@ -32,8 +32,6 @@ else if ($_POST['action'] == "delete") {
 $query = "SELECT * FROM Editeur";
 $result = mysql_query($query);
 
-mysql_close($con);
-
 
 echo "<table border=1 cellpadding=10>
 	<tr>

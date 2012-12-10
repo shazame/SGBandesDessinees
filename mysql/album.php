@@ -1,21 +1,11 @@
 <html>
 
 
-<h1>Albums</h1>
 
 <?php
 require "include.php"; // globals
 
-$con = mysql_connect($host, $user, $passwd);
-
-if (!$con) {
-	die("Can't connect: " . mysql_error());
-}
-
-if (!mysql_select_db($dbname, $con)) {
-	mysql_close($con);
-	die("Can't select db");
-}
+connectdb();
 
 
 if ($_POST['action'] == "add") {
@@ -36,7 +26,6 @@ if ($_POST['action'] == "add") {
 			   . $id . ", "
 			   . $_POST['no_collection'] . ", "
 			   . $_POST['no_ds_collection'] . ")";
-		echo $query;
 	}
 
 	else {
@@ -65,16 +54,26 @@ else if ($_POST['action'] == "delete") {
 
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
 }
+?>
 
 
-echo "<table border=1 cellpadding=10>
-	<tr>
-	<th>Numero</th>
-	<th>Titre</th>
-	<th>Annee edition</th>
-	</tr>\n";
 
-$query = "SELECT * FROM Volume";
+<h1>Albums</h1>
+
+<h3>Sans collection</h3>
+
+<table border=1 cellpadding=10>
+<tr>
+<th>Numero</th>
+<th>Titre</th>
+<th>Annee edition</th>
+</tr>
+
+<?php
+$query = "SELECT V.* "
+	   . "FROM Volume as V inner join Album_sans_collection as A "
+	   . "on V.no_volume = A.no_volume";
+
 $result = mysql_query($query);
 
 while($r = mysql_fetch_array($result)) {
@@ -87,7 +86,41 @@ while($r = mysql_fetch_array($result)) {
 }
 echo "</table>";
 
-mysql_close($con);
+disconnectdb();
+?>
+
+
+
+<h3>Avec collection</h3>
+
+<table border=1 cellpadding=10>
+<tr>
+<th>Numero</th>
+<th>Titre</th>
+<th>Annee edition</th>
+<th>Collection</th>
+</tr>
+
+<?php
+$query = "SELECT V.*, C.nom_collection, A.no_ds_collection "
+	   . "FROM (Volume as V inner join Album_avec_collection as A "
+	   . "on V.no_volume = A.no_volume), Collection as C "
+	   . "WHERE A.no_collection = C.no_collection";
+
+$result = mysql_query($query);
+
+while($r = mysql_fetch_array($result)) {
+	echo "<tr>\n";
+	echo "<td>" . $r['no_volume'] . "</td>\n";
+	echo "<td>" . $r['titre'] . "</td>\n";
+	echo "<td>" . $r['annee_edition'] . "</td>\n";
+	echo "<td>" . $r['nom_collection'] . " #" . $r['no_ds_collection'] . " </td>\n";
+	// delete button
+	deletebutton('album.php', 'no_volume', $r['no_volume']);
+}
+echo "</table>";
+
+disconnectdb();
 ?>
 
 </html>

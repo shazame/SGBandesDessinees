@@ -32,8 +32,6 @@ else if ($_POST['action'] == "delete") {
 $query = "SELECT * FROM Auteur";
 $result = mysql_query($query);
 
-mysql_close($con);
-
 
 echo "<table border=1 cellpadding=10>
 	<tr>
@@ -47,11 +45,7 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	// delete button
-	echo "<td> <form action='author.php' method='post'>"
-	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">"
-	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
-	echo "</tr>\n";
+	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
 }
 echo "</table>";
 
