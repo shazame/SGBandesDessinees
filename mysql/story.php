@@ -8,7 +8,7 @@ require "include.php"; // globals
 
 connectdb();
 
-if ($_POST['action'] == "add") {
+if (isset($_POST['no_histoire']) && $_POST['action'] == "add") {
 	$query = "INSERT INTO Histoire (titre, annee_parution) values (";
 	$query .= "'" . $_POST['titre'] . "', ";
 	$query .= $_POST['annee_parution'];
@@ -18,7 +18,7 @@ if ($_POST['action'] == "add") {
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
-else if ($_POST['action'] == "delete") {
+else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
 	$query = "DELETE FROM Histoire "
 	       . "WHERE no_histoire = " . $_POST['no_histoire'] . ";";
 
@@ -26,7 +26,7 @@ else if ($_POST['action'] == "delete") {
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
 }
 
-else if ($_POST['action'] == "edit") {
+else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
 	echo "<h3>Edition</h3>\n";
 
 	// Auteuriser
@@ -48,7 +48,7 @@ else if ($_POST['action'] == "edit") {
 	$r = mysql_fetch_array($rv);
 
 	// Edit form
-	echo "<form action='histoire.php' method='post'>";
+	echo "<form action='story.php' method='post'>";
 	echo "<select name='no_auteur'>";
 	optionselect("Auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
 	echo "</select>";

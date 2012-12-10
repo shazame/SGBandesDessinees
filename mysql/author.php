@@ -9,7 +9,7 @@ require "include.php"; // globals
 connectdb();
 
 
-if ($_POST['action'] == "add") {
+if (isset($_POST['no_auteur']) && $_POST['action'] == "add") {
 	// Adding an author
 	$query = "INSERT INTO Auteur (nom_auteur, prenom_auteur) values (";
 	$query .= "'" . $_POST['nom_auteur'] . "', ";
@@ -20,7 +20,7 @@ if ($_POST['action'] == "add") {
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
-else if ($_POST['action'] == "delete") {
+else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
 	// deleting an author
 	$query = "DELETE FROM Auteur "
 	       . "WHERE no_auteur = " . $_POST['no_auteur'] . ";";
@@ -29,7 +29,7 @@ else if ($_POST['action'] == "delete") {
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
 }
 
-else if ($_POST['action'] == "edit") {
+else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 	echo "<h3>Edition</h3>\n";
 
 	// Auteuriser
