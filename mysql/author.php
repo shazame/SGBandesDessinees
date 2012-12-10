@@ -8,6 +8,7 @@ require "include.php"; // globals
 
 connectdb();
 
+
 if ($_POST['action'] == "add") {
 	// Adding an author
 	$query = "INSERT INTO Auteur (nom_auteur, prenom_auteur) values (";
@@ -72,7 +73,7 @@ else if ($_POST['action'] == "edit") {
 ?>
 
 
-<table border=1 cellpadding=10>
+<table border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Nom</th>
@@ -89,13 +90,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_auteur'] . "</td>\n";
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
-	// delete button
 	echo "<td>";
-	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
-	echo "</td>";
 	// edit button
-	echo "<td>";
 	editbutton('author.php', 'no_auteur', $r['no_auteur']);
+	// delete button
+	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
 	echo "</td>";
 	echo "</tr>\n";
 }
