@@ -56,11 +56,17 @@ function optionselect($from, $attr) {
 }
 
 
+function editbutton($action, $key, $val) {
+	echo "<form action='" . $action . "' method='post'>"
+	   . "<input type='hidden' name='action' value='edit'>"
+	   . "<input type='hidden' name='" . $key . "' value=" . $val . ">"
+	   . "<input type='submit' value='Editer'> </form>\n";
+}
+
 function deletebutton($action, $key, $val) {
-	echo "<td> <form action='" . $action . "' method='post'>"
+	echo "<form action='" . $action . "' method='post'>"
 	   . "<input type='hidden' name='action' value='delete'>"
 	   . "<input type='hidden' name='" . $key . "' value=" . $val . ">"
-	   . "<input type='submit' value='Supprimer'> </form> </td>\n";
-	echo "</tr>\n";
+	   . "<input type='submit' value='Supprimer'> </form>\n";
 }
 ?>

@@ -104,8 +104,8 @@ disconnectdb();
 <?php
 $query = "SELECT V.*, C.nom_collection, A.no_ds_collection "
 	   . "FROM (Volume as V inner join Album_avec_collection as A "
-	   . "on V.no_volume = A.no_volume), Collection as C "
-	   . "WHERE A.no_collection = C.no_collection";
+	   . "on V.no_volume = A.no_volume) inner join Collection as C "
+	   . "on A.no_collection = C.no_collection";
 
 $result = mysql_query($query);
 
