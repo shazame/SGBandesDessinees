@@ -69,4 +69,13 @@ function deletebutton($action, $key, $val) {
 	   . "<input type='hidden' name='" . $key . "' value=" . $val . ">"
 	   . "<input type='submit' value='Supprimer'> </form>\n";
 }
+
+
+function deleterow($from, $key, $value) {
+	$query = "DELETE FROM " . $from
+	       . " WHERE " . $key . " = " . $value;
+
+	$rv = mysql_query($query);
+	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
+}
 ?>

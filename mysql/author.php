@@ -21,12 +21,7 @@ if (isset($_POST['no_auteur']) && $_POST['action'] == "add") {
 }
 
 else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
-	// deleting an author
-	$query = "DELETE FROM Auteur "
-	       . "WHERE no_auteur = " . $_POST['no_auteur'] . ";";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
+	deleterow('Auteur', 'no_auteur', $_POST['no_auteur']);
 }
 
 else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {

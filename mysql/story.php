@@ -19,11 +19,7 @@ if (isset($_POST['no_histoire']) && $_POST['action'] == "add") {
 }
 
 else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
-	$query = "DELETE FROM Histoire "
-	       . "WHERE no_histoire = " . $_POST['no_histoire'] . ";";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
+	deleterow('Histoire', 'no_histoire', $_POST['no_histoire']);
 }
 
 else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {

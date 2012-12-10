@@ -8,7 +8,7 @@ require "include.php"; // globals
 connectdb();
 
 
-if ($_POST['action'] == "add") {
+if (isset($_POST['no_volume']) && $_POST['action'] == "add") {
 
 	$query = "INSERT INTO Volume (titre, annee_edition) values ("
 	       . "'" . $_POST['titre'] . "', "
@@ -46,13 +46,8 @@ if ($_POST['action'] == "add") {
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
-else if ($_POST['action'] == "delete") {
-	$query = "DELETE FROM Volume "
-	       . "WHERE no_volume = " . $_POST['no_volume'] . ";";
-
-	$rv = mysql_query($query);
-
-	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
+else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
+	deleterow('Volume', 'no_volume', $_POST['no_volume']);
 }
 ?>
 
@@ -81,8 +76,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_volume'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
+	echo "<td>";
 	// delete button
 	deletebutton('album.php', 'no_volume', $r['no_volume']);
+	echo "</td>";
+	echo "</tr>";
 }
 echo "</table>";
 
@@ -115,8 +113,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>" . $r['nom_collection'] . " #" . $r['no_ds_collection'] . " </td>\n";
+	echo "<td>";
 	// delete button
 	deletebutton('album.php', 'no_volume', $r['no_volume']);
+	echo "</td>";
+	echo "</tr>";
 }
 echo "</table>";
 
