@@ -12,7 +12,7 @@ connectdb();
 if ($_POST['action'] == "add") {
 	// Adding an author
 	addrow('Auteur',
-		array('nom_auteur', 'prenom_auteur'),
+		qw("nom_auteur prenom_auteur"),
 		array("'".$_POST['nom_auteur']."'", "'".$_POST['prenom_auteur']."'"));
 }
 
@@ -26,7 +26,7 @@ else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 	// Auteuriser
 	if (isset($_POST['role']) && isset($_POST['no_histoire'])) {
 		addrow('Auteuriser',
-			array('no_auteur', 'no_histoire'),
+			qw("no_auteur  no_histoire"),
 			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
 	}
 

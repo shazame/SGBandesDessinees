@@ -27,6 +27,12 @@
 }
 
 
+function qw ($str) {
+	// MOUAHAHAH
+	return explode(" ", $str);
+}
+
+
 function optionrange($i, $j) {
 	for ($x = $i; $x < $j; $x++) {
 		echo "<option value=" . $x . ">" . $x . "</option>\n";

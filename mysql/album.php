@@ -1,7 +1,6 @@
 <html>
 
 
-
 <?php
 require "include.php"; // globals
 
@@ -11,7 +10,7 @@ connectdb();
 if ($_POST['action'] == "add") {
 
 	addrow('Volume',
-		array('titre', 'annee_edition'),
+		qw("titre annee_edition"),
 		array("'".$_POST['titre']."'", $_POST['annee_edition']));
 
 	// get last entry's id
@@ -19,19 +18,19 @@ if ($_POST['action'] == "add") {
 
 	if ($_POST['no_collection'] > 0) {
 		addrow('Album_avec_collection',
-			array('no_volume', 'no_collection', 'no_ds_collection'),
+			qw("no_volume no_collection no_ds_collection"),
 			array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
 	}
 
 	else {
 		if ($_POST['no_editeur'] > 0) {
 			addrow('Album_sans_collection',
-				array('no_volume', 'no_editeur'),
+				qw("no_volume no_editeur")
 				array($id, $_POST['no_editeur']));
 		}
 
 		else {
-			addrow('Album_sans_collection', array('no_volume'), array($id));
+			addrow('Album_sans_collection', qw("no_volume"), array($id));
 		}
 	}
 }
@@ -74,7 +73,6 @@ while($r = mysql_fetch_array($result)) {
 }
 echo "</table>";
 
-disconnectdb();
 ?>
 
 

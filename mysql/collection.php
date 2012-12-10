@@ -11,7 +11,7 @@ connectdb();
 
 if ($_POST['action'] == "add") {
 	addrow('Collection',
-		array('nom_collection', 'no_editeur'),
+		qw("nom_collection no_editeur"),
 		array("'".$_POST['nom_collection']."'", $_POST['no_editeur']));
 }
 

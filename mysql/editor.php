@@ -11,7 +11,7 @@ connectdb();
 
 if ($_POST['action'] == "add") {
 	addrow('Editeur',
-		array('nom_editeur'),
+		qw("nom_editeur"),
 		array("'".$_POST['nom_editeur']."'"));
 }
 

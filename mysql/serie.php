@@ -11,7 +11,7 @@ connectdb();
 
 if (isset($_POST['titre_serie']) && $_POST['action'] == "add") {
 	addrow('Serie',
-		array('titre_serie'),
+		qw("titre_serie"),
 		array("'".$_POST['titre_serie']."'"));
 }
 

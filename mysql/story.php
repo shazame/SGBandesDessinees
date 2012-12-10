@@ -8,9 +8,9 @@ require "include.php"; // globals
 
 connectdb();
 
-if (isset($_POST['no_histoire']) && $_POST['action'] == "add") {
+if ($_POST['action'] == "add") {
 	addrow('Histoire',
-		array('titre', 'annee_parution'),
+		qw("titre annee_parution"),
 		array("'".$_POST['titre']."'", $_POST['annee_parution']));
 }
 
@@ -24,7 +24,7 @@ else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
 	// Auteuriser
 	if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
 		addrow('Auteuriser',
-			array('no_auteur', 'no_histoire'),
+			qw("no_auteur no_histoire"),
 			array($_POST['no_auteur'], $_POST['no_histoire']));
 	}
 
