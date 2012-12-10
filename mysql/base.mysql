@@ -1,4 +1,3 @@
-drop table if exists Revue cascade;
 drop table if exists Album_avec_collection cascade;
 drop table if exists Album_sans_collection cascade;
 drop table if exists Appartenance_serie cascade;
@@ -9,6 +8,7 @@ drop table if exists Collection cascade;
 drop table if exists Contenir cascade;
 drop table if exists Histoire cascade;
 drop table if exists Edition_des_revues cascade;
+drop table if exists Revue cascade;
 drop table if exists Editeur cascade;
 drop table if exists Volume cascade;
 
@@ -80,9 +80,11 @@ create table Auteur (
    primary key (no_auteur)
 )   ;
 create table Edition_des_revues (
-   no_revue   int not null,
+-- NO_VOLUME remplace NO_REVUE!!
+-- Raison : probleme avec les contraintes d'integrites
+   no_volume   int not null, 
    no_editeur int not null,
-   primary key (no_revue)
+   primary key (no_volume, no_editeur)
 )   ;
 
 
@@ -90,6 +92,16 @@ create table Edition_des_revues (
 alter table Album_sans_collection add constraint albm_sns_clctn_fk_No_volume 
     foreign key (no_volume)
     references Volume (no_volume)
+	on delete cascade;
+
+alter table Edition_des_revues add constraint edtn_ds_rvs_fk_No_volume
+    foreign key (no_volume)
+    references Revue (no_volume)
+	on delete cascade;
+
+alter table Edition_des_revues add constraint edtn_ds_rvs_fk_No_editeur 
+    foreign key (no_editeur)
+    references Editeur (no_editeur)
 	on delete cascade;
 
 alter table Revue add constraint revue_fk_No_volume 
@@ -145,15 +157,5 @@ alter table Auteuriser add constraint autorer_fk_No_auteur
 alter table Auteuriser add constraint autorer_fk_No_histoire 
     foreign key (no_histoire)
     references Histoire (no_histoire)
-	on delete cascade;
-
-alter table Edition_des_revues add constraint edtn_ds_rvs_fk_No_editeur 
-    foreign key (no_editeur)
-    references Editeur (no_editeur)
-	on delete cascade;
-
-alter table Revue add constraint revue_fk_No_revue 
-    foreign key (no_revue)
-    references Edition_des_revues (no_revue)
 	on delete cascade;
 
