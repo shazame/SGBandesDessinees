@@ -9,14 +9,10 @@ require "include.php"; // globals
 connectdb();
 
 
-if (isset($_POST['no_collection']) && $_POST['action'] == "add") {
-
-	$query = "INSERT INTO Collection (nom_collection, no_editeur) values ("
-	       . "'" . $_POST['nom_collection'] . "', "
-	       . "'" . $_POST['no_editeur'] . "')";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+if ($_POST['action'] == "add") {
+	addrow('Collection',
+		array('nom_collection', 'no_editeur'),
+		array("'".$_POST['nom_collection']."'", $_POST['no_editeur']));
 }
 
 else if (isset($_POST['no_collection']) && $_POST['action'] == "delete") {

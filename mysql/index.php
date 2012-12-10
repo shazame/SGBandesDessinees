@@ -70,6 +70,22 @@
 </table>
 
 <hr>
+<h3>Series</h3>
+
+<form action="serie.php" method="post">
+<input type="hidden" name="action" value="list">
+<input type="submit" value="Lister">
+</form>
+
+<table>
+<form action="serie.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Titre : </td> <td> <input type="text" name="titre_serie"></td></tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
+</form>
+</table>
+
+<hr>
 <h3>Albums</h3>
 
 <form action="album.php" method="post">

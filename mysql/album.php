@@ -8,42 +8,32 @@ require "include.php"; // globals
 connectdb();
 
 
-if (isset($_POST['no_volume']) && $_POST['action'] == "add") {
+if ($_POST['action'] == "add") {
 
-	$query = "INSERT INTO Volume (titre, annee_edition) values ("
-	       . "'" . $_POST['titre'] . "', "
-	       . "'" . $_POST['annee_edition'] . "')";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+	addrow('Volume',
+		array('titre', 'annee_edition'),
+		array("'".$_POST['titre']."'", $_POST['annee_edition']));
 
 	// get last entry's id
 	$id = mysql_insert_id();
 
 	if ($_POST['no_collection'] > 0) {
-		$query = "INSERT INTO Album_avec_collection "
-		       . "values ("
-			   . $id . ", "
-			   . $_POST['no_collection'] . ", "
-			   . $_POST['no_ds_collection'] . ")";
+		addrow('Album_avec_collection',
+			array('no_volume', 'no_collection', 'no_ds_collection'),
+			array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
 	}
 
 	else {
 		if ($_POST['no_editeur'] > 0) {
-			$query = "INSERT INTO Album_sans_collection "
-				   . "values ("
-				   . $id . ", "
-				   . $_POST['no_editeur'] . ")";
+			addrow('Album_sans_collection',
+				array('no_volume', 'no_editeur'),
+				array($id, $_POST['no_editeur']));
 		}
 
 		else {
-			$query = "INSERT INTO Album_sans_collection (no_volume) "
-				   . "values (" . $id . ");";
+			addrow('Album_sans_collection', array('no_volume'), array($id));
 		}
 	}
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
 else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {

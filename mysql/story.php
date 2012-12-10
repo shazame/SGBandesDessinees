@@ -9,13 +9,9 @@ require "include.php"; // globals
 connectdb();
 
 if (isset($_POST['no_histoire']) && $_POST['action'] == "add") {
-	$query = "INSERT INTO Histoire (titre, annee_parution) values (";
-	$query .= "'" . $_POST['titre'] . "', ";
-	$query .= $_POST['annee_parution'];
-	$query .= ")";
-
-	$rv = mysql_query($query);
-	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+	addrow('Histoire',
+		array('titre', 'annee_parution'),
+		array("'".$_POST['titre']."'", $_POST['annee_parution']));
 }
 
 else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
@@ -27,13 +23,9 @@ else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
 
 	// Auteuriser
 	if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
-		$query = "INSERT INTO Auteuriser values ( "
-			   . $_POST['no_auteur'] . ", "
-			   . $_POST['no_histoire'] . ", "
-			   . "'" . $_POST['role'] . "')";
-
-		$rv = mysql_query($query);
-		if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+		addrow('Auteuriser',
+			array('no_auteur', 'no_histoire'),
+			array($_POST['no_auteur'], $_POST['no_histoire']));
 	}
 
 	// Select author

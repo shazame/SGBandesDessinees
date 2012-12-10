@@ -71,6 +71,22 @@ function deletebutton($action, $key, $val) {
 }
 
 
+function addrow($to, $attrs, $vals) {
+	$query = "INSERT INTO " . $to . " (" . $attrs[0];
+	for ($i = 1; $i < count($attrs); $i++) {
+		$query .= ", " . $attrs[$i];
+	}
+	$query .= ") values (" . $vals[0];
+	for ($i = 1; $i < count($attrs); $i++) {
+		$query .= ", " . $vals[$i];
+	}
+	$query .= ")";
+
+	$rv = mysql_query($query);
+	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+}
+
+
 function deleterow($from, $key, $value) {
 	$query = "DELETE FROM " . $from
 	       . " WHERE " . $key . " = " . $value;
