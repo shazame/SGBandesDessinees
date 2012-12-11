@@ -4,6 +4,9 @@
 <h1>Auteurs</h1>
 
 <?php
+ini_set('display_errors',1);
+error_reporting(E_ALL);
+
 require "include.php"; // globals
 try{
 	 connectdb();
