@@ -42,7 +42,19 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
-		echo "<h3>edition</h3>\n";
+		echo "<h3>Edition</h3>\n";
+
+		if (isset($_POST['titre'])) {
+			updaterow('histoire',
+				'no_histoire', $_POST['no_histoire'],
+				qw("titre"), array("'". $_POST['titre']."'"));
+		}
+
+		if (isset($_POST['annee_parution'])) {
+			updaterow('histoire',
+				'no_histoire', $_POST['no_histoire'],
+				qw("annee_parution"), array($_POST['annee_parution']));
+		}
 
 		// auteuriser
 		if (isset($_POST['role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
@@ -59,10 +71,20 @@ if (isset($_POST['action'])) {
 		$r = mysql_fetch_array($rv);
 
 		// Edit form
-		echo "<form action='story.php' method='post'>";
-		echo "<select name='no_auteur'>";
-		echo "<option value=''>---</option>";
-		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"));
+		echo "<form action='story.php' method='post'>"
+		   . "<table>"
+		   . "<tr>"
+		   . "<td>Titre</td>"
+		   . "<td><input type='text' name='titre' value=".$r['titre']."></td>"
+		   . "</tr>"
+		   . "<tr> <td> Annee de parution </td>"
+		   . "<td> <select name='annee_parution'>";
+		optionrange(1900, 2050, $r['annee_parution']);
+		echo "</select> </td> </tr>"
+		   . "</table>"
+		   . "<select name='no_auteur'>"
+		   . "<option value=''>---</option>";
+		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"), "");
 		echo "</select>";
 		echo " est "
 			 . "<select name='role'>"

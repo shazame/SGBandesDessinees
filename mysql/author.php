@@ -95,7 +95,7 @@ if (isset($_POST['action'])) {
 		   . " pour "
 		   . "<select name='no_histoire'>"
 		   . "<option value=''>---</option>";
-			optionselect("histoire", array('no_histoire', 'titre'));
+			optionselect("histoire", qw("no_histoire titre"), "");
 		echo "</select>"
 		   . "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">"
 		   . "<input type='hidden' name='action' value='edit'>"

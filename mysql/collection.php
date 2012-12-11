@@ -80,7 +80,7 @@ if (isset($_POST['action'])) {
 		   . "<tr>"
 		   . "<td>Editeur</td>"
 		   . "<td><select name='no_editeur'>";
-			optionselect("editeur", qw("no_editeur nom_editeur"));
+			optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
 		echo "</select></td>"
 		   . "</tr>"
 		   . "</table>"

@@ -36,14 +36,18 @@ function qw ($str) {
 }
 
 
-function optionrange($i, $j) {
+function optionrange($i, $j, $selected) {
 	for ($x = $i; $x < $j; $x++) {
-		echo "<option value=" . $x . ">" . $x . "</option>\n";
+		if ($x == $selected) {
+			echo "<option selected='selected' value=" . $x . ">" . $x . "</option>\n";
+		} else {
+			echo "<option value=" . $x . ">" . $x . "</option>\n";
+		}
 	}
 }
 
 
-function optionselect($from, $attr) {
+function optionselect($from, $attr, $selected) {
 	// attr is an array containing all attributes to retrieve
 	// first attribute must be the key as it will be used for each 
 	// option's value
@@ -56,7 +60,11 @@ function optionselect($from, $attr) {
 	$result = mysql_query($query);
 
 	while($r = mysql_fetch_array($result)) {
-		echo "<option value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+		if ($r[$attr[0]] == $selected) {
+			echo "<option selected='selected' value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+		} else {
+			echo "<option value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+		}
 		for ($i = 1; $i < count($attr); ++$i) {
 			echo " - " . $r[$attr[$i]];
 		}

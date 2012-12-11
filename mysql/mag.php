@@ -29,7 +29,7 @@ try{
 <tr> <td> editeur </td>
 	 <td> <select name="no_editeur">
 	 <option value="-1">Inconnu</option>
-	 <?php optionselect("editeur", array('no_editeur', 'nom_editeur')); ?>
+	 <?php optionselect("editeur", qw("no_editeur nom_editeur"), ""); ?>
 	 </select> </td> </tr>
 <tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
@@ -93,8 +93,9 @@ if (isset($_POST['action'])) {
 		}
 
 		// Select mag
-		$query = "SELECT * FROM volume as V, revue as R "
+		$query = "SELECT * FROM volume as V, revue as R, edition_des_revues as E "
 		       . "WHERE V.no_volume = " . $_POST['no_volume'] . " "
+		       . "AND E.no_volume = " . $_POST['no_volume'] . " "
 		       . "AND R.no_volume = " . $_POST['no_volume'];
 
 		$rv = mysql_query($query);
@@ -112,18 +113,17 @@ if (isset($_POST['action'])) {
 		   . "</tr>"
 		   . "<tr> <td> Annee d'edition </td>"
 		   . "<td> <select name='annee_edition'>";
-		optionrange(1900, 2050);
+		optionrange(1900, 2050, $r['annee_edition']);
 		echo "</select> </td> </tr>"
-		   . "</tr>"
 		   . "<tr> <td>Numero</td>"
 		   . "<td> <select name='no_revue'>";
-		optionrange(0, 1000);
+		optionrange(0, 1000, $r['no_revue']);
 		echo "</select> </td> </tr>"
 		   . "</tr>"
 		   . "<tr>"
 		   . "<td>Editeur</td>"
 		   . "<td><select name='no_editeur'>";
-			optionselect("editeur", qw("no_editeur nom_editeur"));
+			optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
 		echo "</select></td>"
 		   . "</tr>"
 		   . "</table>"
