@@ -2,20 +2,26 @@
 
 {
 	$con;
-	$user;
-	$host;
-	$passwd;
+	$user = "root";
+	$host = "localhost";
+	$passwd = "plopidop";
 
 	function connectdb() {
+		// Explicit errors, to comment when nice output is needed
+	  ini_set('display_errors',1);
+	  error_reporting(E_ALL);
+
 		$con = mysql_connect($host, $user, $passwd);
 
 		if (!$con) {
-			die("Can't connect: " . mysql_error());
+		  throw new Exception("Can't connect: " . mysql_error());
+			//die("Can't connect: " . mysql_error());
 		}
 
 		if (!mysql_select_db("test", $con)) {
 			mysql_close($con);
-			die("Can't select db");
+		  throw new Exception("Can't select db");
+			//die("Can't select db");
 		}
 	}
 

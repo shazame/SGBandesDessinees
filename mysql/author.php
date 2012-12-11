@@ -5,9 +5,11 @@
 
 <?php
 require "include.php"; // globals
-
-connectdb();
-
+try{
+	 connectdb();
+}catch (Exception $e){
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
 
 if ($_POST['action'] == "add") {
 	// Adding an author
@@ -69,10 +71,16 @@ else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 
 <?php
 
-$query = "SELECT * FROM Auteur";
+$query = "SELECT * FROM auteur";
 $result = mysql_query($query);
+if (!$result) {
+    die('Requête invalide : ' . mysql_error());
+}
+
+echo $result . "\n";
 
 while($r = mysql_fetch_array($result)) {
+	echo $r . "\n";
 	echo "<tr>\n";
 	echo "<td>" . $r['no_auteur'] . "</td>\n";
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
@@ -86,6 +94,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "</tr>\n";
 }
 echo "</table>";
+
+mysql_free_result($result);
 
 disconnectdb();
 ?>
