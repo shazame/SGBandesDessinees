@@ -23,10 +23,10 @@ if (isset($_POST['action'])) {
 		echo "<h3>edition</h3>\n";
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
-				addrow('auteuriser',
-					qw("no_auteur no_histoire role"),
-					array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+		if (isset($_POST['role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
+			addrow('auteuriser',
+				qw("no_auteur no_histoire role"),
+			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
 		}
 
 		// Select author
@@ -39,6 +39,7 @@ if (isset($_POST['action'])) {
 		// Edit form
 		echo "<form action='story.php' method='post'>";
 		echo "<select name='no_auteur'>";
+		echo "<option value=''>---</option>";
 		optionselect("auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
 		echo "</select>";
 		echo " est "

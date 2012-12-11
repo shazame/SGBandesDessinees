@@ -27,7 +27,7 @@ if (isset($_POST['action'])) {
 		echo "<h3>edition</h3>\n";
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_histoire'])) {
+		if (isset($_POST['role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
 			addrow('auteuriser',
 				qw("no_auteur no_histoire role"),
 				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
@@ -69,13 +69,13 @@ if (isset($_POST['action'])) {
 		echo "</table>";
 		echo "Cet auteur est "
 			 . "<select name='role'>"
-			 . "<option value=''>---</option>"
 			 . "<option value='drawing'>dessinateur</option>"
 			 . "<option value='script'>scenariste</option>"
 			 . "<option value='both'>les deux</option>"
 			 . "</select>"
 			 . " pour ";
 		echo "<select name='no_histoire'>";
+		echo "<option value=''>---</option>";
 		optionselect("histoire", array('no_histoire', 'titre'));
 		echo "</select>";
 		echo "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">";
