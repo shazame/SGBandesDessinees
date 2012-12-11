@@ -48,7 +48,8 @@ if (isset($_POST['action'])) {
 				qw("titre_serie"), array("'". $_POST['titre_serie']."'"));
 		}
 
-		// Select author
+
+		// Select serie
 		$query = "SELECT * FROM serie "
 			   . "WHERE no_serie = " . $_POST['no_serie'];
 

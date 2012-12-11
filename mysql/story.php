@@ -51,7 +51,7 @@ if (isset($_POST['action'])) {
 			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
 		}
 
-		// Select author
+		// Select story
 		$query = "SELECT * FROM histoire "
 			   . "WHERE no_histoire = " . $_POST['no_histoire'];
 

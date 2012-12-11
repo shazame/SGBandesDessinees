@@ -38,7 +38,7 @@ try{
 
 <tr> <td> editeur (si pas de collection) </td>
 	 <td> <select name="no_editeur">
-	 <option value="-1">Inconnu</option>
+	 <option value="">Inconnu</option>
 	 <?php optionselect("editeur", array('no_editeur', 'nom_editeur')); ?>
 	 </select> </td> </tr>
 
@@ -68,7 +68,7 @@ if (isset($_POST['action'])) {
 		}
 
 		else {
-			if ($_POST['no_editeur'] > 0) {
+			if (isset($_POST['no_editeur']) && $_POST['no_editeur']) {
 				addrow('album_sans_collection',
 					qw("no_volume no_editeur"),
 					array($id, $_POST['no_editeur']));
@@ -96,12 +96,14 @@ if (isset($_POST['action'])) {
 <th>Numero</th>
 <th>Titre</th>
 <th>Annee edition</th>
+<th>Editeur</th>
 </tr>
 
 <?php
-$query = "SELECT V.* "
-	   . "FROM volume as V inner join album_sans_collection as A "
-	   . "on V.no_volume = A.no_volume";
+$query = "SELECT V.*, E.nom_editeur "
+	   . "FROM (volume as V inner join album_sans_collection as A "
+	   . "on V.no_volume = A.no_volume) inner join editeur as E "
+	   . "on E.no_editeur = A.no_editeur";
 
 $result = mysql_query($query);
 
@@ -110,6 +112,7 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_volume'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
+	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
 	// delete button
 	deletebutton('album.php', 'no_volume', $r['no_volume']);
