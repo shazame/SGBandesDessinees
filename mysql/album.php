@@ -1,48 +1,93 @@
 <html>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
 require "include.php"; // globals
+try{
+	 connectdb();
+}catch (Exception $e){
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
+?>
 
-connectdb();
 
+<h1>Albums</h1>
 
-if ($_POST['action'] == "add") {
+<h3>Ajout</h3>
 
-	addrow('Volume',
-		qw("titre annee_edition"),
-		array("'".$_POST['titre']."'", $_POST['annee_edition']));
+<table>
+<form action="album.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Titre </td> <td> <input type="text" name="titre"> </td> </tr>
 
-	// get last entry's id
-	$id = mysql_insert_id();
+<tr> <td> Annee d'edition </td>
+	 <td> <select name="annee_edition">
+	 <?php optionrange(1900, 2050); ?>
+	 </select> </td> </tr>
 
-	if ($_POST['no_collection'] > 0) {
-		addrow('album_avec_collection',
-			qw("no_volume no_collection no_ds_collection"),
-			array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
-	}
+<tr> <td> collection </td>
+	 <td> <select name="no_collection">
+	      <option value="-1">Aucune</option>
+	 <?php optionselect("collection", array('no_collection', 'nom_collection')); ?>
+	</select> </td> </tr>
 
-	else {
-		if ($_POST['no_editeur'] > 0) {
-			addrow('album_sans_collection',
-				qw("no_volume no_editeur")
-				array($id, $_POST['no_editeur']));
+<tr> <td> Numero dans la collection </td>
+	 <td> <select name="no_ds_collection">
+	 <?php optionrange(0, 1000); ?>
+	 </select> </td> </tr>
+
+<tr> <td> editeur (si pas de collection) </td>
+	 <td> <select name="no_editeur">
+	 <option value="-1">Inconnu</option>
+	 <?php optionselect("editeur", array('no_editeur', 'nom_editeur')); ?>
+	 </select> </td> </tr>
+
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
+</form>
+</table>
+
+<hr>
+
+<?php
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+
+		addrow('volume',
+			qw("titre annee_edition"),
+			array("'".$_POST['titre']."'", $_POST['annee_edition']));
+
+		// get last entry's id
+		$id = mysql_insert_id();
+
+		if ($_POST['no_collection'] > 0) {
+			addrow('album_avec_collection',
+				qw("no_volume no_collection no_ds_collection"),
+				array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
 		}
 
 		else {
-			addrow('album_sans_collection', qw("no_volume"), array($id));
+			if ($_POST['no_editeur'] > 0) {
+				addrow('album_sans_collection',
+					qw("no_volume no_editeur"),
+					array($id, $_POST['no_editeur']));
+			}
+
+			else {
+				addrow('album_sans_collection', qw("no_volume"), array($id));
+			}
 		}
 	}
-}
 
-else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-	deleterow('Volume', 'no_volume', $_POST['no_volume']);
+	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
+		deleterow('volume', 'no_volume', $_POST['no_volume']);
+	}
 }
 ?>
 
 
 
-<h1>albums</h1>
 
 <h3>Sans collection</h3>
 
@@ -55,7 +100,7 @@ else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
 
 <?php
 $query = "SELECT V.* "
-	   . "FROM Volume as V inner join album_sans_collection as A "
+	   . "FROM volume as V inner join album_sans_collection as A "
 	   . "on V.no_volume = A.no_volume";
 
 $result = mysql_query($query);
@@ -71,9 +116,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "</td>";
 	echo "</tr>";
 }
-echo "</table>";
-
 ?>
+</table>
 
 
 
@@ -89,7 +133,7 @@ echo "</table>";
 
 <?php
 $query = "SELECT V.*, C.nom_collection, A.no_ds_collection "
-	   . "FROM (Volume as V inner join album_avec_collection as A "
+	   . "FROM (volume as V inner join album_avec_collection as A "
 	   . "on V.no_volume = A.no_volume) inner join collection as C "
 	   . "on A.no_collection = C.no_collection";
 
@@ -107,8 +151,10 @@ while($r = mysql_fetch_array($result)) {
 	echo "</td>";
 	echo "</tr>";
 }
-echo "</table>";
+?>
+</table>
 
+<?php
 disconnectdb();
 ?>
 

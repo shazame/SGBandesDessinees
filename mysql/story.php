@@ -1,14 +1,36 @@
 <html>
-
-
-<h1>histoires</h1>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
 require "include.php"; // globals
+try{
+	 connectdb();
+}catch (Exception $e){
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
+?>
 
-connectdb();
+<h1>histoires</h1>
+
+<table>
+<form action="story.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Titre : </td> <td> <input type="text" name="titre"> </td> </tr>
+
+<tr> <td> Annee de premiere parution </td>
+	 <td> <select name="annee_parution">
+	      <?php optionrange(1900, 2050); ?>
+		  </select>
+	 </td> </tr>
+
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
+</form>
+</table>
+
+<?php
 
 if (isset($_POST['action'])) {
+
 	if ($_POST['action'] == "add") {
 		addrow('histoire',
 			qw("titre annee_parution"),
@@ -84,10 +106,11 @@ while($r = mysql_fetch_array($result)) {
 	editbutton('story.php', 'no_histoire', $r['no_histoire']);
 	echo "</td>";
 }
-echo "</table>";
+?>
+</table>
 
+<?php
 disconnectdb();
-
 ?>
 
 </html>

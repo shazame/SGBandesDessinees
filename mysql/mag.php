@@ -1,40 +1,72 @@
 <html>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
 require "include.php"; // globals
-
-connectdb();
-
-
-if ($_POST['action'] == "add") {
-
-	addrow('Volume',
-		qw("titre annee_edition"),
-		array("'".$_POST['titre']."'", $_POST['annee_edition']));
-
-	// get last entry's id
-	$id = mysql_insert_id();
-
-	addrow('Revue',
-		qw("no_volume no_revue"),
-		array($id, $_POST['no_revue']));
-
-	if ($_POST['no_editeur'] > 0) {
-		addrow('edition_des_revues',
-			qw("no_volume no_editeur"),
-			array($id, $_POST['no_editeur']));
-	}
-}
-
-else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-	deleterow('Volume', 'no_volume', $_POST['no_volume']);
+try{
+	 connectdb();
+}catch (Exception $e){
+    die('Caught exception: ' . $e->getMessage() . "\n");
 }
 ?>
 
-
-
 <h1>Revues</h1>
+
+<h3>Ajout</h3>
+
+<table>
+<form action="mag.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Titre </td> <td> <input type="text" name="titre"></td></tr>
+<tr> <td> Numero </td>
+	 <td> <select name="no_revue">
+	 <?php optionrange(0, 1000); ?>
+	 </select> </td> </tr>
+<tr> <td> Annee d'edition </td>
+	 <td> <select name="annee_edition">
+	 <?php optionrange(1900, 2050); ?>
+	 </select> </td> </tr>
+<tr> <td> editeur </td>
+	 <td> <select name="no_editeur">
+	 <option value="-1">Inconnu</option>
+	 <?php optionselect("editeur", array('no_editeur', 'nom_editeur')); ?>
+	 </select> </td> </tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
+</form>
+</table>
+
+<hr>
+
+<?php
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+
+		addrow('Volume',
+			qw("titre annee_edition"),
+			array("'".$_POST['titre']."'", $_POST['annee_edition']));
+
+		// get last entry's id
+		$id = mysql_insert_id();
+
+		addrow('Revue',
+			qw("no_volume no_revue"),
+			array($id, $_POST['no_revue']));
+
+		if ($_POST['no_editeur'] > 0) {
+			addrow('edition_des_revues',
+				qw("no_volume no_editeur"),
+				array($id, $_POST['no_editeur']));
+		}
+	}
+
+	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
+		deleterow('Volume', 'no_volume', $_POST['no_volume']);
+	}
+}
+?>
+
 
 <table border=1 cellpadding=10>
 <tr>
@@ -63,7 +95,10 @@ while($r = mysql_fetch_array($result)) {
 	echo "</td>";
 	echo "</tr>";
 }
-echo "</table>";
+?>
+</table>
 
+<?php
 disconnectdb();
 ?>
+

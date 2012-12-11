@@ -1,13 +1,31 @@
 <html>
-
-
-<h1>editeurs</h1>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
 require "include.php"; // globals
+try{
+	 connectdb();
+}catch (Exception $e){
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
+?>
 
-connectdb();
+<h1>Editeurs</h1>
 
+<h3>Ajout</h3>
+
+<table>
+<form action="editor.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Nom </td> <td> <input type="text" name="nom_editeur"> </td> </tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
+</form>
+</table>
+
+<hr>
+
+
+<?php
 
 if (isset($_POST['action'])) {
 
@@ -22,7 +40,7 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
-		echo "<h3>edition</h3>\n";
+		echo "<h3>Edition</h3>\n";
 
 		if (isset($_POST['nom_editeur'])) {
 			updaterow('editeur',

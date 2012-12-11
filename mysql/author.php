@@ -1,7 +1,5 @@
 <html>
-
-
-<h1>auteurs</h1>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
 require "include.php"; // globals
@@ -10,8 +8,29 @@ try{
 }catch (Exception $e){
     die('Caught exception: ' . $e->getMessage() . "\n");
 }
+?>
 
+<h1>Auteurs</h1>
+
+<h3>Ajout</h3>
+
+<table>
+<form action="author.php" method="post">
+<input type="hidden" name="action" value="add">
+<tr> <td> Nom </td>
+     <td> <input type="text" name="nom_auteur"> </td> </tr>
+<tr> <td> Prenom </td>
+     <td> <input type="text" name="prenom_auteur"> </td> </tr>
+<tr> <td> <input type="submit" value="Ajouter"> <td> </tr>
+</form>
+</table>
+
+<hr>
+
+
+<?php
 if (isset($_POST['action'])) {
+
 	if ($_POST['action'] == "add") {
 		// Adding an author
 		addrow('auteur',
@@ -56,32 +75,32 @@ if (isset($_POST['action'])) {
 		$r = mysql_fetch_array($rv);
 
 		// Edit form
-		echo "<form action='author.php' method='post'>";
-		echo "<table>";
-		echo "<tr>";
-		echo "<td>Nom</td>"
-		   . "<td><input type='text' name='nom_auteur' value=".$r['nom_auteur']."></td>";
-		echo "</tr>";
-		echo "<tr>";
-		echo "<td>Prenom</td>"
-		   . "<td><input type='text' name='prenom_auteur' value=".$r['prenom_auteur']."></td>";
-		echo "</tr>";
-		echo "</table>";
-		echo "Cet auteur est "
-			 . "<select name='role'>"
-			 . "<option value='drawing'>dessinateur</option>"
-			 . "<option value='script'>scenariste</option>"
-			 . "<option value='both'>les deux</option>"
-			 . "</select>"
-			 . " pour ";
-		echo "<select name='no_histoire'>";
-		echo "<option value=''>---</option>";
-		optionselect("histoire", array('no_histoire', 'titre'));
-		echo "</select>";
-		echo "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">";
-		echo "<input type='hidden' name='action' value='edit'>";
-		echo "<input type='submit' value='Valider'> </form> </td>\n";
-		echo "</form>";
+		echo "<form action='author.php' method='post'>"
+		   . "<table>"
+		   . "<tr>"
+		   . "<td>Nom</td>"
+		   . "<td><input type='text' name='nom_auteur' value=".$r['nom_auteur']."></td>"
+		   . "</tr>"
+		   . "<tr>"
+		   . "<td>Prenom</td>"
+		   . "<td><input type='text' name='prenom_auteur' value=".$r['prenom_auteur']."></td>"
+		   . "</tr>"
+		   . "</table>"
+		   . "Cet auteur est "
+		   . "<select name='role'>"
+		   . "<option value='drawing'>dessinateur</option>"
+		   . "<option value='script'>scenariste</option>"
+		   . "<option value='both'>les deux</option>"
+		   . "</select>"
+		   . " pour "
+		   . "<select name='no_histoire'>"
+		   . "<option value=''>---</option>";
+			optionselect("histoire", array('no_histoire', 'titre'));
+		echo "</select>"
+		   . "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">"
+		   . "<input type='hidden' name='action' value='edit'>"
+		   . "<input type='submit' value='Valider'> </form> </td>\n"
+		   . "</form>";
 
 		echo "<hr>";
 	}
@@ -99,12 +118,11 @@ if (isset($_POST['action'])) {
 <?php
 
 $query = "SELECT * FROM auteur";
+
 $result = mysql_query($query);
 if (!$result) {
     die('Requête invalide : ' . mysql_error());
 }
-
-echo $result . "\n";
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -119,10 +137,10 @@ while($r = mysql_fetch_array($result)) {
 	echo "</td>";
 	echo "</tr>\n";
 }
-echo "</table>";
+?>
+</table>";
 
-mysql_free_result($result);
-
+<?php
 disconnectdb();
 ?>
 
