@@ -78,7 +78,7 @@ if (isset($_POST['action'])) {
 
 <?php
 $query = "SELECT V.*, R.no_revue "
-	   . "FROM Volume as V inner join Revue as R "
+	   . "FROM volume as V inner join revue as R "
 	   . "on V.no_volume = R.no_volume";
 
 $result = mysql_query($query);
