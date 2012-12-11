@@ -20,7 +20,7 @@ try{
 <tr> <td> Editeur : </td>
 	 <td> <select name="no_editeur">
 	      <option value="-1">Inconnu</option>
-	<?php optionselect("editeur", array('no_editeur', 'nom_editeur')); ?>
+	<?php optionselect("editeur", qw("no_editeur nom_editeur")); ?>
 	</select> 
 	</td> </tr>
 
@@ -82,6 +82,7 @@ if (isset($_POST['action'])) {
 		   . "<td><select name='no_editeur'>";
 			optionselect("editeur", qw("no_editeur nom_editeur"));
 		echo "</select></td>"
+		   . "</tr>"
 		   . "</table>"
 		   . "<input type='hidden' name='no_collection' value=".$r['no_collection'].">"
 		   . "<input type='hidden' name='action' value='edit'>"

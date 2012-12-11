@@ -62,7 +62,7 @@ if (isset($_POST['action'])) {
 		echo "<form action='story.php' method='post'>";
 		echo "<select name='no_auteur'>";
 		echo "<option value=''>---</option>";
-		optionselect("auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
+		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"));
 		echo "</select>";
 		echo " est "
 			 . "<select name='role'>"
