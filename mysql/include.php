@@ -91,13 +91,14 @@ function addrow($to, $attrs, $vals) {
 	}
 	$query .= ")";
 
+	echo $query;
 	$rv = mysql_query($query);
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }
 
 
 function updaterow($from, $key, $val, $attrs, $vals) {
-	$query = "UPDATE editeur SET "
+	$query = "UPDATE " . $from . " SET "
 	       . $attrs[0] . " = " . $vals[0];
 	for ($i = 1; $i < count($attrs); $i++) {
 		$query .= ", " . $attrs[$i] . " = " . $vals[$i];

@@ -22,12 +22,12 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
+		echo "<h3>edition</h3>\n";
 
 		if (isset($_POST['nom_editeur'])) {
 			updaterow('editeur',
 				'no_editeur', $_POST['no_editeur'],
 				qw("nom_editeur"), array("'". $_POST['nom_editeur']."'"));
-
 		}
 
 		// Select author
@@ -39,7 +39,7 @@ if (isset($_POST['action'])) {
 
 		// Edit form
 		echo "<form action='editor.php' method='post'>";
-		echo "<input type='text' name='nom_editeur' value=".$r['nom_editeur'].">";
+		echo "Nom <input type='text' name='nom_editeur' value=".$r['nom_editeur'].">";
 		echo "<input type='hidden' name='no_editeur' value=".$r['no_editeur'].">";
 		echo "<input type='hidden' name='action' value='edit'>";
 		echo "<input type='submit' value='Valider'> </form> </td>";

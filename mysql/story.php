@@ -8,52 +8,54 @@ require "include.php"; // globals
 
 connectdb();
 
-if ($_POST['action'] == "add") {
-	addrow('histoire',
-		qw("titre annee_parution"),
-		array("'".$_POST['titre']."'", $_POST['annee_parution']));
-}
-
-else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
-	deleterow('histoire', 'no_histoire', $_POST['no_histoire']);
-}
-
-else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
-	echo "<h3>edition</h3>\n";
-
-	// auteuriser
-	if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
-		addrow('auteuriser',
-			qw("no_auteur no_histoire"),
-			array($_POST['no_auteur'], $_POST['no_histoire']));
+if (isset($_POST['action'])) {
+	if ($_POST['action'] == "add") {
+		addrow('histoire',
+			qw("titre annee_parution"),
+			array("'".$_POST['titre']."'", $_POST['annee_parution']));
 	}
 
-	// Select author
-	$query = "SELECT * FROM histoire "
-		   . "WHERE no_histoire = " . $_POST['no_histoire'];
+	else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
+		deleterow('histoire', 'no_histoire', $_POST['no_histoire']);
+	}
 
-	$rv = mysql_query($query);
-	$r = mysql_fetch_array($rv);
+	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
+		echo "<h3>edition</h3>\n";
 
-	// Edit form
-	echo "<form action='story.php' method='post'>";
-	echo "<select name='no_auteur'>";
-	optionselect("auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
-	echo "</select>";
-	echo " est "
-	     . "<select name='role'>"
-	     . "<option value='drawing'>dessinateur</option>"
-	     . "<option value='script'>scenariste</option>"
-	     . "<option value='both'>les deux</option>"
-		 . "</select>"
-		 . " pour "
-	     . $r['titre'];
-	echo "<input type='hidden' name='no_histoire' value=".$r['no_histoire'].">";
-	echo "<input type='hidden' name='action' value='edit'>";
-	echo "<input type='submit' value='Valider'> </form> </td>";
-	echo "</form>";
+		// auteuriser
+		if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
+				addrow('auteuriser',
+					qw("no_auteur no_histoire role"),
+					array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+		}
 
-	echo "<hr>";
+		// Select author
+		$query = "SELECT * FROM histoire "
+			   . "WHERE no_histoire = " . $_POST['no_histoire'];
+
+		$rv = mysql_query($query);
+		$r = mysql_fetch_array($rv);
+
+		// Edit form
+		echo "<form action='story.php' method='post'>";
+		echo "<select name='no_auteur'>";
+		optionselect("auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
+		echo "</select>";
+		echo " est "
+			 . "<select name='role'>"
+			 . "<option value='drawing'>dessinateur</option>"
+			 . "<option value='script'>scenariste</option>"
+			 . "<option value='both'>les deux</option>"
+			 . "</select>"
+			 . " pour "
+			 . $r['titre'];
+		echo "<input type='hidden' name='no_histoire' value=".$r['no_histoire'].">";
+		echo "<input type='hidden' name='action' value='edit'>";
+		echo "<input type='submit' value='Valider'> </form> </td>";
+		echo "</form>";
+
+		echo "<hr>";
+	}
 }
 ?>
 
