@@ -1,7 +1,7 @@
 <html>
 
 
-<h1>Series</h1>
+<h1>series</h1>
 
 <?php
 require "include.php"; // globals
@@ -10,13 +10,13 @@ connectdb();
 
 
 if (isset($_POST['titre_serie']) && $_POST['action'] == "add") {
-	addrow('Serie',
+	addrow('serie',
 		qw("titre_serie"),
 		array("'".$_POST['titre_serie']."'"));
 }
 
 else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
-	deleterow('Serie', 'no_serie', $_POST['no_serie']);
+	deleterow('serie', 'no_serie', $_POST['no_serie']);
 }
 
 ?>
@@ -30,7 +30,7 @@ else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
 
 <?php
 
-$query = "SELECT * FROM Serie";
+$query = "SELECT * FROM serie";
 $result = mysql_query($query);
 
 while($r = mysql_fetch_array($result)) {

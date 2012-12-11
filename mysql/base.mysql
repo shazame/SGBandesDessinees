@@ -82,7 +82,7 @@ create table auteur (
 create table edition_des_revues (
 -- NO_VOLUME remplace NO_REVUE!!
 -- Raison : probleme avec les contraintes d'integrites
-   no_volume   int not null, 
+   no_volume  int not null, 
    no_editeur int not null,
    primary key (no_volume, no_editeur)
 )   ;

@@ -21,7 +21,7 @@ if ($_POST['action'] == "add") {
 		array($id, $_POST['no_revue']));
 
 	if ($_POST['no_editeur'] > 0) {
-		addrow('Edition_des_revues',
+		addrow('edition_des_revues',
 			qw("no_volume no_editeur"),
 			array($id, $_POST['no_editeur']));
 	}

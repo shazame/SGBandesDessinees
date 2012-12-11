@@ -17,20 +17,20 @@ if ($_POST['action'] == "add") {
 	$id = mysql_insert_id();
 
 	if ($_POST['no_collection'] > 0) {
-		addrow('Album_avec_collection',
+		addrow('album_avec_collection',
 			qw("no_volume no_collection no_ds_collection"),
 			array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
 	}
 
 	else {
 		if ($_POST['no_editeur'] > 0) {
-			addrow('Album_sans_collection',
+			addrow('album_sans_collection',
 				qw("no_volume no_editeur")
 				array($id, $_POST['no_editeur']));
 		}
 
 		else {
-			addrow('Album_sans_collection', qw("no_volume"), array($id));
+			addrow('album_sans_collection', qw("no_volume"), array($id));
 		}
 	}
 }
@@ -42,7 +42,7 @@ else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
 
 
 
-<h1>Albums</h1>
+<h1>albums</h1>
 
 <h3>Sans collection</h3>
 
@@ -55,7 +55,7 @@ else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
 
 <?php
 $query = "SELECT V.* "
-	   . "FROM Volume as V inner join Album_sans_collection as A "
+	   . "FROM Volume as V inner join album_sans_collection as A "
 	   . "on V.no_volume = A.no_volume";
 
 $result = mysql_query($query);
@@ -84,13 +84,13 @@ echo "</table>";
 <th>Numero</th>
 <th>Titre</th>
 <th>Annee edition</th>
-<th>Collection</th>
+<th>collection</th>
 </tr>
 
 <?php
 $query = "SELECT V.*, C.nom_collection, A.no_ds_collection "
-	   . "FROM (Volume as V inner join Album_avec_collection as A "
-	   . "on V.no_volume = A.no_volume) inner join Collection as C "
+	   . "FROM (Volume as V inner join album_avec_collection as A "
+	   . "on V.no_volume = A.no_volume) inner join collection as C "
 	   . "on A.no_collection = C.no_collection";
 
 $result = mysql_query($query);

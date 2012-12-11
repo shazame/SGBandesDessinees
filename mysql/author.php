@@ -1,7 +1,7 @@
 <html>
 
 
-<h1>Auteurs</h1>
+<h1>auteurs</h1>
 
 <?php
 require "include.php"; // globals
@@ -13,21 +13,21 @@ try{
 
 if ($_POST['action'] == "add") {
 	// Adding an author
-	addrow('Auteur',
+	addrow('auteur',
 		qw("nom_auteur prenom_auteur"),
 		array("'".$_POST['nom_auteur']."'", "'".$_POST['prenom_auteur']."'"));
 }
 
 else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
-	deleterow('Auteur', 'no_auteur', $_POST['no_auteur']);
+	deleterow('auteur', 'no_auteur', $_POST['no_auteur']);
 }
 
 else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-	echo "<h3>Edition</h3>\n";
+	echo "<h3>edition</h3>\n";
 
-	// Auteuriser
+	// auteuriser
 	if (isset($_POST['role']) && isset($_POST['no_histoire'])) {
-		addrow('Auteuriser',
+		addrow('auteuriser',
 			qw("no_auteur  no_histoire"),
 			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
 	}
@@ -52,7 +52,7 @@ else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 		 . "</select>"
 		 . " pour ";
 	echo "<select name='no_histoire'>";
-	optionselect("Histoire", array('no_histoire', 'titre'));
+	optionselect("histoire", array('no_histoire', 'titre'));
 	echo "</select>";
 	echo "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">";
 	echo "<input type='hidden' name='action' value='edit'>";

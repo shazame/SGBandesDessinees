@@ -2,16 +2,13 @@
 
 {
 	$con;
-	$user = "root";
-	$host = "localhost";
-	$passwd = "plopidop";
 
 	function connectdb() {
 		// Explicit errors, to comment when nice output is needed
-	  ini_set('display_errors',1);
-	  error_reporting(E_ALL);
+		ini_set('display_errors',1);
+		error_reporting(E_ALL);
 
-		$con = mysql_connect($host, $user, $passwd);
+		$con = mysql_connect();
 
 		if (!$con) {
 		  throw new Exception("Can't connect: " . mysql_error());
@@ -96,6 +93,19 @@ function addrow($to, $attrs, $vals) {
 
 	$rv = mysql_query($query);
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
+}
+
+
+function updaterow($from, $key, $val, $attrs, $vals) {
+	$query = "UPDATE editeur SET "
+	       . $attrs[0] . " = " . $vals[0];
+	for ($i = 1; $i < count($attrs); $i++) {
+		$query .= ", " . $attrs[$i] . " = " . $vals[$i];
+	}
+	$query .= " WHERE " . $key . " = " . $val;
+
+	$rv = mysql_query($query);
+	if (!$rv) { die("la mise à jour a échoué : " . mysql_error()); }
 }
 
 

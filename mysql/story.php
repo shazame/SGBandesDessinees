@@ -1,7 +1,7 @@
 <html>
 
 
-<h1>Histoires</h1>
+<h1>histoires</h1>
 
 <?php
 require "include.php"; // globals
@@ -9,27 +9,27 @@ require "include.php"; // globals
 connectdb();
 
 if ($_POST['action'] == "add") {
-	addrow('Histoire',
+	addrow('histoire',
 		qw("titre annee_parution"),
 		array("'".$_POST['titre']."'", $_POST['annee_parution']));
 }
 
 else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
-	deleterow('Histoire', 'no_histoire', $_POST['no_histoire']);
+	deleterow('histoire', 'no_histoire', $_POST['no_histoire']);
 }
 
 else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
-	echo "<h3>Edition</h3>\n";
+	echo "<h3>edition</h3>\n";
 
-	// Auteuriser
+	// auteuriser
 	if (isset($_POST['role']) && isset($_POST['no_auteur'])) {
-		addrow('Auteuriser',
+		addrow('auteuriser',
 			qw("no_auteur no_histoire"),
 			array($_POST['no_auteur'], $_POST['no_histoire']));
 	}
 
 	// Select author
-	$query = "SELECT * FROM Histoire "
+	$query = "SELECT * FROM histoire "
 		   . "WHERE no_histoire = " . $_POST['no_histoire'];
 
 	$rv = mysql_query($query);
@@ -38,7 +38,7 @@ else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
 	// Edit form
 	echo "<form action='story.php' method='post'>";
 	echo "<select name='no_auteur'>";
-	optionselect("Auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
+	optionselect("auteur", array('no_auteur', 'nom_auteur', 'prenom_auteur'));
 	echo "</select>";
 	echo " est "
 	     . "<select name='role'>"
@@ -66,7 +66,7 @@ else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
 </tr>
 
 <?php
-$query = "SELECT * FROM Histoire";
+$query = "SELECT * FROM histoire";
 $result = mysql_query($query);
 
 while($r = mysql_fetch_array($result)) {
