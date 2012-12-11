@@ -70,7 +70,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=10>
+<table border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Titre</th>

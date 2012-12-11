@@ -139,7 +139,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=10>
+<table border=1 cellpadding=5>
 <tr>
 <th>Numero volume</th>
 <th>Numero revue</th>
