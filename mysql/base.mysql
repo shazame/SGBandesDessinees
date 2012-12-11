@@ -1,85 +1,85 @@
-drop table if exists ALBUM_AVEC_COLLECTION cascade;
-drop table if exists ALBUM_SANS_COLLECTION cascade;
-drop table if exists APPARTENANCE_SERIE cascade;
-drop table if exists SERIE cascade;
-drop table if exists AUTEURISER cascade;
-drop table if exists AUTEUR cascade;
-drop table if exists COLLECTION cascade;
-drop table if exists CONTENIR cascade;
-drop table if exists HISTOIRE cascade;
-drop table if exists EDITION_DES_REVUES cascade;
-drop table if exists REVUE cascade;
-drop table if exists EDITEUR cascade;
-drop table if exists VOLUME cascade;
+drop table if exists album_avec_collection cascade;
+drop table if exists album_sans_collection cascade;
+drop table if exists appartenance_serie cascade;
+drop table if exists serie cascade;
+drop table if exists auteuriser cascade;
+drop table if exists auteur cascade;
+drop table if exists collection cascade;
+drop table if exists contenir cascade;
+drop table if exists histoire cascade;
+drop table if exists edition_des_revues cascade;
+drop table if exists revue cascade;
+drop table if exists editeur cascade;
+drop table if exists volume cascade;
 
-create table VOLUME (
+create table volume (
    no_volume     int           not null auto_increment,
    titre         varchar(255)  not null,
    annee_edition int           not null,
    primary key (no_volume)
 )   ;
-create table REVUE (
+create table revue (
    no_volume int not null,
    no_revue  int not null,
    primary key (no_volume)
 )   ;
-create table COLLECTION (
+create table collection (
    no_collection  int           not null auto_increment,
    nom_collection varchar(255)  not null,
    no_editeur     int                   ,
    primary key (no_collection)
 )   ;
-create table ALBUM_SANS_COLLECTION (
+create table album_sans_collection (
    no_volume  int not null,
    no_editeur int,
    primary key (no_volume)
 )   ;
-create table ALBUM_AVEC_COLLECTION (
+create table album_avec_collection (
    no_volume        int not null,
    no_collection    int not null,
    no_ds_collection int not null,
    primary key (no_volume)
 )   ;
-create table EDITEUR (
+create table editeur (
    no_editeur  int          not null auto_increment,
    nom_editeur varchar(255) not null,
    primary key (no_editeur)
 )   ;
-create table CONTENIR (
+create table contenir (
    no_volume   int not null,
    no_histoire int not null,
    primary key (no_volume,no_histoire)
 )   ;
-create table HISTOIRE (
+create table histoire (
    no_histoire    int          not null auto_increment,
    titre          varchar(255) not null,
    annee_parution int          not null,
    primary key (no_histoire)
 )   ;
-create table APPARTENANCE_SERIE (
+create table appartenance_serie (
    no_histoire int not null,
    no_serie    int not null,
    no_ds_serie int not null,
    primary key (no_histoire,no_serie)
 )   ;
-create table SERIE (
+create table serie (
    no_serie    int          not null auto_increment,
    titre_serie varchar(255) not null,
    primary key (no_serie)
 )   ;
-create table AUTEURISER (
+create table auteuriser (
    no_auteur   int         not null,
    no_histoire int         not null,
    role        varchar(10) not null,
    primary key (no_auteur,no_histoire)
 )   ;
-create table AUTEUR (
+create table auteur (
    no_auteur     int          not null auto_increment,
    nom_auteur    varchar(255) not null,
    prenom_auteur varchar(255)         ,
    primary key (no_auteur)
 )   ;
-create table EDITION_DES_REVUES (
+create table edition_des_revues (
 -- NO_VOLUME remplace NO_REVUE!!
 -- Raison : probleme avec les contraintes d'integrites
    no_volume   int not null, 
@@ -89,73 +89,73 @@ create table EDITION_DES_REVUES (
 
 
 -- Constraints
-alter table ALBUM_SANS_COLLECTION add constraint albm_sns_clctn_fk_No_volume 
+alter table album_sans_collection add constraint albm_sns_clctn_fk_No_volume 
     foreign key (no_volume)
-    references VOLUME (no_volume)
+    references volume (no_volume)
 	on delete cascade;
 
-alter table EDITION_DES_REVUES add constraint edtn_ds_rvs_fk_No_volume
+alter table edition_des_revues add constraint edtn_ds_rvs_fk_No_volume
     foreign key (no_volume)
-    references REVUE (no_volume)
+    references revue (no_volume)
 	on delete cascade;
 
-alter table EDITION_DES_REVUES add constraint edtn_ds_rvs_fk_No_editeur 
+alter table edition_des_revues add constraint edtn_ds_rvs_fk_No_editeur 
     foreign key (no_editeur)
-    references EDITEUR (no_editeur)
+    references editeur (no_editeur)
 	on delete cascade;
 
-alter table REVUE add constraint revue_fk_No_volume 
+alter table revue add constraint revue_fk_No_volume 
     foreign key (no_volume)
-    references VOLUME (no_volume)
+    references volume (no_volume)
 	on delete cascade;
 
-alter table ALBUM_AVEC_COLLECTION add constraint albm_vc_clctn_fk_No_volume 
+alter table album_avec_collection add constraint albm_vc_clctn_fk_No_volume 
     foreign key (no_volume)
-    references VOLUME (no_volume)
+    references volume (no_volume)
 	on delete cascade;
 
-alter table CONTENIR add constraint contenir_fk_No_volume 
+alter table contenir add constraint contenir_fk_No_volume 
     foreign key (no_volume)
-    references VOLUME (no_volume)
+    references volume (no_volume)
 	on delete cascade;
 
-alter table CONTENIR add constraint contenir_fk_No_histoire 
+alter table contenir add constraint contenir_fk_No_histoire 
     foreign key (no_histoire)
-    references HISTOIRE (no_histoire)
+    references histoire (no_histoire)
 	on delete cascade;
 
-alter table ALBUM_AVEC_COLLECTION add constraint albm_vc_clctn_fk_No_collection 
+alter table album_avec_collection add constraint albm_vc_clctn_fk_No_collection 
     foreign key (no_collection)
-    references COLLECTION (no_collection)
+    references collection (no_collection)
 	on delete restrict; -- prevent deletion of the parrent collection
 
-alter table ALBUM_SANS_COLLECTION add constraint albm_sns_clctn_fk_No_editeur 
+alter table album_sans_collection add constraint albm_sns_clctn_fk_No_editeur 
     foreign key (no_editeur)
-    references EDITEUR (no_editeur)
+    references editeur (no_editeur)
 	on delete set null;
 
-alter table COLLECTION add constraint collection_fk_No_editeur 
+alter table collection add constraint collection_fk_No_editeur 
     foreign key (no_editeur)
-    references EDITEUR (no_editeur)
+    references editeur (no_editeur)
 	on delete restrict; -- prevent deletion of the editor
 
-alter table APPARTENANCE_SERIE add constraint appartenance_serie_fk_No_serie 
+alter table appartenance_serie add constraint appartenance_serie_fk_No_serie 
     foreign key (no_serie)
-    references SERIE (no_serie)
+    references serie (no_serie)
 	on delete cascade;
 
-alter table APPARTENANCE_SERIE add constraint aprtnc_sr_fk_No_histoire 
+alter table appartenance_serie add constraint aprtnc_sr_fk_No_histoire 
     foreign key (no_histoire)
-    references HISTOIRE (no_histoire)
+    references histoire (no_histoire)
 	on delete cascade;
 
-alter table AUTEURISER add constraint autorer_fk_No_auteur 
+alter table auteuriser add constraint autorer_fk_No_auteur 
     foreign key (no_auteur)
-    references AUTEUR (no_auteur)
+    references auteur (no_auteur)
 	on delete cascade;
 
-alter table AUTEURISER add constraint autorer_fk_No_histoire 
+alter table auteuriser add constraint autorer_fk_No_histoire 
     foreign key (no_histoire)
-    references HISTOIRE (no_histoire)
+    references histoire (no_histoire)
 	on delete cascade;
 
