@@ -38,6 +38,33 @@ if (isset($_POST['action'])) {
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
 		deleterow('serie', 'no_serie', $_POST['no_serie']);
 	}
+
+	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
+		echo "<h3>Edition</h3>\n";
+
+		if (isset($_POST['titre_serie'])) {
+			updaterow('serie',
+				'no_serie', $_POST['no_serie'],
+				qw("titre_serie"), array("'". $_POST['titre_serie']."'"));
+		}
+
+		// Select author
+		$query = "SELECT * FROM serie "
+			   . "WHERE no_serie = " . $_POST['no_serie'];
+
+		$rv = mysql_query($query);
+		$r = mysql_fetch_array($rv);
+
+		// Edit form
+		echo "<form action='serie.php' method='post'>";
+		echo "titre <input type='text' name='titre_serie' value=".$r['titre_serie'].">";
+		echo "<input type='hidden' name='no_serie' value=".$r['no_serie'].">";
+		echo "<input type='hidden' name='action' value='edit'>";
+		echo "<input type='submit' value='Valider'> </form> </td>";
+		echo "</form>";
+
+		echo "<hr>";
+	}
 }
 ?>
 
@@ -58,8 +85,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_serie'] . "</td>\n";
 	echo "<td>" . $r['titre_serie'] . "</td>\n";
 	echo "<td>";
-	// delete button
 	deletebutton('serie.php', 'no_serie', $r['no_serie']);
+	editbutton('serie.php', 'no_serie', $r['no_serie']);
 	echo "</td>";
 	echo "</tr>";
 }
