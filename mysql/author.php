@@ -33,10 +33,13 @@ else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 	}
 
 	// Select author
-	$query = "SELECT * FROM Auteur "
+	$query = "SELECT * FROM auteur "
 		   . "WHERE no_auteur = " . $_POST['no_auteur'];
 
 	$rv = mysql_query($query);
+  if (!$rv) {
+    die('Requête invalide : ' . mysql_error());
+  }
 	$r = mysql_fetch_array($rv);
 
 	// Edit form
