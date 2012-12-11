@@ -1,0 +1,13 @@
+drop table if exists ALBUM_AVEC_COLLECTION cascade;
+drop table if exists ALBUM_SANS_COLLECTION cascade;
+drop table if exists APPARTENANCE_SERIE cascade;
+drop table if exists SERIE cascade;
+drop table if exists AUTEURISER cascade;
+drop table if exists AUTEUR cascade;
+drop table if exists COLLECTION cascade;
+drop table if exists CONTENIR cascade;
+drop table if exists HISTOIRE cascade;
+drop table if exists EDITION_DES_REVUES cascade;
+drop table if exists REVUE cascade;
+drop table if exists EDITEUR cascade;
+drop table if exists VOLUME cascade;
