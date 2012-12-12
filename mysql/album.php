@@ -188,10 +188,7 @@ if (isset($_POST['action'])) {
 </tr>
 
 <?php
-$query = "SELECT V.*, E.nom_editeur "
-	   . "FROM (volume as V inner join album_sans_collection as A "
-	   . "on V.no_volume = A.no_volume) inner join editeur as E "
-	   . "on E.no_editeur = A.no_editeur";
+$query = "SELECT * from albums_et_editeurs";
 
 $result = mysql_query($query);
 
@@ -225,10 +222,7 @@ while($r = mysql_fetch_array($result)) {
 </tr>
 
 <?php
-$query = "SELECT V.*, C.nom_collection, A.no_ds_collection "
-	   . "FROM (volume as V inner join album_avec_collection as A "
-	   . "on V.no_volume = A.no_volume) inner join collection as C "
-	   . "on A.no_collection = C.no_collection";
+$query = "SELECT * from albums_et_collections";
 
 $result = mysql_query($query);
 
