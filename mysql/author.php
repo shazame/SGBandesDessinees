@@ -11,6 +11,7 @@ try{
 ?>
 
 <h1>Auteurs</h1>
+<a href="index.php">Retour à l'index</a>
 
 <h3>Ajout</h3>
 
@@ -140,4 +141,6 @@ while($r = mysql_fetch_array($result)) {
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
 </html>

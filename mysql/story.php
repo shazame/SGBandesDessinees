@@ -11,6 +11,10 @@ try{
 ?>
 
 <h1>Histoires</h1>
+<a href="index.php">Retour à l'index</a>
+
+
+<h3>Ajout</h3>
 
 <table>
 <form action="story.php" method="post">
@@ -135,4 +139,6 @@ while($r = mysql_fetch_array($result)) {
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
 </html>

@@ -11,6 +11,9 @@ try{
 ?>
 
 <h1>Collections</h1>
+<a href="index.php">Retour à l'index</a>
+
+<h3>Ajout</h3>
 
 <table>
 <form action="collection.php" method="post">
@@ -127,4 +130,6 @@ while($r = mysql_fetch_array($result)) {
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
 </html>
