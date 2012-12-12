@@ -20,7 +20,7 @@
 
 \begin{center}
 	\Huge{\textbf{Rapport de projet SGBD :}}
-	
+
 	\Huge{\textbf{Bandes dessinées}}
 \end{center}
 
@@ -28,7 +28,7 @@
 
 \begin{tabular}{r@{:~}l}
 	\textbf{Auteurs} & \textit{David Bitonneau, Ludovic Hofer, Benoît Ruelle}\\
-	\textbf{Encadrants} & \textit{Mme. Allyx Fontaine, M. Sylvain Lombardy,
+ \textbf{Encadrants} & \textit{Mme. Allyx Fontaine, M. Sylvain Lombardy,
 M. Mohamed Mosbah}\\
 \end{tabular}
 
@@ -36,7 +36,8 @@ M. Mohamed Mosbah}\\
 
 \begin{center}Deuxième année, filière informatique
 
-Date : \today\end{center}
+	Date : \today
+\end{center}
 
 \newpage
 
@@ -81,9 +82,6 @@ informations suivantes :
 		numéro de série.
 \end{itemize}
 
-On considère qu'une revue est un ensemble de numéros de la revue et que
-l'éditeur d'une revue peut varier dans le temps.
-
 \paragraph{}
 La lecture de ces informations fait ressortir les entités suivantes :
 \begin{itemize}
@@ -97,14 +95,69 @@ La lecture de ces informations fait ressortir les entités suivantes :
 	\item auteur.
 \end{itemize}
 
+\paragraph{Les hypothèses suivantes sont effectuées :}
+\begin{itemize}
+	\item On considère qu'une revue est un ensemble de numéros de la revue et que
+		l'éditeur d'une revue peut varier dans le temps.
+	\item Plusieurs collections différentes peuvent avoir le même nom.
+\end{itemize}
+
 \paragraph{}
 Le schéma entité-association suivant montre les relations entre ces
 différentes entités :
 
 \noindent\includegraphics[width=\textwidth]{schema-entite-association}
 
-\subsection{Liste des opérations prévues sur la base (consultation, mise à
-jour, etc.}
+\subsection{Opérations possibles sur la base}
+
+Différentes opérations peuvent être effectuées sur la base de données.
+Ces opérations peuvent être classées en 3 différentes catégories :
+\begin{itemize}
+	\item les opérations de consultation ;
+	\item l'extraction de statistiques ;
+	\item les mises à jour de la base.
+\end{itemize}
+
+\paragraph{Consultation}
+Ces opérations permettent de fournir des informations basiques concernant
+diverses entités de la base de données à partir des informations qui y sont
+stockées.
+Les informations suivantes sont notamment fournies :
+\begin{itemize}
+	\item la bibliographie d’un auteur, soit par ordre chronologique, soit classé par séries, en tant que
+		scénariste, dessinateur ou auteur complet, en indiquant ses co-auteurs et leurs rôles.
+	\item la liste des auteurs collaborant à une revue durant une certaine période, avec le nombre de
+		numéros auxquels ils ont participé ;
+	\item l'historique de la publication d’une histoire ;
+	\item les histoires différentes ayant le même titre.
+\end{itemize}
+
+\paragraph{Statistiques}
+Les statistiques suivantes peuvent être prélevées grâce aux requêtes
+implémentée :
+\begin{itemize}
+	\item le nombre d’histoires auxquelles un auteur a participé ;
+	\item la série ayant le plus grand nombre d’auteurs ;
+	\item les histoires classées selon le nombre de fois où elles apparaissent en album ;
+	\item le nombre moyen d’auteurs participant à une revue pendant une période donnée.
+\end{itemize}
+En plus de ces statistiques, il est possible de classer les auteurs selon la
+décade durant laquelle ils ont créé le plus d’histoires (1910-1919, 1920-1929,
+etc.).
+
+\paragraph{Mise à jour}
+Il est possible d'appliquer les opérations de modification de la tables
+suivantes :
+\begin{itemize}
+	\item Ajout, suppression, modification d’une histoire, d’un volume, d’un auteur.
+	\item Création d'un volume en spécifiant une histoire et son éditeur : ce
+		volume contient alors l'histoire indiquée ; son titre et son année
+		d’édition sont respectivement le titre et l'année de parution de
+		l'histoire.
+\end{itemize}
+
+\paragraph{}
+Les requêtes correspondant à ces opérations sont décrites plus bas.
 
 \section{Schéma relationnel :}
 
