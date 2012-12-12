@@ -42,15 +42,66 @@ Date : \today\end{center}
 
 \section{Introduction}
 
-re-decrire le sujet en detaillant
+\emph{re-decrire le sujet en detaillant}
+
+L'objectif du projet est de mettre en œuvre, sur un cas pratique, les notions
+et les méthodes vues dans le module de SGBD. L'application effectuée ici est
+liée à la gestion de bandes dessinées.
+
+Dans ce rapport, la base de données est décrite de sa conception à son
+utilisation, en passant par son implémentation. Les choix effectués par le
+groupe de projet sont détaillés et justifiés lorsque cela est nécessaire.
 
 \section{Modélisation des données}
 
-Justifier vos choix/hypotheses avec du texte
+\emph{Justifier vos choix/hypotheses avec du texte}
 
 \subsection{Description du contexte de l'application (entités, associations, règles de gestion)}
 
+\paragraph{}
+L'application doit permettre la gestion de bandes dessinées à partir des
+informations suivantes :
+
+\begin{itemize}
+	\item Chaque volume de bande dessinée est soit un album, soit une revue.
+	\item Tout volume a un éditeur, et une année d’édition.
+	\item Un album peut éventuellement appartenir à une collection, et dans ce cas, il
+		peut avoir un numéro dans cette collection. Deux albums de la même collection
+		ont forcément le même éditeur.
+	\item Un volume a un titre, qui est soit le titre de l'album, soit celui de la
+		revue ; dans le cas de la revue, elle a aussi un numéro.
+	\item Un volume peut contenir plusieurs histoires.
+	\item Chaque histoire a un titre et une année de (première) parution ; elle a un
+		ou plusieurs auteurs, chacun de ces auteurs s’occupant du dessin ou du
+		scénario (ou des deux).
+	\item Une même histoire peut apparaître dans différents volumes ; on veut pouvoir
+		annoter la présence d’une histoire dans un volume ("Première publication",
+		"Pages 15 à 22", "Version longue", etc.).
+	\item Une histoire peut appartenir à une série et dans ce cas elle peut avoir un
+		numéro de série.
+\end{itemize}
+
+\paragraph{}
+La lecture de ces informations fait ressortir les entités suivantes :
+\begin{itemize}
+	\item volume ;
+	\item album ;
+	\item revue ;
+	\item éditeur ;
+	\item collection ;
+	\item histoire ;
+	\item série ;
+	\item auteur.
+\end{itemize}
+
+\paragraph{}
+Le schéma entité-association suivant montre les relations entre ces
+différentes entités :
+
 -> [Modèle entité-association]
+
+\subsection{Liste des opérations prévues sur la base (consultation, mise à
+jour, etc.}
 
 \section{Schéma relationnel :}
 
@@ -69,13 +120,13 @@ Justifier vos choix/hypotheses avec du texte
 
 \subsection{Implémentation des commandes SQL réalisant les opérations retenues}
 
-Lister les requetes importantes
+\emph{Lister les requetes importantes}
 
 \section{Utilisation :}
 
 \subsection{Description de l'environnement d'exécution}
 
-Decrire l'environnement et l'installation
+\emph{Decrire l'environnement et l'installation}
 
 \subsection{Notice d'utilisation}
 
