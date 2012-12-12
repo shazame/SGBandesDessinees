@@ -58,8 +58,8 @@ if (isset($_POST['action'])) {
 
 		// Edit form
 		echo "<form action='serie.php' method='post'>";
-		echo "titre <input type='text' name='titre_serie' value=".$r['titre_serie'].">";
-		echo "<input type='hidden' name='no_serie' value=".$r['no_serie'].">";
+		echo "titre <input type='text' name='titre_serie' value='".$r['titre_serie']."'>";
+		echo "<input type='hidden' name='no_serie' value='".$r['no_serie']."'>";
 		echo "<input type='hidden' name='action' value='edit'>";
 		echo "<input type='submit' value='Valider'> </form> </td>";
 		echo "</form>";
@@ -86,8 +86,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_serie'] . "</td>\n";
 	echo "<td>" . $r['titre_serie'] . "</td>\n";
 	echo "<td>";
+	editbutton('serie.php', array('no_serie' => $r['no_serie']));
 	deletebutton('serie.php', 'no_serie', $r['no_serie']);
-	editbutton('serie.php', 'no_serie', $r['no_serie']);
 	echo "</td>";
 	echo "</tr>";
 }
