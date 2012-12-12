@@ -43,13 +43,13 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-		echo "<h3>edition</h3>\n";
+		echo "<h3>Edition</h3>\n";
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['no_role']."'"));
 		}
 
 		if (isset($_POST['nom_auteur'])) {
@@ -87,11 +87,9 @@ if (isset($_POST['action'])) {
 		   . "</tr>"
 		   . "</table>"
 		   . "Cet auteur est "
-		   . "<select name='role'>"
-		   . "<option value='drawing'>dessinateur</option>"
-		   . "<option value='script'>scenariste</option>"
-		   . "<option value='both'>les deux</option>"
-		   . "</select>"
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
 		   . " pour "
 		   . "<select name='no_histoire'>"
 		   . "<option value=''>---</option>";
@@ -130,15 +128,13 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	echo "<td>";
-	// edit button
 	editbutton('author.php', array('no_auteur' => $r['no_auteur']));
-	// delete button
 	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
 	echo "</td>";
 	echo "</tr>\n";
 }
 ?>
-</table>";
+</table>
 
 <?php
 disconnectdb();

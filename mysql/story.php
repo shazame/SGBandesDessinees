@@ -59,10 +59,10 @@ if (isset($_POST['action'])) {
 		}
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['no_role']."'"));
 		}
 
 		// Select story
@@ -91,11 +91,9 @@ if (isset($_POST['action'])) {
 		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"), "");
 		echo "</select>"
 		   . " est "
-		   . "<select name='role'>"
-		   . "<option value='drawing'>dessinateur</option>"
-		   . "<option value='script'>scenariste</option>"
-		   . "<option value='both'>les deux</option>"
-		   . "</select>"
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
 		   . " pour cette histoire." 
 		   . "<br/>"
 		   . "<input type='submit' value='Valider'> </form> </td>"

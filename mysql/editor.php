@@ -92,8 +92,10 @@ while($r = mysql_fetch_array($result)) {
 	echo "</td>";
 	echo "</tr>";
 }
-echo "</table>";
+?>
+</table>
 
+<?php
 disconnectdb();
 ?>
 
