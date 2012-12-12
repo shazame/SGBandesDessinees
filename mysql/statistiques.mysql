@@ -39,3 +39,19 @@ FROM serie s,
             		      GROUP BY no_serie) t) t2
       WHERE nb_auteur = nb_auteur_max) t
 WHERE s.no_serie = t.no_serie;
+
+-- les histoires classées selon le nombre de fois où elles apparaissent en album
+
+SELECT h.*, nb_albums
+FROM histoire h,
+		 (SELECT no_histoire, count(*) as nb_albums
+      FROM contenir c,
+      		 (SELECT no_volume
+      		  FROM album_sans_collection
+      			UNION
+      			SELECT no_volume
+      			FROM album_avec_collection) v
+      WHERE v.no_volume = c.no_volume
+      GROUP BY no_histoire
+      ORDER BY count(*) desc) t
+WHERE h.no_histoire = t.no_histoire

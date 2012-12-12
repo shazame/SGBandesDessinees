@@ -54,6 +54,10 @@ INSERT into volume(TITRE, ANNEE_EDITION)
 INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('Revue_2', 2000);
 
+-- Réedition 25
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Thanos l incongru', 1995);
+
 
 -- HISTOIRE
 -- Lanfeust (1-8)
@@ -170,6 +174,11 @@ INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
 INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
 			 VALUES (12,2,4);
 
+-- album_sans_collection
+INSERT into album_sans_collection(NO_VOLUME,NO_EDITEUR)
+			 VALUES (25,2);
+
+
 -- REVUE
 INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
 			 VALUES(13,1,1);
@@ -281,6 +290,9 @@ INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
 			 VALUES (23,17,'pages 2-12');
 INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
 			 VALUES (24,18,'pages 2-12');
+
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (25,2,'seconde édition');
 
 -- AUTEURISER
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
