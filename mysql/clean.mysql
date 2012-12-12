@@ -7,7 +7,6 @@ drop table if exists auteur cascade;
 drop table if exists collection cascade;
 drop table if exists contenir cascade;
 drop table if exists histoire cascade;
-drop table if exists edition_des_revues cascade;
 drop table if exists revue cascade;
 drop table if exists editeur cascade;
 drop table if exists volume cascade;
