@@ -87,15 +87,14 @@ if (isset($_POST['action'])) {
 		}
 
 		if (isset($_POST['no_editeur'])) {
-			updaterow('edition_des_revues',
+			updaterow('revue',
 				'no_volume', $_POST['no_volume'],
 				qw("no_editeur"), array("'". $_POST['no_editeur']."'"));
 		}
 
 		// Select mag
-		$query = "SELECT * FROM volume as V, revue as R, edition_des_revues as E "
+		$query = "SELECT * FROM volume as V, revue as R "
 		       . "WHERE V.no_volume = " . $_POST['no_volume'] . " "
-		       . "AND E.no_volume = " . $_POST['no_volume'] . " "
 		       . "AND R.no_volume = " . $_POST['no_volume'];
 
 		$rv = mysql_query($query);
@@ -109,7 +108,7 @@ if (isset($_POST['action'])) {
 		   . "<table>"
 		   . "<tr>"
 		   . "<td>Titre</td>"
-		   . "<td><input type='text' name='titre' value=".$r['titre']."></td>"
+		   . "<td><input type='text' name='titre' value='".$r['titre']."'></td>"
 		   . "</tr>"
 		   . "<tr> <td> Annee d'edition </td>"
 		   . "<td> <select name='annee_edition'>";
@@ -127,7 +126,7 @@ if (isset($_POST['action'])) {
 		echo "</select></td>"
 		   . "</tr>"
 		   . "</table>"
-		   . "<input type='hidden' name='no_volume' value=".$r['no_volume'].">"
+		   . "<input type='hidden' name='no_volume' value='".$r['no_volume']."'>"
 		   . "<input type='hidden' name='action' value='edit'>"
 		   . "<input type='submit' value='Valider'> </form> </td>\n"
 		   . "</form>";
@@ -161,8 +160,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>";
+	editbutton('mag.php', array('no_volume' => $r['no_volume']));
 	deletebutton('mag.php', 'no_volume', $r['no_volume']);
-	editbutton('mag.php', 'no_volume', $r['no_volume']);
 	echo "</td>";
 	echo "</tr>";
 }
