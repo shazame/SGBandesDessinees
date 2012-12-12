@@ -133,6 +133,20 @@ jour, etc.}
 
 \subsection{Notice d'utilisation}
 
+La base est destinée à MySQL et peut être initialisée avec :
+\begin{verbatim}
+mysql> create database nom_de_la_bdd;
+mysql> use nom_de_la_bdd;
+mysql> source base.mysql;
+mysql> source insertion.mysql;
+\end{verbatim}
+
+Il est alors nécessaire d'éditer le fichier include.php pour mettre le contenu
+de la variable \verb!$bdd! avec \verb!nom_de_la_bdd! dans la fonction
+\verb!connectdb()!. Si nécessaire, le contenu des variables \verb!$user! et
+\verb!$passwd! utilisés pour la connexion à la base peut être changé au même
+endroit.
+
 \subsection{Description des interfaces éventuelles (Shell, JDBC, PHP, etc.)}
 
 \end{document}
