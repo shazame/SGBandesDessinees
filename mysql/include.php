@@ -39,9 +39,9 @@ function qw ($str) {
 function optionrange($i, $j, $selected) {
 	for ($x = $i; $x < $j; $x++) {
 		if ($x == $selected) {
-			echo "<option selected='selected' value=" . $x . ">" . $x . "</option>\n";
+			echo "<option selected='selected' value='" . $x . "'>" . $x . "</option>\n";
 		} else {
-			echo "<option value=" . $x . ">" . $x . "</option>\n";
+			echo "<option value='" . $x . "'>" . $x . "</option>\n";
 		}
 	}
 }
@@ -61,9 +61,9 @@ function optionselect($from, $attr, $selected) {
 
 	while($r = mysql_fetch_array($result)) {
 		if ($r[$attr[0]] == $selected) {
-			echo "<option selected='selected' value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+			echo "<option selected='selected' value='" . $r[$attr[0]] . "'>" . $r[$attr[0]];
 		} else {
-			echo "<option value=" . $r[$attr[0]] . ">" . $r[$attr[0]];
+			echo "<option value='" . $r[$attr[0]] . "'>" . $r[$attr[0]];
 		}
 		for ($i = 1; $i < count($attr); ++$i) {
 			echo " - " . $r[$attr[$i]];
@@ -73,17 +73,19 @@ function optionselect($from, $attr, $selected) {
 }
 
 
-function editbutton($action, $key, $val) {
+function editbutton($action, $attrs) {
 	echo "<form action='" . $action . "' method='post'>"
-	   . "<input type='hidden' name='action' value='edit'>"
-	   . "<input type='hidden' name='" . $key . "' value=" . $val . ">"
-	   . "<input type='submit' value='Editer'> </form>\n";
+	   . "<input type='hidden' name='action' value='edit'>";
+	foreach($attrs as $i => $val) {
+	   echo "<input type='hidden' name='" . $i . "' value='" . $val . "'>";
+	}
+	echo "<input type='submit' value='Editer'> </form>\n";
 }
 
 function deletebutton($action, $key, $val) {
 	echo "<form action='" . $action . "' method='post'>"
 	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='" . $key . "' value=" . $val . ">"
+	   . "<input type='hidden' name='" . $key . "' value='" . $val . "'>"
 	   . "<input type='submit' value='Supprimer'> </form>\n";
 }
 

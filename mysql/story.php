@@ -10,7 +10,7 @@ try{
 }
 ?>
 
-<h1>histoires</h1>
+<h1>Histoires</h1>
 
 <table>
 <form action="story.php" method="post">
@@ -26,6 +26,8 @@ try{
 <tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
 </form>
 </table>
+
+<hr>
 
 <?php
 
@@ -57,10 +59,10 @@ if (isset($_POST['action'])) {
 		}
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['no_role']."'"));
 		}
 
 		// Select story
@@ -71,11 +73,13 @@ if (isset($_POST['action'])) {
 		$r = mysql_fetch_array($rv);
 
 		// Edit form
-		echo "<form action='story.php' method='post'>"
-		   . "<table>"
+		echo "<form action='story.php' method='post'>";
+		echo "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>";
+		echo "<input type='hidden' name='action' value='edit'>";
+		echo "<table>"
 		   . "<tr>"
 		   . "<td>Titre</td>"
-		   . "<td><input type='text' name='titre' value=".$r['titre']."></td>"
+		   . "<td><input type='text' name='titre' value='".$r['titre']."'></td>"
 		   . "</tr>"
 		   . "<tr> <td> Annee de parution </td>"
 		   . "<td> <select name='annee_parution'>";
@@ -85,19 +89,15 @@ if (isset($_POST['action'])) {
 		   . "<select name='no_auteur'>"
 		   . "<option value=''>---</option>";
 		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"), "");
-		echo "</select>";
-		echo " est "
-			 . "<select name='role'>"
-			 . "<option value='drawing'>dessinateur</option>"
-			 . "<option value='script'>scenariste</option>"
-			 . "<option value='both'>les deux</option>"
-			 . "</select>"
-			 . " pour "
-			 . $r['titre'];
-		echo "<input type='hidden' name='no_histoire' value=".$r['no_histoire'].">";
-		echo "<input type='hidden' name='action' value='edit'>";
-		echo "<input type='submit' value='Valider'> </form> </td>";
-		echo "</form>";
+		echo "</select>"
+		   . " est "
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
+		   . " pour cette histoire." 
+		   . "<br/>"
+		   . "<input type='submit' value='Valider'> </form> </td>"
+		   . "</form>";
 
 		echo "<hr>";
 	}
@@ -122,10 +122,10 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_parution'] . "</td>\n";
 	echo "<td>";
+	// edit button
+	editbutton('story.php', array('no_histoire' => $r['no_histoire']));
 	// delete button
 	deletebutton('story.php', 'no_histoire', $r['no_histoire']);
-	// edit button
-	editbutton('story.php', 'no_histoire', $r['no_histoire']);
 	echo "</td>";
 }
 ?>

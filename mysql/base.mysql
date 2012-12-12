@@ -10,6 +10,7 @@ drop table if exists histoire cascade;
 drop table if exists revue cascade;
 drop table if exists editeur cascade;
 drop table if exists volume cascade;
+drop table if exists role cascade;
 
 create table volume (
    no_volume     int           not null auto_increment,
@@ -18,9 +19,10 @@ create table volume (
    primary key (no_volume)
 )   ;
 create table revue (
-   no_volume int not null,
-   no_revue  int not null,
-   no_editeur int,
+   no_volume   int not null,
+   no_revue    int not null,
+   titre_revue varchar(255) not null,
+   no_editeur  int,
    primary key (no_volume)
 )   ;
 create table collection (
@@ -48,7 +50,7 @@ create table editeur (
 create table contenir (
    no_volume   int not null,
    no_histoire int not null,
-	 annotation  varchar(255),
+   annotation  varchar(255),
    primary key (no_volume,no_histoire)
 )   ;
 create table histoire (
@@ -69,10 +71,15 @@ create table serie (
    primary key (no_serie)
 )   ;
 create table auteuriser (
-   no_auteur   int         not null,
-   no_histoire int         not null,
-   role        varchar(10) not null,
-   primary key (no_auteur,no_histoire)
+   no_auteur   int not null,
+   no_histoire int not null,
+   no_role     int not null,
+   primary key (no_auteur,no_histoire,no_role)
+)   ;
+create table role (
+	no_role  int not null auto_increment,
+	nom_role varchar(255) not null,
+   primary key (no_role)
 )   ;
 create table auteur (
    no_auteur     int          not null auto_increment,
@@ -147,3 +154,13 @@ alter table auteuriser add constraint autorer_fk_No_histoire
     references histoire (no_histoire)
 	on delete cascade;
 
+alter table auteuriser add constraint autorer_fk_No_role 
+    foreign key (no_role)
+    references role (no_role)
+	on delete restrict;
+
+
+-- Roles
+insert into role (nom_role) values ('scénariste');
+insert into role (nom_role) values ('dessinateur');
+insert into role (nom_role) values ('coloriste');

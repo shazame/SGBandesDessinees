@@ -57,8 +57,8 @@ if (isset($_POST['action'])) {
 
 		// Edit form
 		echo "<form action='editor.php' method='post'>";
-		echo "Nom <input type='text' name='nom_editeur' value=".$r['nom_editeur'].">";
-		echo "<input type='hidden' name='no_editeur' value=".$r['no_editeur'].">";
+		echo "Nom <input type='text' name='nom_editeur' value='".$r['nom_editeur']."'>";
+		echo "<input type='hidden' name='no_editeur' value='".$r['no_editeur']."'>";
 		echo "<input type='hidden' name='action' value='edit'>";
 		echo "<input type='submit' value='Valider'> </form> </td>";
 		echo "</form>";
@@ -85,15 +85,17 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_editeur'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
+	// edit button
+	editbutton('editor.php', array('no_editeur' => $r['no_editeur']));
 	// delete button
 	deletebutton('editor.php', 'no_editeur', $r['no_editeur']);
-	// edit button
-	editbutton('editor.php', 'no_editeur', $r['no_editeur']);
 	echo "</td>";
 	echo "</tr>";
 }
-echo "</table>";
+?>
+</table>
 
+<?php
 disconnectdb();
 ?>
 

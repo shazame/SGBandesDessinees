@@ -2,9 +2,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <?php
-ini_set('display_errors',1);
-error_reporting(E_ALL);
-
 require "include.php"; // globals
 try{
 	 connectdb();
@@ -46,13 +43,13 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-		echo "<h3>edition</h3>\n";
+		echo "<h3>Edition</h3>\n";
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['no_role']."'"));
 		}
 
 		if (isset($_POST['nom_auteur'])) {
@@ -82,25 +79,23 @@ if (isset($_POST['action'])) {
 		   . "<table>"
 		   . "<tr>"
 		   . "<td>Nom</td>"
-		   . "<td><input type='text' name='nom_auteur' value=".$r['nom_auteur']."></td>"
+		   . "<td><input type='text' name='nom_auteur' value='".$r['nom_auteur']."'></td>"
 		   . "</tr>"
 		   . "<tr>"
 		   . "<td>Prenom</td>"
-		   . "<td><input type='text' name='prenom_auteur' value=".$r['prenom_auteur']."></td>"
+		   . "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
 		   . "</tr>"
 		   . "</table>"
 		   . "Cet auteur est "
-		   . "<select name='role'>"
-		   . "<option value='drawing'>dessinateur</option>"
-		   . "<option value='script'>scenariste</option>"
-		   . "<option value='both'>les deux</option>"
-		   . "</select>"
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
 		   . " pour "
 		   . "<select name='no_histoire'>"
 		   . "<option value=''>---</option>";
 			optionselect("histoire", qw("no_histoire titre"), "");
 		echo "</select>"
-		   . "<input type='hidden' name='no_auteur' value=".$r['no_auteur'].">"
+		   . "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
 		   . "<input type='hidden' name='action' value='edit'>"
 		   . "<input type='submit' value='Valider'> </form> </td>\n"
 		   . "</form>";
@@ -133,15 +128,13 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	echo "<td>";
-	// edit button
-	editbutton('author.php', 'no_auteur', $r['no_auteur']);
-	// delete button
+	editbutton('author.php', array('no_auteur' => $r['no_auteur']));
 	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
 	echo "</td>";
 	echo "</tr>\n";
 }
 ?>
-</table>";
+</table>
 
 <?php
 disconnectdb();
