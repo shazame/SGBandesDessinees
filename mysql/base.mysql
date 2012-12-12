@@ -13,6 +13,8 @@ drop table if exists volume cascade;
 drop table if exists role cascade;
 
 drop view if exists histoires_et_auteurs;
+drop view if exists albums_et_collections;
+drop view if exists albums_et_editeurs;
 
 create table volume (
    no_volume     int           not null auto_increment,
