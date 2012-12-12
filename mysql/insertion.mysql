@@ -348,8 +348,9 @@ INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (5,11,'dessine');
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (5,12,'dessine');
+-- Information fausse mais sert à tester les requêtes
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
-			 VALUES (3,9,'dessine');
+			 VALUES (4,9,'dessine');
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (4,10,'dessine');
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
