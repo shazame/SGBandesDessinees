@@ -1,0 +1,241 @@
+-- VOLUME
+
+-- Lanfeust
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('L ivoire du Magohamoth', 1994);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Thanos l incongru', 1995);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Castel Or-Azur', 1996);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Le paladin d Eckmül', 1996);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Le frisson de l haruspice', 1997);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Cixi impératrice', 1998);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Les pétaures se cachent pour mourir', 1999);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('La bête fabuleuse', 2000);
+
+-- Trolls de Troy
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Histoires trolles', 1997);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Le scalp du vénérable', 1998);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Comme un vol de pétaures', 1999);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Le feu occulte', 2000);
+
+
+-- HISTOIRE
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('L ivoire du Magohamoth', 1994);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Thanos l incongru', 1995);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Castel Or-Azur', 1996);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le paladin d Eckmül', 1996);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le frisson de l haruspice', 1997);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Cixi impératrice', 1998);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Les pétaures se cachent pour mourir', 1999);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('La bête fabuleuse', 2000);
+-- Trolls de Troy
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Histoires trolles', 1997);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le scalp du vénérable', 1998);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Comme un vol de pétaures', 1999);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le feu occulte', 2000);
+
+
+-- EDITEUR
+INSERT into editeur(NOM_EDITEUR)
+			 VALUES ('Soleil');
+
+-- COLLECTION
+INSERT into collection(NOM_COLLECTION,NO_EDITEUR)
+			 VALUES ('Lanfeust de Troy',1);
+INSERT into collection(NOM_COLLECTION,NO_EDITEUR)
+			 VALUES ('Trolls de Troy',1);
+
+-- SERIE
+INSERT into serie(TITRE_SERIE)
+			 VALUES ('Lanfeust de Troy');
+INSERT into serie(TITRE_SERIE)
+			 VALUES ('Trolls de Troy');
+
+-- AUTEURS
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Arleston','Christophe');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Tarquin','Didier');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Lencot','Yves');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Guth','Claude');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Mourier','Jean-Louis');
+
+-- ALBUM_AVEC_COLLECTION
+
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (1,1,1);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (2,1,2);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (3,1,3);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (4,1,4);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (5,1,5);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (6,1,6);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (7,1,7);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (8,1,8);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (9,2,1);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (10,2,2);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (11,2,3);
+INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
+			 VALUES (12,2,4);
+
+-- APPARTENANCE_SERIE
+
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (1,1,1);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (2,1,2);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (3,1,3);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (4,1,4);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (5,1,5);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (6,1,6);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (7,1,7);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (8,1,8);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (9,2,1);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (10,2,2);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (11,2,3);
+INSERT into appartenance_serie(NO_HISTOIRE,NO_SERIE,NO_DS_SERIE)
+			 VALUES (12,2,4);
+
+-- CONTENIR
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (1,1);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (2,2);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (3,3);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (4,4);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (5,5);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (6,6);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (7,7);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (8,8);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (9,9);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (10,10);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (11,11);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
+			 VALUES (12,12);
+
+-- AUTEURISER
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,1,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,2,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,3,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,4,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,5,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,6,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,7,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,8,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,1,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,2,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,3,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,4,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,5,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,6,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,7,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (2,8,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,1,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,2,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,3,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,4,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,5,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,6,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (4,7,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (4,8,'dessine');
+-- Trolls de Troy
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,9,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,10,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,11,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (1,12,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (5,9,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (5,10,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (5,11,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (5,12,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (3,9,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (4,10,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (4,11,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (4,12,'dessine');

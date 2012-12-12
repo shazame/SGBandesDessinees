@@ -1,0 +1,31 @@
+-- La bibliographie d'un auteur par ordre chronologique
+SELECT * FROM auteuriser ai, histoire h
+			 WHERE ai.no_auteur = 2
+			 AND ai.no_histoire = h.no_histoire;
+
+-- Bibliographie avec co-auteurs trié par année de parution
+SELECT tmp.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur, role
+			 FROM auteur a, auteuriser ai,
+			 	 			(SELECT h.no_histoire, h.titre, annee_parution
+							 				FROM auteuriser ai, histoire h
+			 				 				WHERE ai.no_auteur = 1
+			 				 				AND ai.no_histoire = h.no_histoire) tmp
+			 WHERE tmp.no_histoire = ai.no_histoire
+			 AND ai.no_auteur = a.no_auteur
+			 ORDER BY annee_parution;
+
+-- Bibliographie avec co-auteurs trié par serie
+SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
+			 role, no_serie, no_ds_serie
+FROM
+	  (SELECT tmp.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur, role
+		  	 FROM auteur a, auteuriser ai,
+			 	 			(SELECT h.no_histoire, h.titre, annee_parution
+							 				FROM auteuriser ai, histoire h
+			 				 				WHERE ai.no_auteur = 1
+			 				 				AND ai.no_histoire = h.no_histoire) tmp
+			    WHERE tmp.no_histoire = ai.no_histoire
+			    AND ai.no_auteur = a.no_auteur) b
+LEFT OUTER JOIN appartenance_serie a
+ON a.no_histoire = b.no_histoire
+ORDER BY no_serie, no_ds_serie;
