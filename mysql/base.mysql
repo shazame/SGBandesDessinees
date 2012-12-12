@@ -19,9 +19,8 @@ create table volume (
 )   ;
 create table revue (
    no_volume int not null,
-   titre_revue varchar(255) not null,
    no_revue  int not null,
-   no_editeur int not null,
+   no_editeur int,
    primary key (no_volume)
 )   ;
 create table collection (
