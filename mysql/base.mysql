@@ -48,6 +48,7 @@ create table editeur (
 create table contenir (
    no_volume   int not null,
    no_histoire int not null,
+	 annotation  varchar(255),
    primary key (no_volume,no_histoire)
 )   ;
 create table histoire (

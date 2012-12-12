@@ -1,6 +1,6 @@
 -- VOLUME
 
--- Lanfeust
+-- Lanfeust (1-8)
 INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('L ivoire du Magohamoth', 1994);
 INSERT into volume(TITRE, ANNEE_EDITION)
@@ -18,7 +18,7 @@ INSERT into volume(TITRE, ANNEE_EDITION)
 INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('La bête fabuleuse', 2000);
 
--- Trolls de Troy
+-- Trolls de Troy (9-12)
 INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('Histoires trolles', 1997);
 INSERT into volume(TITRE, ANNEE_EDITION)
@@ -27,9 +27,36 @@ INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('Comme un vol de pétaures', 1999);
 INSERT into volume(TITRE, ANNEE_EDITION)
 			 VALUES ('Le feu occulte', 2000);
+
+-- Revues (13-24);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1994);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1995);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1996);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1996);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1997);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_1', 1998);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 1999);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 2000);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 1997);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 1998);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 1999);
+INSERT into volume(TITRE, ANNEE_EDITION)
+			 VALUES ('Revue_2', 2000);
 
 
 -- HISTOIRE
+-- Lanfeust (1-8)
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('L ivoire du Magohamoth', 1994);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
@@ -46,7 +73,7 @@ INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Les pétaures se cachent pour mourir', 1999);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('La bête fabuleuse', 2000);
--- Trolls de Troy
+-- Trolls de Troy (9-12)
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Histoires trolles', 1997);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
@@ -55,11 +82,26 @@ INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Comme un vol de pétaures', 1999);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Le feu occulte', 2000);
+-- Divers 13-18
 
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le petit poucet', 1993);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Cendrillon', 1991);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Picsou au bazar', 1990);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Les rapetous se déchaînent', 1995);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('La revanche de robin des bois', 1997);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le haricot magique', 2002);
 
 -- EDITEUR
 INSERT into editeur(NOM_EDITEUR)
 			 VALUES ('Soleil');
+INSERT into editeur(NOM_EDITEUR)
+			 VALUES ('Uranus');
 
 -- COLLECTION
 INSERT into collection(NOM_COLLECTION,NO_EDITEUR)
@@ -74,6 +116,7 @@ INSERT into serie(TITRE_SERIE)
 			 VALUES ('Trolls de Troy');
 
 -- AUTEURS
+-- 1-5
 INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
 			 VALUES ('Arleston','Christophe');
 INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
@@ -84,6 +127,17 @@ INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
 			 VALUES ('Guth','Claude');
 INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
 			 VALUES ('Mourier','Jean-Louis');
+-- 6-10
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Dupont','Georges');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Egram','Paul');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Anivis','Christophe');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Euduté','Yves');
+INSERT into auteur(NOM_AUTEUR, PRENOM_AUTEUR)
+			 VALUES ('Icot','Bernard');
 
 -- ALBUM_AVEC_COLLECTION
 
@@ -111,6 +165,32 @@ INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
 			 VALUES (11,2,3);
 INSERT into album_avec_collection(NO_VOLUME,NO_COLLECTION,NO_DS_COLLECTION)
 			 VALUES (12,2,4);
+
+-- REVUE
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(13,1,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(14,2,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(15,3,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(16,4,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(17,5,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(18,6,1);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(19,1,2);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(20,2,2);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(21,3,2);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(22,4,2);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(23,5,2);
+INSERT into revue(NO_VOLUME,NO_REVUE,NO_EDITEUR)
+			 VALUES(24,6,2);
 
 -- APPARTENANCE_SERIE
 
@@ -164,6 +244,39 @@ INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
 			 VALUES (11,11);
 INSERT into contenir(NO_VOLUME,NO_HISTOIRE)
 			 VALUES (12,12);
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (13,1,'pages 5-25');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (14,1,'pages 5-15');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (14,9,'pages 16-25');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (15,2,'pages 5-15');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (15,10,'pages 16-25');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (16,2,'pages 5-15');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (16,10,'pages 16-25');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (17,3,'pages 5-25');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (18,3,'pages 5-15');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (18,11,'pages 16-25');
+
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (19,13,'pages 2-12');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (20,14,'pages 2-12');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (21,15,'pages 2-12');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (22,16,'pages 2-12');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (23,17,'pages 2-12');
+INSERT into contenir(NO_VOLUME,NO_HISTOIRE,ANNOTATION)
+			 VALUES (24,18,'pages 2-12');
 
 -- AUTEURISER
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
@@ -239,3 +352,29 @@ INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (4,11,'dessine');
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (4,12,'dessine');
+
+-- Divers
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (6,13,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (7,14,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (6,15,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (8,16,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (6,17,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (7,18,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (8,13,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (9,14,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (10,15,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (10,16,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (9,17,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (8,18,'dessine');

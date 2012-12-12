@@ -4,7 +4,8 @@ SELECT * FROM auteuriser ai, histoire h
 			 AND ai.no_histoire = h.no_histoire;
 
 -- Bibliographie avec co-auteurs trié par année de parution
-SELECT tmp.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur, role
+SELECT tmp.no_histoire, titre, annee_parution,
+			 nom_auteur, prenom_auteur, role
 			 FROM auteur a, auteuriser ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
@@ -18,7 +19,8 @@ SELECT tmp.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur, role
 SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
 			 role, no_serie, no_ds_serie
 FROM
-	  (SELECT tmp.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur, role
+	  (SELECT tmp.no_histoire, titre, annee_parution,
+						nom_auteur, prenom_auteur, role
 		  	 FROM auteur a, auteuriser ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
@@ -29,3 +31,80 @@ FROM
 LEFT OUTER JOIN appartenance_serie a
 ON a.no_histoire = b.no_histoire
 ORDER BY no_serie, no_ds_serie;
+
+-- la liste des auteurs collaborant à une revue durant une certaine période,
+-- avec le nombre de numéros auxquels ils ont participé ;
+
+-- revue en question.
+SELECT *
+    FROM volume v, revue r
+		WHERE v.no_volume = r.no_volume
+		  AND titre = 'Revue_1'
+			AND annee_edition >= 1996
+			AND annee_edition <= 1998;
+-- histoire en question
+SELECT no_histoire, no_revue
+    FROM contenir c,
+         (SELECT v.no_volume, no_revue
+             FROM volume v, revue r
+         		WHERE v.no_volume = r.no_volume
+         		  AND titre = 'Revue_1'
+         			AND annee_edition >= 1996
+         			AND annee_edition <= 1998) r
+	  WHERE c.no_volume = r.no_volume;
+-- auteurs impliqués
+SELECT DISTINCT no_auteur, no_revue
+    FROM auteuriser a,
+         (SELECT no_histoire, no_revue
+             FROM contenir c,
+                  (SELECT v.no_volume, no_revue
+                      FROM volume v, revue r
+                  		WHERE v.no_volume = r.no_volume
+                  		  AND titre = 'Revue_1'
+                  			AND annee_edition >= 1996
+                  			AND annee_edition <= 1998) r
+         	  WHERE c.no_volume = r.no_volume) h
+		WHERE a.no_histoire = h.no_histoire;
+
+-- group
+SELECT no_auteur, count(*) as nb_revues
+FROM (SELECT DISTINCT no_auteur, no_revue
+         FROM auteuriser a,
+              (SELECT no_histoire, no_revue
+                  FROM contenir c,
+                       (SELECT v.no_volume, no_revue
+                           FROM volume v, revue r
+                       		WHERE v.no_volume = r.no_volume
+                       		  AND titre = 'Revue_1'
+                       			AND annee_edition >= 1996
+                       			AND annee_edition <= 1998) r
+              	  WHERE c.no_volume = r.no_volume) h
+     		WHERE a.no_histoire = h.no_histoire) t
+GROUP BY no_auteur;
+
+-- inclusion nom prenom
+SELECT nom_auteur, prenom_auteur, nb_revues
+FROM auteur a,
+     (SELECT no_auteur, count(*) as nb_revues
+     	FROM (SELECT DISTINCT no_auteur, no_revue
+             FROM auteuriser a,
+                  (SELECT no_histoire, no_revue
+                      FROM contenir c,
+                           (SELECT v.no_volume, no_revue
+                               FROM volume v, revue r
+                           		WHERE v.no_volume = r.no_volume
+                           		  AND titre = 'Revue_1'
+                           			AND annee_edition >= 1996
+                           			AND annee_edition <= 1998) r
+                  	  WHERE c.no_volume = r.no_volume) h
+         		WHERE a.no_histoire = h.no_histoire) t
+			GROUP BY no_auteur) t
+WHERE t.no_auteur = a.no_auteur;
+
+
+-- l’historique de la publication d’une histoire
+SELECT v.no_volume, titre, annee_edition
+FROM contenir c, volume v
+WHERE c.no_histoire = 1
+AND c.no_volume = v.no_volume
+ORDER BY annee_edition;
