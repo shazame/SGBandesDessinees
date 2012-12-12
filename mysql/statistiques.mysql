@@ -1,0 +1,57 @@
+-- le nombre d'histoire auquel a participé un auteur
+SELECT count(*) as nb_histoires
+	  FROM (SELECT DISTINCT no_histoire
+				  FROM auteuriser
+					WHERE no_auteur = 5) t;
+
+-- la série ayant le plus grand nombre d'auteurs
+
+-- le nombre d'auteurs des série
+SELECT no_serie, count(*) as nb_auteur
+    FROM (SELECT DISTINCT no_auteur, no_serie
+				  FROM auteuriser ai, appartenance_serie a
+					WHERE ai.no_histoire = a.no_histoire) t
+		GROUP BY no_serie;
+
+-- le plus grand nombre d'auteur pour une série
+SELECT max(nb_auteur) as nb_auteur_max
+FROM (SELECT no_serie, count(*) as nb_auteur
+          FROM (SELECT DISTINCT no_auteur, no_serie
+				  		 FROM auteuriser ai, appartenance_serie a
+							 WHERE ai.no_histoire = a.no_histoire) t
+		      GROUP BY no_serie) t;
+
+
+SELECT s.*
+FROM serie s,
+		 (SELECT no_serie
+      FROM (SELECT no_serie, count(*) as nb_auteur
+           	    FROM (SELECT DISTINCT no_auteur, no_serie
+      				  		 		  FROM auteuriser ai, appartenance_serie a
+      										WHERE ai.no_histoire = a.no_histoire) t
+      					GROUP BY no_serie) t,
+      					-- Cacul du nb_auteur max
+           (SELECT max(nb_auteur) as nb_auteur_max
+            FROM (SELECT no_serie, count(*) as nb_auteur
+                      FROM (SELECT DISTINCT no_auteur, no_serie
+            				  		 FROM auteuriser ai, appartenance_serie a
+            							 WHERE ai.no_histoire = a.no_histoire) t
+            		      GROUP BY no_serie) t) t2
+      WHERE nb_auteur = nb_auteur_max) t
+WHERE s.no_serie = t.no_serie;
+
+-- les histoires classées selon le nombre de fois où elles apparaissent en album
+
+SELECT h.*, nb_albums
+FROM histoire h,
+		 (SELECT no_histoire, count(*) as nb_albums
+      FROM contenir c,
+      		 (SELECT no_volume
+      		  FROM album_sans_collection
+      			UNION
+      			SELECT no_volume
+      			FROM album_avec_collection) v
+      WHERE v.no_volume = c.no_volume
+      GROUP BY no_histoire
+      ORDER BY count(*) desc) t
+WHERE h.no_histoire = t.no_histoire
