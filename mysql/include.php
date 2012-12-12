@@ -106,7 +106,6 @@ function addrow($to, $attrs, $vals) {
 	}
 	$query .= ")";
 
-	echo $query;
 	$rv = mysql_query($query);
 	if (!$rv) { die("l'ajout a échoué : " . mysql_error()); }
 }

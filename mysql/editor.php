@@ -34,11 +34,11 @@ if (isset($_POST['action'])) {
 	if ($_POST['action'] == "add") {
 		addrow('editeur',
 			qw("nom_editeur"),
-			array("'".$_POST['nom_editeur']."'"));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "delete") {
-		deleterow('editeur', 'no_editeur', $_POST['no_editeur']);
+		deleterow('editeur', 'no_editeur', sprintf("%d", $_POST['no_editeur']));
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
@@ -46,15 +46,15 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['nom_editeur'])) {
 			updaterow('editeur',
-				'no_editeur', $_POST['no_editeur'],
-				qw("nom_editeur"), array("'". $_POST['nom_editeur']."'"));
+				'no_editeur', sprintf("%d", $_POST['no_editeur']),
+				qw("nom_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
 		}
 
 		// Select author
-		$query = "SELECT * FROM editeur "
-			   . "WHERE no_editeur = " . $_POST['no_editeur'];
+		$query = sprintf("SELECT * FROM editeur WHERE no_editeur = %d", $_POST['no_editeur']);
 
 		$rv = mysql_query($query);
+		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 		$r = mysql_fetch_array($rv);
 
 		// Edit form

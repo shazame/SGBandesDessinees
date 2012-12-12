@@ -41,11 +41,12 @@ if (isset($_POST['action'])) {
 	if ($_POST['action'] == "add") {
 		addrow('collection',
 			qw("nom_collection no_editeur"),
-			array("'".$_POST['nom_collection']."'", $_POST['no_editeur']));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection'])),
+			      sprintf("%d", $_POST['no_editeur'])));
 	}
 
 	else if (isset($_POST['no_collection']) && $_POST['action'] == "delete") {
-		deleterow('collection', 'no_collection', $_POST['no_collection']);
+		deleterow('collection', 'no_collection', sprintf("%d", $_POST['no_collection']));
 	}
 
 	else if (isset($_POST['no_collection']) && $_POST['action'] == "edit") {
@@ -53,24 +54,21 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['nom_collection'])) {
 			updaterow('collection',
-				'no_collection', $_POST['no_collection'],
-				qw("nom_collection"), array("'". $_POST['nom_collection']."'"));
+				'no_collection', sprintf("%d", $_POST['no_collection']),
+				qw("nom_collection"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection']))));
 		}
 
 		if (isset($_POST['no_editeur'])) {
 			updaterow('collection',
-				'no_collection', $_POST['no_collection'],
-				qw("no_editeur"), array("'". $_POST['no_editeur']."'"));
+				'no_collection', sprintf("%d", $_POST['no_collection']),
+				qw("no_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['no_editeur']))));
 		}
 
 		// Select collection
-		$query = "SELECT * FROM collection "
-			   . "WHERE no_collection = " . $_POST['no_collection'];
+		$query = sprintf("SELECT * FROM collection WHERE no_collection = %d", $_POST['no_collection']);
 
 		$rv = mysql_query($query);
-		if (!$rv) {
-			die('Requête invalide : ' . mysql_error());
-		}
+		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 		$r = mysql_fetch_array($rv);
 
 		// Edit form

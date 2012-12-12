@@ -34,11 +34,11 @@ if (isset($_POST['action'])) {
 	if (isset($_POST['titre_serie']) && $_POST['action'] == "add") {
 		addrow('serie',
 			qw("titre_serie"),
-			array("'".$_POST['titre_serie']."'"));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
 	}
 
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
-		deleterow('serie', 'no_serie', $_POST['no_serie']);
+		deleterow('serie', 'no_serie', sprintf("%d", $_POST['no_serie']));
 	}
 
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
@@ -46,14 +46,13 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre_serie'])) {
 			updaterow('serie',
-				'no_serie', $_POST['no_serie'],
-				qw("titre_serie"), array("'". $_POST['titre_serie']."'"));
+				'no_serie', sprintf("%d", $_POST['no_serie']),
+				qw("titre_serie"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
 		}
 
 
 		// Select serie
-		$query = "SELECT * FROM serie "
-			   . "WHERE no_serie = " . $_POST['no_serie'];
+		$query = sprintf("SELECT * FROM serie WHERE no_serie = %d", $_POST['no_serie']);
 
 		$rv = mysql_query($query);
 		$r = mysql_fetch_array($rv);

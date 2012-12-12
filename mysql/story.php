@@ -40,11 +40,12 @@ if (isset($_POST['action'])) {
 	if ($_POST['action'] == "add") {
 		addrow('histoire',
 			qw("titre annee_parution"),
-			array("'".$_POST['titre']."'", $_POST['annee_parution']));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre'])),
+			      sprintf("%d", $_POST['annee_parution'])));
 	}
 
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
-		deleterow('histoire', 'no_histoire', $_POST['no_histoire']);
+		deleterow('histoire', 'no_histoire', sprintf("%d", $_POST['no_histoire']));
 	}
 
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
@@ -52,26 +53,27 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre'])) {
 			updaterow('histoire',
-				'no_histoire', $_POST['no_histoire'],
-				qw("titre"), array("'". $_POST['titre']."'"));
+				'no_histoire', sprintf("%d", $_POST['no_histoire']),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
 		}
 
 		if (isset($_POST['annee_parution'])) {
 			updaterow('histoire',
-				'no_histoire', $_POST['no_histoire'],
-				qw("annee_parution"), array($_POST['annee_parution']));
+				'no_histoire', sprintf("%d", $_POST['no_histoire']),
+				qw("annee_parution"), array(sprintf("%d", $_POST['annee_parution'])));
 		}
 
 		// auteuriser
 		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
 			addrow('auteuriser',
 				qw("no_auteur no_histoire no_role"),
-			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['no_role']."'"));
+				array(sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("'%s'", mysql_real_escape_string($_POST['no_role']."'"))));
 		}
 
 		// Select story
-		$query = "SELECT * FROM histoire "
-			   . "WHERE no_histoire = " . $_POST['no_histoire'];
+		$query = sprintf("SELECT * FROM histoire WHERE no_histoire = %d", $_POST['no_histoire']);
 
 		$rv = mysql_query($query);
 		$r = mysql_fetch_array($rv);
@@ -113,13 +115,9 @@ if (isset($_POST['action'])) {
 		   . "<th>Role</th>"
 		   . "</tr>";
 
-		$query = "SELECT * FROM histoires_et_auteurs "
-			   . "WHERE no_histoire = " . $r['no_histoire'];
-
+		$query = sprintf("SELECT * FROM histoires_et_auteurs WHERE no_histoire = %d", $r['no_histoire']);
 		$rv = mysql_query($query);
-		if (!$rv) {
-			die(mysql_error());
-		}
+		if (!$rv) { die(mysql_error()); }
 
 		while($r = mysql_fetch_array($rv)) {
 			echo "<tr>\n";

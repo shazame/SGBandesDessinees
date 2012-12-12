@@ -120,14 +120,11 @@ if (isset($_POST['action'])) {
 		}
 
 		// Select album
-		$query = "SELECT * FROM volume V, " . $_POST['type_album'] . " A "
-			   . "WHERE V.no_volume = " . $_POST['no_volume'] . " "
-			   . "AND A.no_volume = " . $_POST['no_volume'];
+		$query = sprintf("SELECT * FROM volume V, %s A WHERE V.no_volume = %d AND A.no_volume = %d",
+			   mysql_real_escape_string($_POST['type_album']), $_POST['no_volume'], $_POST['no_volume']);
 
 		$rv = mysql_query($query);
-		if (!$rv) {
-			die('Requête invalide : ' . mysql_error());
-		}
+		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 		$r = mysql_fetch_array($rv);
 
 		echo "<form action='album.php' method='post'>"
