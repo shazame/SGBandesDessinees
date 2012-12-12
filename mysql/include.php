@@ -1,21 +1,26 @@
 <?php
 
 {
+
 	$con;
 
+
 	function connectdb() {
-		// Explicit errors, to comment when nice output is needed
+		$user = "";
+		$passwd = "";
+		$bdd = "test";
+
 		ini_set('display_errors',1);
 		error_reporting(E_ALL);
 
-		$con = mysql_connect();
+		$con = mysql_connect("localhost", $user, $passwd);
 
 		if (!$con) {
 		  throw new Exception("Can't connect: " . mysql_error());
 			//die("Can't connect: " . mysql_error());
 		}
 
-		if (!mysql_select_db("test", $con)) {
+		if (!mysql_select_db($bdd, $con)) {
 			mysql_close($con);
 		  throw new Exception("Can't select db");
 			//die("Can't select db");
