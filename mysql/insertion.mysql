@@ -82,7 +82,7 @@ INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Comme un vol de pétaures', 1999);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Le feu occulte', 2000);
--- Divers 13-18
+-- Divers 13-20
 
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Le petit poucet', 1993);
@@ -96,6 +96,10 @@ INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('La revanche de robin des bois', 1997);
 INSERT into histoire(TITRE, ANNEE_PARUTION)
 			 VALUES ('Le haricot magique', 2002);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le petit poucet', 2005);
+INSERT into histoire(TITRE, ANNEE_PARUTION)
+			 VALUES ('Le haricot magique', 1952);
 
 -- EDITEUR
 INSERT into editeur(NOM_EDITEUR)
@@ -378,3 +382,12 @@ INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (9,17,'dessine');
 INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
 			 VALUES (8,18,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (7,19,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (6,20,'ecrit');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (8,19,'dessine');
+INSERT into auteuriser(NO_AUTEUR,NO_HISTOIRE,ROLE)
+			 VALUES (9,20,'dessine');
+

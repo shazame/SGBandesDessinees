@@ -108,3 +108,10 @@ FROM contenir c, volume v
 WHERE c.no_histoire = 1
 AND c.no_volume = v.no_volume
 ORDER BY annee_edition;
+
+-- les histoires différentes ayant le même titre
+SELECT h1.no_histoire, h1.titre
+FROM histoire h1, histoire h2
+WHERE h1.no_histoire <> h2.no_histoire
+AND h1.titre = h2.titre
+ORDER BY titre , h1.no_histoire;
