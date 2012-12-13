@@ -117,6 +117,12 @@ if (isset($_POST['action'])) {
 				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
 		}
 
+		if (isset($_POST['no_collection']) && $_POST['type_album'] == 'album_avec_collection') {
+			updaterow('album_avec_collection',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_collection"), array(sprintf("%d", $_POST['no_collection'])));
+		}
+
 		if (isset($_POST['no_ds_collection']) && $_POST['type_album'] == 'album_avec_collection') {
 			updaterow('album_avec_collection',
 				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
