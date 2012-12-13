@@ -130,8 +130,10 @@ if ($formular_needed){
 												"getHistoryOfStory",
 												"getStoriesSharingTitle");
 	$actionDescription = array("Bibliographie",
-														 "Bibliographie triée par date",
-														 "Bibliographie triée par série",
+														 "Bibliographie triée par date avec
+                                  collaborateurs",
+														 "Bibliographie triée par série avec
+                                  collaborateurs",
 														 "Auteurs participants à la revue",
 														 "Historique d'une histoire",
 														 "Histoire différentes portant le même nom");
@@ -162,7 +164,7 @@ if ($formular_needed){
 			echo " pour "
 	       . "<select name='revue_title'>"
 				 . "<option value=''>---</option>";
-			optionselect("volumes_revues", qw("titre no_revue"), "");
+			optionselect("volumes_revues", qw("titre"), "");
 		  echo "</select>";
 	}
 	else{
