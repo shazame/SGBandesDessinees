@@ -53,8 +53,7 @@ if (isset($_POST['action'])) {
 		return;
 	}
 
-	else if ($_POST['action'] == "deleteauthors") {
-		echo "<h3>Edition</h3>\n";
+	else if ($_POST['action'] == "deleteauthor") {
 
 		if (isset($_POST['no_auteur']) && isset($_POST['no_role'])) {
 			deleterow('auteuriser',
@@ -65,8 +64,17 @@ if (isset($_POST['action'])) {
 		}
 	}
 
+	else if ($_POST['action'] == "addauthor") {
+		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur'] && $_POST['no_role']) {
+			addrow('auteuriser',
+				qw("no_auteur no_histoire no_role"),
+				array(sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_role'])));
+		}
+	}
+
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>\n";
 
 		if (isset($_POST['titre'])) {
 			updaterow('histoire',
@@ -79,16 +87,9 @@ if (isset($_POST['action'])) {
 				qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])),
 				qw("annee_parution"), array(sprintf("%d", $_POST['annee_parution'])));
 		}
-
-		// auteuriser
-		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
-			addrow('auteuriser',
-				qw("no_auteur no_histoire no_role"),
-				array(sprintf("%d", $_POST['no_auteur']),
-				      sprintf("%d", $_POST['no_histoire']),
-				      sprintf("'%s'", mysql_real_escape_string($_POST['no_role']."'"))));
-		}
 	}
+
+	echo "<h3>Edition</h3>\n";
 
 	// Select story
 	$query = sprintf("SELECT * FROM histoire WHERE no_histoire = %d", $_POST['no_histoire']);
@@ -99,8 +100,6 @@ if (isset($_POST['action'])) {
 
 	// Edit form
 	echo "<form action='story.php' method='post'>";
-	echo "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>";
-	echo "<input type='hidden' name='action' value='edit'>";
 	echo "<table>"
 	   . "<tr>"
 	   . "<td>Titre</td>"
@@ -111,6 +110,13 @@ if (isset($_POST['action'])) {
 	optionrange(1900, 2050, $r['annee_parution']);
 	echo "</select> </td> </tr>"
 	   . "</table>"
+	   . "<input type='hidden' name='action' value='edit'>";
+	   . "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>";
+	   . "<input type='submit' value='Valider'>"
+	   . "</form>";
+
+	// Ajout d'un auteur
+	echo "<form action='story.php' method='post'>"
 	   . "<select name='no_auteur'>"
 	   . "<option value=''>---</option>";
 	optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"), "");
@@ -119,11 +125,11 @@ if (isset($_POST['action'])) {
 	   . "<select name='no_role'>";
 		optionselect("role", qw("no_role nom_role"), "");
 	echo "</select>"
-	   . " pour cette histoire." 
-	   . "<br/>"
-	   . "<input type='submit' value='Valider'> </form> </td>"
+	   . " pour cette histoire. " 
+	   . "<input type='hidden' name='action' value='addauthor'>"
+	   . "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>"
+	   . "<input type='submit' value='Valider'>"
 	   . "</form>";
-
 
 	// liste des auteurs
 	echo "<h3>Liste des auteurs</h3>";
@@ -148,7 +154,7 @@ if (isset($_POST['action'])) {
 			array('no_histoire' => $r['no_histoire'],
 				  'no_role' => $r['no_role'],
 				  'no_auteur' => $r['no_auteur']),
-			'deleteauthors',
+			'deleteauthor',
 			'Supprimer');
 		echo "</td>";
 		echo "</tr>";

@@ -68,13 +68,21 @@ if (isset($_POST['action'])) {
 
 
 	else if ($_POST['action'] == "deletestory") {
-		echo "<h3>Edition</h3>\n";
 
 		if (isset($_POST['no_histoire'])) {
 			deleterow('contenir',
 				qw('no_histoire no_volume'),
 				array(sprintf("%d", $_POST['no_histoire']),
 				      sprintf("%d", $_POST['no_volume'])));
+		}
+	}
+
+	else if ($_POST['action'] == "addstory") {
+		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+			addrow('contenir',
+				qw("no_volume no_histoire"),
+				array(sprintf("%d", $_POST['no_volume']),
+				      sprintf("%d", $_POST['no_histoire'])));
 		}
 	}
 
@@ -152,6 +160,18 @@ if (isset($_POST['action'])) {
 	   . "<input type='submit' value='Valider'> </form> </td>\n"
 	   . "</form>";
 
+	// Ajout d'une histoire
+	echo "<form action='mag.php' method='post'>"
+	   . "<select name='no_histoire'>"
+	   . "<option value=''>---</option>";
+	optionselect("histoire", qw("no_histoire titre"), "");
+	echo "</select>"
+	   . " est dans ce volume. "
+	   . "<input type='hidden' name='no_volume' value='".$r['no_volume']."'>"
+	   . "<input type='hidden' name='type_album' value='".$_POST['type_album']."'>"
+	   . "<input type='hidden' name='action' value='addstory'>"
+	   . "<input type='submit' value='Valider'>"
+	   . "</form>";
 
 	// liste des histoires
 	echo "<h3>Liste des histoires</h3>";

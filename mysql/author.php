@@ -50,7 +50,6 @@ if (isset($_POST['action'])) {
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>\n";
 
 		if (isset($_POST['nom_auteur'])) {
 			updaterow('auteur',
@@ -64,6 +63,8 @@ if (isset($_POST['action'])) {
 				qw("prenom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
 		}
 	}
+
+	echo "<h3>Edition</h3>\n";
 
 	// Select author
 	$query = sprintf("SELECT * FROM auteur WHERE no_auteur = %d", $_POST['no_auteur']);
