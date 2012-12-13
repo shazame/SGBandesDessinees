@@ -135,14 +135,8 @@ function deleterow($from, $keys, $vals) {
 
 function formattable($resource) {
 	echo "<table>";
-	
+
 	$r = mysql_fetch_assoc($resource);
-	if (!$r){
-		throw new Exception("No more lines");
-	}
-	if (count($r) == 0){
-		throw new Exception("Empty array passed to formattable");
-	}
 
 	// column titles
 	foreach($r as $i => $val) { echo "<th>$i</th>"; }

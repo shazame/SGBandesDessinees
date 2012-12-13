@@ -55,9 +55,7 @@ groupe de projet sont détaillés et justifiés lorsque cela est nécessaire.
 
 \section{Modélisation des données}
 
-\emph{Justifier vos choix/hypotheses avec du texte}
-
-\subsection{Description du contexte de l'application (entités, associations, règles de gestion)}
+\subsection{Description du contexte de l'application}
 
 \paragraph{}
 L'application doit permettre la gestion de bandes dessinées à partir des
@@ -85,30 +83,57 @@ informations suivantes :
 \paragraph{}
 La lecture de ces informations fait ressortir les entités suivantes :
 \begin{itemize}
-	\item volume ;
-	\item album ;
+	\item volume (regroupe les attributs communs des albums et des revues);
+	\item album avec collection ;
+	\item album sans collection ;
 	\item revue ;
 	\item éditeur ;
 	\item collection ;
 	\item histoire ;
-	\item série ;
+	\item série de volumes ;
+	\item role d'un auteur ;
 	\item auteur.
 \end{itemize}
 
 \paragraph{Les hypothèses suivantes sont effectuées :}
 \begin{itemize}
-	\item On considère qu'une revue est un ensemble de numéros de la revue et que
-		l'éditeur d'une revue peut varier dans le temps.
+	\item On considère qu'une revue est un ensemble de numéros de la revue et que l'éditeur d'une revue peut varier dans le temps.
 	\item Plusieurs collections différentes peuvent avoir le même nom.
 \end{itemize}
 
-\paragraph{}
+
+\section{Schéma entité-association :}
+
 Le schéma entité-association suivant montre les relations entre ces
 différentes entités :
 
 \noindent\includegraphics[width=\textwidth]{schema-entite-association}
 
-\subsection{Opérations possibles sur la base}
+
+\section{Schéma relationnel :}
+
+\noindent\includegraphics[width=\textwidth]{schema-relation}
+
+\section{Implémentation }
+-> choix de MySQL
+
+\subsection{Contraintes d'intégrité, dépendances fonctionnelles}
+
+Des contraintes d'intégrité sont réalisées au niveau de la plupart des clés
+étrangères pour trois situations : 
+\begin{itemize}
+	\item Réaliser des suppressions en cascade d'entrées. C'est le cas par
+		exemple de la suppression automatique de relations 'contenir'
+		lorsqu'un album ou une histoire est supprimée ou de relations
+		'auteuriser' dans le cas de la suppression d'auteurs ou d'histoires.
+	\item Mettre des valeurs par défaut dans les attributs concernant les
+		éditeurs (album sans collection, collection, revue) lorsqu'un éditeur
+		est supprimé.
+	\item Bloquer la suppression d'une collection s'il y
+		a encore des albums dans cette collection.
+\end{itemize}
+
+\section{Opérations possibles sur la base}
 
 Différentes opérations peuvent être effectuées sur la base de données.
 Ces opérations peuvent être classées en 3 différentes catégories :
@@ -141,56 +166,23 @@ implémentée :
 	\item les histoires classées selon le nombre de fois où elles apparaissent en album ;
 	\item le nombre moyen d’auteurs participant à une revue pendant une période donnée.
 \end{itemize}
-En plus de ces statistiques, il est possible de classer les auteurs selon la
-décade durant laquelle ils ont créé le plus d’histoires (1910-1919, 1920-1929,
-etc.).
+%En plus de ces statistiques, il est possible de classer les auteurs selon la
+%décade durant laquelle ils ont créé le plus d’histoires (1910-1919, 1920-1929,
+%etc.).
 
 \paragraph{Mise à jour}
 Il est possible d'appliquer les opérations de modification de la tables
 suivantes :
 \begin{itemize}
 	\item Ajout, suppression, modification d’une histoire, d’un volume, d’un auteur.
-	\item Création d'un volume en spécifiant une histoire et son éditeur : ce
-		volume contient alors l'histoire indiquée ; son titre et son année
-		d’édition sont respectivement le titre et l'année de parution de
-		l'histoire.
+	\item La création d'un volume en spécifiant directement une histoire (et
+		son éditeur) n'est pas implémentée mais il est possible d'ajouter des
+		histoires aux volumes déjà créés.
 \end{itemize}
 
 \paragraph{}
 Les requêtes correspondant à ces opérations sont décrites plus bas.
 
-\section{Schéma relationnel :}
-
-\subsection{Passage au relationnel}
-
-\subsection{Contraintes d'intégrité, dépendances fonctionnelles}
-
-Des contraintes d'intégrité sont réalisées au niveau de la plupart des clés
-étrangères pour trois situations : 
-\begin{itemize}
-	\item Réaliser des suppressions en cascade d'entrées. C'est le cas par
-		exemple de la suppression automatique de relations 'contenir'
-		lorsqu'un album ou une histoire est supprimée ou de relations
-		'auteuriser' dans le cas de la suppression d'auteurs ou d'histoires.
-	\item Mettre des valeurs par défaut dans les attributs concernant les
-		éditeurs (album sans collection, collection, revue) lorsqu'un éditeur
-		est supprimé.
-	\item Bloquer la suppression d'une collection s'il y
-		a encore des albums dans cette collection.
-\end{itemize}
-
-\subsection{Schéma relationnel en 3e forme normale}
-
-\noindent\includegraphics[width=\textwidth]{schema-relation}
-
-\section{Implémentation }
--> choix de MySQL
-
-\subsection{Création de la base de données, en prenant en compte les contraintes d'intégrité (scripts de création, suppression, insertion)}
-
-\subsection{Implémentation des commandes SQL réalisant les opérations retenues}
-
-\emph{Lister les requetes importantes}
 
 \section{Utilisation}
 
