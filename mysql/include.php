@@ -131,4 +131,22 @@ function deleterow($from, $keys, $vals) {
 	$rv = mysql_query($query);
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }
 }
+
+
+function formattable($resource) {
+	echo "<table>";
+
+	$r = mysql_fetch_assoc($resource);
+
+	// column titles
+	foreach($r as $i => $val) { echo "<th>$i</th>"; }
+
+	do {
+		echo "<tr>";
+		foreach($r as $i => $val) { echo "<td>$val</td>"; }
+		echo "</tr>";
+	} while ($r = mysql_fetch_assoc($resource));
+
+	echo "</table>";
+}
 ?>

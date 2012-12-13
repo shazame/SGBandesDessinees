@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 
 \usepackage{geometry}
 \usepackage[T1]{fontenc}
@@ -165,6 +165,20 @@ Les requêtes correspondant à ces opérations sont décrites plus bas.
 
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
 
+Des contraintes d'intégrité sont réalisées au niveau de la plupart des clés
+étrangères pour trois situations : 
+\begin{itemize}
+	\item Réaliser des suppressions en cascade d'entrées. C'est le cas par
+		exemple de la suppression automatique de relations 'contenir'
+		lorsqu'un album ou une histoire est supprimée ou de relations
+		'auteuriser' dans le cas de la suppression d'auteurs ou d'histoires.
+	\item Mettre des valeurs par défaut dans les attributs concernant les
+		éditeurs (album sans collection, collection, revue) lorsqu'un éditeur
+		est supprimé.
+	\item Bloquer la suppression d'une collection s'il y
+		a encore des albums dans cette collection.
+\end{itemize}
+
 \subsection{Schéma relationnel en 3e forme normale}
 
 \noindent\includegraphics[width=\textwidth]{schema-relation}
@@ -186,6 +200,13 @@ Les requêtes correspondant à ces opérations sont décrites plus bas.
 
 \subsection{Notice d'utilisation}
 
+L'interface peut être utilisée en plaçant les fichiers php dans un répertoire
+connu d'un serveur http équipé d'un module php. Les requêtes sont envoyées à
+MySQL via les fonctions du types \verb!mysql_*!. Il peut être nécessaire
+d'installer les bibliothèques nécessaires et/ou activer ce jeu de fonctions
+dans la configuration de php (sous linux, cette configuration se trouve dans
+/etc/php/php.ini la plupart du temps).
+
 La base est destinée à MySQL et peut être initialisée avec :
 \begin{verbatim}
 mysql> create database nom_de_la_bdd;
@@ -200,17 +221,12 @@ de la variable \verb!$bdd! avec \verb!nom_de_la_bdd! dans la fonction
 \verb!$passwd! utilisés pour la connexion à la base peut être changé au même
 endroit.
 
+
 \subsection{Description de l'interface}
 
 Le langage PHP a été utilisé pour réaliser l'interface utilisateur avec la
-base. La page d'accueil permet d'accéder aux pages des différentes entités en
-cliquant sur les liens correspondants. Il est à chaque fois possible de
-revenir à la page d'accueil via un lien se situant en haut de la page. En
-cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé vers
-une page listant le contenu de la table des auteurs, c'est-à-dire leur nom,
-leur prénom et un numéro les identifiant. Il est possible d'effectuer des
-insertions dans la table au moyens d'un formulaire d'ajout dans lequel le nom
-et le prénom des auteurs sont à remplir :
+base. La page d'accueil permet d'accéder aux pages des différentes entités
+principales en cliquant sur les liens correspondants. Il est à chaque fois possible de revenir à la page d'accueil via un lien se situant en haut de la page. En cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé vers une page listant le contenu de la table des auteurs, c'est-à-dire leur nom, leur prénom et un numéro les identifiant. Il est possible d'effectuer des insertions dans la table au moyens d'un formulaire d'ajout dans lequel le nom et le prénom des auteurs sont à remplir :
 
 \begin{figure}[h!]
 \begin{center}

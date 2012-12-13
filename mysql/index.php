@@ -18,5 +18,19 @@
 <li><a href="story.php">Histoires</a></li>
 </ul>
 
+<?php
+require "include.php";
+
+connectdb();
+
+$query = "SELECT * FROM auteur";
+$r = mysql_query($query);
+if (!$r) { die("BEW" . mysql_error()); }
+
+formattable($r);
+
+disconnectdb();
+?>
+
 </body>
 </html>
