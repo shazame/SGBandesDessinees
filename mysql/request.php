@@ -47,19 +47,23 @@ SELECT tmp.no_histoire, titre, annee_parution,
 function getBibliographyOrderedBySerie($no_author){
 	$query = "
 SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
-			 nom_role, no_serie, no_ds_serie
-FROM
-	  (SELECT tmp.no_histoire, titre, annee_parution,
-						nom_auteur, prenom_auteur, nom_role
-		  	 FROM auteur a, auteuriser_et_role ai,
-			 	 			(SELECT h.no_histoire, h.titre, annee_parution
-							 				FROM auteuriser ai, histoire h
-			 				 				WHERE ai.no_auteur = " . $no_author . "
-			 				 				AND ai.no_histoire = h.no_histoire) tmp
-			    WHERE tmp.no_histoire = ai.no_histoire
-			    AND ai.no_auteur = a.no_auteur) b
-LEFT OUTER JOIN appartenance_serie a
-ON a.no_histoire = b.no_histoire
+			 nom_role, titre_serie, s.no_serie, no_ds_serie
+FROM (SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
+			       nom_role, no_serie, no_ds_serie
+        FROM
+        	  (SELECT tmp.no_histoire, titre, annee_parution,
+        						nom_auteur, prenom_auteur, nom_role
+        		  	 FROM auteur a, auteuriser_et_role ai,
+        			 	 			(SELECT h.no_histoire, h.titre, annee_parution
+        							 				FROM auteuriser ai, histoire h
+        			 				 				WHERE ai.no_auteur = " . $no_author . "
+        			 				 				AND ai.no_histoire = h.no_histoire) tmp
+        			    WHERE tmp.no_histoire = ai.no_histoire
+        			    AND ai.no_auteur = a.no_auteur) b
+        LEFT OUTER JOIN appartenance_serie a
+        ON a.no_histoire = b.no_histoire) b,
+      serie s
+WHERE s.no_serie = b.no_serie
 ORDER BY no_serie, no_ds_serie;";
 	
 	$result = mysql_query($query);
