@@ -24,8 +24,8 @@ function getBibliography($no_author){
 function getBibliographyOrderedByYear($no_author){
 	$query = "
 SELECT tmp.no_histoire, titre, annee_parution,
-			 nom_auteur, prenom_auteur, role
-			 FROM auteur a, auteuriser ai,
+			 nom_auteur, prenom_auteur, nom_role
+			 FROM auteur a, auteuriser_et_role ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = " . $no_author .
@@ -47,11 +47,11 @@ SELECT tmp.no_histoire, titre, annee_parution,
 function getBibliographyOrderedBySerie($no_author){
 	$query = "
 SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
-			 role, no_serie, no_ds_serie
+			 nom_role, no_serie, no_ds_serie
 FROM
 	  (SELECT tmp.no_histoire, titre, annee_parution,
-						nom_auteur, prenom_auteur, role
-		  	 FROM auteur a, auteuriser ai,
+						nom_auteur, prenom_auteur, nom_role
+		  	 FROM auteur a, auteuriser_et_role ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = " . $no_author . "

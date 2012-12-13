@@ -86,7 +86,11 @@ if (isset($_POST['action'])) {
 			}catch (Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
+			try{
 			formattable($result);
+			}catch(Exception $e){
+				die('Caught exception: ' . $e->getMessage() . "\n");
+			}
 			$formular_needed = False;
 		}
 	}
@@ -158,7 +162,7 @@ if ($formular_needed){
 			echo " pour "
 	       . "<select name='revue_title'>"
 				 . "<option value=''>---</option>";
-			optionselect("volumes_revues", qw("no_revue titre_revue"), "");
+			optionselect("volumes_revues", qw("titre no_revue"), "");
 		  echo "</select>";
 	}
 	else{
