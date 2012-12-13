@@ -86,6 +86,7 @@ if (isset($_POST['action'])) {
 
 $query = "SELECT * FROM editeur";
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";

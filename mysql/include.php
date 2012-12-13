@@ -63,6 +63,7 @@ function optionselect($from, $attr, $selected) {
 	$query .= " FROM " . $from;
 
 	$result = mysql_query($query);
+	if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 	while($r = mysql_fetch_array($result)) {
 		if ($r[$attr[0]] == $selected) {

@@ -159,6 +159,7 @@ $query = "SELECT V.*, R.no_revue "
 	   . "on V.no_volume = R.no_volume";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";

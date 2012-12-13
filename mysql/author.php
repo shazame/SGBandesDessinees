@@ -52,15 +52,6 @@ if (isset($_POST['action'])) {
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
 		echo "<h3>Edition</h3>\n";
 
-		// auteuriser
-		if (isset($_POST['no_role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
-			addrow('auteuriser',
-				qw("no_auteur no_histoire no_role"),
-				array(sprintf("%d", $_POST['no_auteur']),
-				      sprintf("%d", $_POST['no_histoire']),
-			   	      sprintf("'%s'", mysql_real_escape_string($_POST['no_role']))));
-		}
-
 		if (isset($_POST['nom_auteur'])) {
 			updaterow('auteur',
 				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
@@ -93,15 +84,6 @@ if (isset($_POST['action'])) {
 	   . "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
 	   . "</tr>"
 	   . "</table>"
-	   . "Cet auteur est "
-	   . "<select name='no_role'>";
-		optionselect("role", qw("no_role nom_role"), "");
-	echo "</select>"
-	   . " pour "
-	   . "<select name='no_histoire'>"
-	   . "<option value=''>---</option>";
-		optionselect("histoire", qw("no_histoire titre"), "");
-	echo "</select>"
 	   . "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
 	   . "<input type='hidden' name='action' value='edit'>"
 	   . "<input type='submit' value='Valider'> </form> </td>\n"

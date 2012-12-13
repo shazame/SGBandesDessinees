@@ -187,6 +187,7 @@ if (isset($_POST['action'])) {
 $query = "SELECT * from albums_et_editeurs";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -219,6 +220,7 @@ while($r = mysql_fetch_array($result)) {
 $query = "SELECT * from albums_et_collections";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";

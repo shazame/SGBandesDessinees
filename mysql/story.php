@@ -94,6 +94,7 @@ if (isset($_POST['action'])) {
 	$query = sprintf("SELECT * FROM histoire WHERE no_histoire = %d", $_POST['no_histoire']);
 
 	$rv = mysql_query($query);
+	if (!$result) { die('Requête invalide : ' . mysql_error()); }
 	$r = mysql_fetch_array($rv);
 
 	// Edit form
@@ -169,6 +170,7 @@ if (isset($_POST['action'])) {
 <?php
 $query = "SELECT * FROM histoire";
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";

@@ -114,6 +114,7 @@ $query = "SELECT C.*, E.nom_editeur FROM collection as C "
        . "inner join editeur as E on E.no_editeur = C.no_editeur";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
