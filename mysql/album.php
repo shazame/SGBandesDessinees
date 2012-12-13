@@ -51,98 +51,7 @@ try{
 <hr>
 
 <?php
-
-if (isset($_POST['action'])) {
-
-	if ($_POST['action'] == "add") {
-
-		addrow('volume',
-			qw("titre annee_edition"),
-			array("'".$_POST['titre']."'", $_POST['annee_edition']));
-
-		// get last entry's id
-		$id = mysql_insert_id();
-
-		if ($_POST['no_collection'] > 0) {
-			addrow('album_avec_collection',
-				qw("no_volume no_collection no_ds_collection"),
-				array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
-		}
-
-		else {
-			if (isset($_POST['no_editeur']) && $_POST['no_editeur']) {
-				addrow('album_sans_collection',
-					qw("no_volume no_editeur"),
-					array($id, sprintf("%d", $_POST['no_editeur'])));
-			}
-
-			else {
-				addrow('album_sans_collection', qw("no_volume"), array($id));
-			}
-		}
-
-		return;
-	}
-
-	else if ($_POST['action'] == "deletestory") {
-
-		if (isset($_POST['no_histoire'])) {
-			deleterow('contenir',
-				qw('no_histoire no_volume'),
-				array(sprintf("%d", $_POST['no_histoire']),
-				      sprintf("%d", $_POST['no_volume'])));
-		}
-	}
-
-	else if ($_POST['action'] == "addstory") {
-		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
-			addrow('contenir',
-				qw("no_volume no_histoire"),
-				array(sprintf("%d", $_POST['no_volume']),
-				      sprintf("%d", $_POST['no_histoire'])));
-		}
-	}
-
-	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-		deleterow('volume',
-			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
-
-		return;
-	}
-
-
-	else if (isset($_POST['no_volume']) && isset($_POST['type_album']) && $_POST['action'] == "edit") {
-
-		if (isset($_POST['titre'])) {
-			updaterow('volume',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
-		}
-
-		if (isset($_POST['annee_edition'])) {
-			updaterow('volume',
-				qw('no_volume'), array($_POST['no_volume']),
-				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
-		}
-
-		if (isset($_POST['no_collection']) && $_POST['type_album'] == 'album_avec_collection') {
-			updaterow('album_avec_collection',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("no_collection"), array(sprintf("%d", $_POST['no_collection'])));
-		}
-
-		if (isset($_POST['no_ds_collection']) && $_POST['type_album'] == 'album_avec_collection') {
-			updaterow('album_avec_collection',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("no_ds_collection"), array(sprintf("%d", $_POST['no_ds_collection'])));
-		}
-
-		if (isset($_POST['no_editeur']) && $_POST['type_album'] == 'album_sans_collection') {
-			updaterow('album_sans_collection',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
-		}
-	}
+function editform () {
 
 	echo "<h3>Edition</h3>";
 
@@ -234,6 +143,103 @@ if (isset($_POST['action'])) {
 	echo "</table>";
 
 	echo "<hr>";
+}
+
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+
+		addrow('volume',
+			qw("titre annee_edition"),
+			array("'".$_POST['titre']."'", $_POST['annee_edition']));
+
+		// get last entry's id
+		$id = mysql_insert_id();
+
+		if ($_POST['no_collection'] > 0) {
+			addrow('album_avec_collection',
+				qw("no_volume no_collection no_ds_collection"),
+				array($id, $_POST['no_collection'], $_POST['no_ds_collection']));
+		}
+
+		else {
+			if (isset($_POST['no_editeur']) && $_POST['no_editeur']) {
+				addrow('album_sans_collection',
+					qw("no_volume no_editeur"),
+					array($id, sprintf("%d", $_POST['no_editeur'])));
+			}
+
+			else {
+				addrow('album_sans_collection', qw("no_volume"), array($id));
+			}
+		}
+	}
+
+	else if ($_POST['action'] == "deletestory") {
+
+		if (isset($_POST['no_histoire'])) {
+			deleterow('contenir',
+				qw('no_histoire no_volume'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_volume'])));
+		}
+
+		editform();
+	}
+
+	else if ($_POST['action'] == "addstory") {
+		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+			addrow('contenir',
+				qw("no_volume no_histoire"),
+				array(sprintf("%d", $_POST['no_volume']),
+				      sprintf("%d", $_POST['no_histoire'])));
+		}
+
+		editform();
+	}
+
+	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
+		deleterow('volume',
+			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
+	}
+
+
+	else if (isset($_POST['no_volume']) && isset($_POST['type_album']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['titre'])) {
+			updaterow('volume',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
+		}
+
+		if (isset($_POST['annee_edition'])) {
+			updaterow('volume',
+				qw('no_volume'), array($_POST['no_volume']),
+				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
+		}
+
+		if (isset($_POST['no_collection']) && $_POST['type_album'] == 'album_avec_collection') {
+			updaterow('album_avec_collection',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_collection"), array(sprintf("%d", $_POST['no_collection'])));
+		}
+
+		if (isset($_POST['no_ds_collection']) && $_POST['type_album'] == 'album_avec_collection') {
+			updaterow('album_avec_collection',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_ds_collection"), array(sprintf("%d", $_POST['no_ds_collection'])));
+		}
+
+		if (isset($_POST['no_editeur']) && $_POST['type_album'] == 'album_sans_collection') {
+			updaterow('album_sans_collection',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
+		}
+
+		editform();
+	}
+
 }
 ?>
 

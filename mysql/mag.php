@@ -41,85 +41,9 @@ try{
 
 <?php
 
-if (isset($_POST['action'])) {
+function editform () {
 
-	if ($_POST['action'] == "add") {
-
-		addrow('volume',
-			qw("titre annee_edition"),
-			array(sprintf('%s', mysql_real_escape_string($_POST['titre'])),
-			      sprintf('%d', $_POST['annee_edition'])));
-
-		// get last entry's id
-		$id = mysql_insert_id();
-
-		addrow('revue',
-			qw("no_volume no_revue"),
-			array($id, sprintf('%d', $_POST['no_revue'])));
-
-		if ($_POST['no_editeur'] > 0) {
-			addrow('edition_des_revues',
-				qw("no_volume no_editeur"),
-				array($id, sprintf("%d", $_POST['no_editeur'])));
-		}
-
-		return;
-	}
-
-
-	else if ($_POST['action'] == "deletestory") {
-
-		if (isset($_POST['no_histoire'])) {
-			deleterow('contenir',
-				qw('no_histoire no_volume'),
-				array(sprintf("%d", $_POST['no_histoire']),
-				      sprintf("%d", $_POST['no_volume'])));
-		}
-	}
-
-	else if ($_POST['action'] == "addstory") {
-		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
-			addrow('contenir',
-				qw("no_volume no_histoire"),
-				array(sprintf("%d", $_POST['no_volume']),
-				      sprintf("%d", $_POST['no_histoire'])));
-		}
-	}
-
-	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-		deleterow('volume',
-			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_volume']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>";
-
-		if (isset($_POST['titre'])) {
-			updaterow('volume',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
-		}
-
-		if (isset($_POST['annee_edition'])) {
-			updaterow('volume',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
-		}
-
-		if (isset($_POST['no_revue'])) {
-			updaterow('revue',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("no_revue"), array(sprintf("%d", $_POST['no_revue'])));
-		}
-
-		if (isset($_POST['no_editeur'])) {
-			updaterow('revue',
-				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
-				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
-		}
-	}
+	echo "<h3>Edition</h3>\n";
 
 	// Select mag
 	$query = sprintf (
@@ -199,6 +123,82 @@ if (isset($_POST['action'])) {
 	echo "</table>";
 
 	echo "<hr>";
+}
+
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+
+		addrow('volume',
+			qw("titre annee_edition"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre'])),
+			      sprintf('%d', $_POST['annee_edition'])));
+
+		// get last entry's id
+		$id = mysql_insert_id();
+
+		addrow('revue',
+			qw("no_volume no_revue no_editeur"),
+			array($id, sprintf('%d', $_POST['no_revue']), sprintf("%d", $_POST['no_editeur'])));
+	}
+
+
+	else if ($_POST['action'] == "deletestory") {
+
+		if (isset($_POST['no_histoire'])) {
+			deleterow('contenir',
+				qw('no_histoire no_volume'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_volume'])));
+		}
+	}
+
+	else if ($_POST['action'] == "addstory") {
+		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+			addrow('contenir',
+				qw("no_volume no_histoire"),
+				array(sprintf("%d", $_POST['no_volume']),
+				      sprintf("%d", $_POST['no_histoire'])));
+		}
+
+		editform();
+	}
+
+	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
+		deleterow('volume',
+			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
+	}
+
+	else if (isset($_POST['no_volume']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['titre'])) {
+			updaterow('volume',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
+		}
+
+		if (isset($_POST['annee_edition'])) {
+			updaterow('volume',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
+		}
+
+		if (isset($_POST['no_revue'])) {
+			updaterow('revue',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_revue"), array(sprintf("%d", $_POST['no_revue'])));
+		}
+
+		if (isset($_POST['no_editeur'])) {
+			updaterow('revue',
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
+		}
+
+		editform();
+	}
+
 }
 ?>
 
