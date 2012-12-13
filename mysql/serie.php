@@ -35,10 +35,15 @@ if (isset($_POST['action'])) {
 		addrow('serie',
 			qw("titre_serie"),
 			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
+
+		return;
 	}
 
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
-		deleterow('serie', 'no_serie', sprintf("%d", $_POST['no_serie']));
+		deleterow('serie',
+			qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
@@ -46,27 +51,28 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre_serie'])) {
 			updaterow('serie',
-				'no_serie', sprintf("%d", $_POST['no_serie']),
+				qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])),
 				qw("titre_serie"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
 		}
-
-
-		// Select serie
-		$query = sprintf("SELECT * FROM serie WHERE no_serie = %d", $_POST['no_serie']);
-
-		$rv = mysql_query($query);
-		$r = mysql_fetch_array($rv);
-
-		// Edit form
-		echo "<form action='serie.php' method='post'>";
-		echo "titre <input type='text' name='titre_serie' value='".$r['titre_serie']."'>";
-		echo "<input type='hidden' name='no_serie' value='".$r['no_serie']."'>";
-		echo "<input type='hidden' name='action' value='edit'>";
-		echo "<input type='submit' value='Valider'> </form> </td>";
-		echo "</form>";
-
-		echo "<hr>";
 	}
+
+
+	// Select serie
+	$query = sprintf("SELECT * FROM serie WHERE no_serie = %d", $_POST['no_serie']);
+
+	$rv = mysql_query($query);
+	if (!$result) { die('Requête invalide : ' . mysql_error()); }
+	$r = mysql_fetch_array($rv);
+
+	// Edit form
+	echo "<form action='serie.php' method='post'>";
+	echo "titre <input type='text' name='titre_serie' value='".$r['titre_serie']."'>";
+	echo "<input type='hidden' name='no_serie' value='".$r['no_serie']."'>";
+	echo "<input type='hidden' name='action' value='edit'>";
+	echo "<input type='submit' value='Valider'> </form> </td>";
+	echo "</form>";
+
+	echo "<hr>";
 }
 ?>
 
@@ -87,8 +93,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_serie'] . "</td>\n";
 	echo "<td>" . $r['titre_serie'] . "</td>\n";
 	echo "<td>";
-	editbutton('serie.php', array('no_serie' => $r['no_serie']));
-	deletebutton('serie.php', 'no_serie', $r['no_serie']);
+	button('serie.php', array('no_serie' => $r['no_serie'], 'edit', 'Editer'));
+	button('serie.php', array('no_serie' => $r['no_serie'], 'delete', 'Supprimer'));
 	echo "</td>";
 	echo "</tr>";
 }

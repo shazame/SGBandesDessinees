@@ -35,10 +35,15 @@ if (isset($_POST['action'])) {
 		addrow('editeur',
 			qw("nom_editeur"),
 			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
+
+		return;
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "delete") {
-		deleterow('editeur', 'no_editeur', sprintf("%d", $_POST['no_editeur']));
+		deleterow('editeur',
+			qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
@@ -46,27 +51,27 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['nom_editeur'])) {
 			updaterow('editeur',
-				'no_editeur', sprintf("%d", $_POST['no_editeur']),
+				qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])),
 				qw("nom_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
 		}
-
-		// Select author
-		$query = sprintf("SELECT * FROM editeur WHERE no_editeur = %d", $_POST['no_editeur']);
-
-		$rv = mysql_query($query);
-		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
-		$r = mysql_fetch_array($rv);
-
-		// Edit form
-		echo "<form action='editor.php' method='post'>";
-		echo "Nom <input type='text' name='nom_editeur' value='".$r['nom_editeur']."'>";
-		echo "<input type='hidden' name='no_editeur' value='".$r['no_editeur']."'>";
-		echo "<input type='hidden' name='action' value='edit'>";
-		echo "<input type='submit' value='Valider'> </form> </td>";
-		echo "</form>";
-
-		echo "<hr>";
 	}
+
+	// Select author
+	$query = sprintf("SELECT * FROM editeur WHERE no_editeur = %d", $_POST['no_editeur']);
+
+	$rv = mysql_query($query);
+	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
+	$r = mysql_fetch_array($rv);
+
+	// Edit form
+	echo "<form action='editor.php' method='post'>";
+	echo "Nom <input type='text' name='nom_editeur' value='".$r['nom_editeur']."'>";
+	echo "<input type='hidden' name='no_editeur' value='".$r['no_editeur']."'>";
+	echo "<input type='hidden' name='action' value='edit'>";
+	echo "<input type='submit' value='Valider'> </form> </td>";
+	echo "</form>";
+
+	echo "<hr>";
 }
 ?>
 
@@ -81,16 +86,15 @@ if (isset($_POST['action'])) {
 
 $query = "SELECT * FROM editeur";
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
 	echo "<td>" . $r['no_editeur'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
-	// edit button
-	editbutton('editor.php', array('no_editeur' => $r['no_editeur']));
-	// delete button
-	deletebutton('editor.php', 'no_editeur', $r['no_editeur']);
+	button('editor.php', array('no_editeur' => $r['no_editeur']), 'edit', 'Editer');
+	button('editor.php', array('no_editeur' => $r['no_editeur']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }

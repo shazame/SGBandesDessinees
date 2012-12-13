@@ -63,6 +63,7 @@ function optionselect($from, $attr, $selected) {
 	$query .= " FROM " . $from;
 
 	$result = mysql_query($query);
+	if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 	while($r = mysql_fetch_array($result)) {
 		if ($r[$attr[0]] == $selected) {
@@ -78,20 +79,13 @@ function optionselect($from, $attr, $selected) {
 }
 
 
-function editbutton($action, $attrs) {
+function button($action, $attrs, $val, $txt) {
 	echo "<form action='" . $action . "' method='post'>"
-	   . "<input type='hidden' name='action' value='edit'>";
+	   . "<input type='hidden' name='action' value='".$val."'>";
 	foreach($attrs as $i => $val) {
 	   echo "<input type='hidden' name='" . $i . "' value='" . $val . "'>";
 	}
-	echo "<input type='submit' value='Editer'> </form>\n";
-}
-
-function deletebutton($action, $key, $val) {
-	echo "<form action='" . $action . "' method='post'>"
-	   . "<input type='hidden' name='action' value='delete'>"
-	   . "<input type='hidden' name='" . $key . "' value='" . $val . "'>"
-	   . "<input type='submit' value='Supprimer'> </form>\n";
+	echo "<input type='submit' value='".$txt."'> </form>\n";
 }
 
 
@@ -111,22 +105,28 @@ function addrow($to, $attrs, $vals) {
 }
 
 
-function updaterow($from, $key, $val, $attrs, $vals) {
+function updaterow($from, $keys, $vals, $attrs, $newvals) {
 	$query = "UPDATE " . $from . " SET "
-	       . $attrs[0] . " = " . $vals[0];
+	       . $attrs[0] . " = " . $newvals[0];
 	for ($i = 1; $i < count($attrs); $i++) {
-		$query .= ", " . $attrs[$i] . " = " . $vals[$i];
+		$query .= ", " . $attrs[$i] . " = " . $newvals[$i];
 	}
-	$query .= " WHERE " . $key . " = " . $val;
+	$query .= " WHERE " . $keys[0] . " = " . $vals[0];
+	for ($i = 1; $i < count($keys); $i++) {
+		$query .= " AND " . $keys[$i] . " = " . $vals[$i];
+	}
 
 	$rv = mysql_query($query);
 	if (!$rv) { die("la mise à jour a échoué : " . mysql_error()); }
 }
 
 
-function deleterow($from, $key, $value) {
+function deleterow($from, $keys, $vals) {
 	$query = "DELETE FROM " . $from
-	       . " WHERE " . $key . " = " . $value;
+		. " WHERE " . $keys[0] . " = " . $vals[0];
+	for ($i = 1; $i < count($keys); $i++) {
+		$query .= " AND " . $keys[$i] . " = " . $vals[$i];
+	}
 
 	$rv = mysql_query($query);
 	if (!$rv) { die("la suppression a échoué : " . mysql_error()); }

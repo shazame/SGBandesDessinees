@@ -73,17 +73,22 @@ if (isset($_POST['action'])) {
 			if (isset($_POST['no_editeur']) && $_POST['no_editeur']) {
 				addrow('album_sans_collection',
 					qw("no_volume no_editeur"),
-					array($id, $_POST['no_editeur']));
+					array($id, sprintf("%d", $_POST['no_editeur'])));
 			}
 
 			else {
 				addrow('album_sans_collection', qw("no_volume"), array($id));
 			}
 		}
+
+		return;
 	}
 
 	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-		deleterow('volume', 'no_volume', $_POST['no_volume']);
+		deleterow('volume',
+			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_volume']) && isset($_POST['type_album']) && $_POST['action'] == "edit") {
@@ -91,83 +96,104 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre'])) {
 			updaterow('volume',
-				'no_volume', $_POST['no_volume'],
-				qw("titre"), array("'". $_POST['titre']."'"));
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
 		}
 
 		if (isset($_POST['annee_edition'])) {
 			updaterow('volume',
-				'no_volume', $_POST['no_volume'],
-				qw("annee_edition"), array("'". $_POST['annee_edition']."'"));
-		}
-
-		if (isset($_POST['no_collection']) && $_POST['type_album'] == 'album_avec_collection') {
-			updaterow('album_avec_collection',
-				'no_volume', $_POST['no_volume'],
-				qw("no_collection"), array("'". $_POST['no_collection']."'"));
+				qw('no_volume'), array($_POST['no_volume']),
+				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
 		}
 
 		if (isset($_POST['no_ds_collection']) && $_POST['type_album'] == 'album_avec_collection') {
 			updaterow('album_avec_collection',
-				'no_volume', $_POST['no_volume'],
-				qw("no_ds_collection"), array("'". $_POST['no_ds_collection']."'"));
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_ds_collection"), array(sprintf("%d", $_POST['no_ds_collection'])));
 		}
 
 		if (isset($_POST['no_editeur']) && $_POST['type_album'] == 'album_sans_collection') {
 			updaterow('album_sans_collection',
-				'no_volume', $_POST['no_volume'],
-				qw("no_editeur"), array("'". $_POST['no_editeur']."'"));
+				qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])),
+				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
 		}
-
-		// Select album
-		$query = sprintf("SELECT * FROM volume V, %s A WHERE V.no_volume = %d AND A.no_volume = %d",
-			   mysql_real_escape_string($_POST['type_album']), $_POST['no_volume'], $_POST['no_volume']);
-
-		$rv = mysql_query($query);
-		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
-		$r = mysql_fetch_array($rv);
-
-		echo "<form action='album.php' method='post'>"
-		   . "<table>"
-		   . "<tr>"
-		   . "<td>Titre</td>"
-		   . "<td><input type='text' name='titre' value='".$r['titre']."'></td>"
-		   . "</tr>"
-		   . "<tr> <td> Annee d'edition </td>"
-		   . "<td> <select name='annee_edition'>";
-		optionrange(1900, 2050, $r['annee_edition']);
-
-		if ($_POST['type_album'] == 'album_avec_collection') {
-			echo "<tr>"
-			   . "<td>Collection</td>"
-			   . "<td><select name='no_collection'>";
-				optionselect("collection", qw("no_collection nom_collection"), $r['no_collection']);
-			echo "</select></td> </tr>";
-
-			echo "<tr> <td> Numero dans la collection </td>"
-	 		   . "<td> <select name='no_ds_collection'>";
-		 	optionrange(0, 1000, $r['no_ds_collection']);
-	 		echo "</select> </td> </tr>";
-		}
-
-		else {
-			echo "<tr>"
-			   . "<td>Editeur</td>"
-			   . "<td><select name='no_editeur'>";
-				optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
-			echo "</select></td> </tr>";
-		}
-
-
-		echo "</table>"
-		   . "<input type='hidden' name='type_album' value='".$_POST['type_album']."'>"
-		   . "<input type='hidden' name='no_volume' value='".$r['no_volume']."'>"
-		   . "<input type='hidden' name='action' value='edit'>"
-		   . "<input type='submit' value='Valider'> </form> </td>\n"
-		   . "</form>";
-
-		echo "<hr>";
 	}
+
+	// Select album
+	$query = sprintf("SELECT * FROM volume V, %s A WHERE V.no_volume = %d AND A.no_volume = %d",
+		   mysql_real_escape_string($_POST['type_album']), $_POST['no_volume'], $_POST['no_volume']);
+
+	$rv = mysql_query($query);
+	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
+	$r = mysql_fetch_array($rv);
+
+	echo "<form action='album.php' method='post'>"
+	   . "<table>"
+	   . "<tr>"
+	   . "<td>Titre</td>"
+	   . "<td><input type='text' name='titre' value='".$r['titre']."'></td>"
+	   . "</tr>"
+	   . "<tr> <td> Annee d'edition </td>"
+	   . "<td> <select name='annee_edition'>";
+	optionrange(1900, 2050, $r['annee_edition']);
+
+	if ($_POST['type_album'] == 'album_avec_collection') {
+		echo "<tr>"
+		   . "<td>Collection</td>"
+		   . "<td><select name='no_collection'>";
+			optionselect("collection", qw("no_collection nom_collection"), $r['no_collection']);
+		echo "</select></td> </tr>";
+
+		echo "<tr> <td> Numero dans la collection </td>"
+		   . "<td> <select name='no_ds_collection'>";
+		optionrange(0, 1000, $r['no_ds_collection']);
+		echo "</select> </td> </tr>";
+	}
+
+	else {
+		echo "<tr>"
+		   . "<td>Editeur</td>"
+		   . "<td><select name='no_editeur'>";
+			optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
+		echo "</select></td> </tr>";
+	}
+
+
+	echo "</table>"
+	   . "<input type='hidden' name='type_album' value='".$_POST['type_album']."'>"
+	   . "<input type='hidden' name='no_volume' value='".$r['no_volume']."'>"
+	   . "<input type='hidden' name='action' value='edit'>"
+	   . "<input type='submit' value='Valider'> </form> </td>\n"
+	   . "</form>";
+
+	// liste des histoires
+	echo "<h3>Liste des histoires</h3>";
+	echo "<table border=1 cellpadding=5>"
+	   . "<tr>"
+	   . "<th>Titre</th>"
+	   . "</tr>";
+
+	$query = sprintf("SELECT * FROM histoires_et_auteurs WHERE no_histoire = %d", $r['no_histoire']);
+	$rv = mysql_query($query);
+	if (!$rv) { die(mysql_error()); }
+
+	while($r = mysql_fetch_array($rv)) {
+		echo "<tr>\n";
+		echo "<td>" . $r['nom_auteur'] . "</td>\n";
+		echo "<td>" . $r['prenom_auteur'] . "</td>\n";
+		echo "<td>" . $r['nom_role'] . "</td>\n";
+		echo "<td>";
+		button('story.php',
+			array('no_histoire' => $r['no_histoire'],
+				  'no_role' => $r['no_role'],
+				  'no_auteur' => $r['no_auteur']),
+			'deleteauthors',
+			'Supprimer');
+		echo "</td>";
+	}
+	echo "</table>";
+
+	echo "<hr>";
 }
 ?>
 
@@ -188,6 +214,7 @@ if (isset($_POST['action'])) {
 $query = "SELECT * from albums_et_editeurs";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -196,10 +223,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
-	// delete button
-	deletebutton('album.php', 'no_volume', $r['no_volume']);
-	editbutton('album.php', array('no_volume' => $r['no_volume'],
-	                              'type_album' => 'album_sans_collection'));
+	button('album.php', array('no_volume' => $r['no_volume'], 'type_album' => 'album_sans_collection'), 'edit', 'Editer');
+	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }
@@ -222,6 +247,7 @@ while($r = mysql_fetch_array($result)) {
 $query = "SELECT * from albums_et_collections";
 
 $result = mysql_query($query);
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -231,9 +257,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_collection'] . " #" . $r['no_ds_collection'] . " </td>\n";
 	echo "<td>";
 	// delete button
-	deletebutton('album.php', 'no_volume', $r['no_volume']);
-	editbutton('album.php', array('no_volume' => $r['no_volume'],
-	                              'type_album' => 'album_avec_collection'));
+	button('album.php', array('no_volume' => $r['no_volume'], 'type_album' => 'album_avec_collection'), 'edit', 'Editer');
+	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }
