@@ -50,8 +50,7 @@ et les méthodes vues dans le module de SGBD. L'application effectuée ici est
 liée à la gestion de bandes dessinées.
 
 Dans ce rapport, la base de données est décrite de sa conception à son
-utilisation, en passant par son implémentation. Les choix effectués par le
-groupe de projet sont détaillés et justifiés lorsque cela est nécessaire.
+utilisation, en passant par son implémentation. 
 
 \section{Modélisation des données}
 
@@ -90,7 +89,7 @@ La lecture de ces informations fait ressortir les entités suivantes :
 	\item éditeur ;
 	\item collection ;
 	\item histoire ;
-	\item série de volumes ;
+	\item série d'histoires ;
 	\item role d'un auteur ;
 	\item auteur.
 \end{itemize}
@@ -99,6 +98,11 @@ La lecture de ces informations fait ressortir les entités suivantes :
 \begin{itemize}
 	\item On considère qu'une revue est un ensemble de numéros de la revue et que l'éditeur d'une revue peut varier dans le temps.
 	\item Plusieurs collections différentes peuvent avoir le même nom.
+	\item On autorise que des histoires n'aient pas d'auteur renseigné ou que
+		des volumes ou des collections ne soient pas associés à un éditeur
+		présent dans la base. Inversement, des auteurs ou des éditeurs peuvent
+		être présents dans la base sans être liés à une histoire, un volume ou
+		une collection.
 \end{itemize}
 
 
@@ -115,7 +119,9 @@ différentes entités :
 \noindent\includegraphics[width=\textwidth]{schema-relation}
 
 \section{Implémentation }
--> choix de MySQL
+
+La base a été implémentée en utilisant MySQL. Ce SGBD a été choisi pour sa
+simplicité d'installation et de configuration.
 
 \subsection{Contraintes d'intégrité, dépendances fonctionnelles}
 
@@ -126,12 +132,24 @@ Des contraintes d'intégrité sont réalisées au niveau de la plupart des clés
 		exemple de la suppression automatique de relations 'contenir'
 		lorsqu'un album ou une histoire est supprimée ou de relations
 		'auteuriser' dans le cas de la suppression d'auteurs ou d'histoires.
-	\item Mettre des valeurs par défaut dans les attributs concernant les
+	\item Mettre des valeurs par défaut (null) dans les attributs concernant les
 		éditeurs (album sans collection, collection, revue) lorsqu'un éditeur
 		est supprimé.
 	\item Bloquer la suppression d'une collection s'il y
 		a encore des albums dans cette collection.
 \end{itemize}
+
+Pour alléger le code de l'interface et limiter la duplication, des vues ont été créées. Elles permettent
+par exemple d'associer des histoires à leurs auteurs en une requête simple sur
+laquelle il suffit d'appliquer une condition supplémentaire pour isoler un
+auteur particulier. La même chose est faite pour associer des albums à leur
+collection ou leur éditeur, des volumes à leurs histoires etc.
+
+Si la base devait gérer un très grand nombre d'entrées, il serait possible
+d'améliorer les performances de ces requêtes en les construisant directement
+dans l'interface en s'assurant de manipuler des tables moins grosses en
+utilisant des jointures internes aussi tôt que possible.
+
 
 \section{Opérations possibles sur la base}
 
@@ -144,6 +162,7 @@ Ces opérations peuvent être classées en 3 différentes catégories :
 \end{itemize}
 
 \paragraph{Consultation}
+
 Ces opérations permettent de fournir des informations basiques concernant
 diverses entités de la base de données à partir des informations qui y sont
 stockées.
@@ -174,21 +193,15 @@ implémentée :
 Il est possible d'appliquer les opérations de modification de la tables
 suivantes :
 \begin{itemize}
-	\item Ajout, suppression, modification d’une histoire, d’un volume, d’un auteur.
-	\item La création d'un volume en spécifiant directement une histoire (et
-		son éditeur) n'est pas implémentée mais il est possible d'ajouter des
-		histoires aux volumes déjà créés.
+	\item Ajout, suppression, modification d’une histoire, d’un volume, d’un
+		auteur, d'une série.
+	\item Création de collections rendant par la suite possible la création
+		d'albums avec collection.
+	\item Association d'histoires à des séries et à des auteurs.
 \end{itemize}
-
-\paragraph{}
-Les requêtes correspondant à ces opérations sont décrites plus bas.
 
 
 \section{Utilisation}
-
-\subsection{Description de l'environnement d'exécution}
-
-\emph{Decrire l'environnement et l'installation}
 
 \subsection{Notice d'utilisation}
 
@@ -212,6 +225,9 @@ de la variable \verb!$bdd! avec \verb!nom_de_la_bdd! dans la fonction
 \verb!connectdb()!. Si nécessaire, le contenu des variables \verb!$user! et
 \verb!$passwd! utilisés pour la connexion à la base peut être changé au même
 endroit.
+
+Par défaut, la base de données "test" (disponible sans mot de passe et nom
+d'utilisateur après une installation fraîche de MySQL) est utilisée.
 
 
 \subsection{Description de l'interface}
@@ -240,15 +256,16 @@ auteur.
 Pour chaque auteur, deux actions sont proposées : leur suppression de la table
 et leur édition. L'appui sur les boutons associés, situés sur chaque ligne
 d'auteur, permet d'effectuer ces actions. L'appui sur le bouton "Supprimer" va
-directement lancer l'exécution de la requête supprimant l'auteur de la table,
-sans demander confirmation.
+lancera l'exécution de la requête supprimant l'auteur de la table.
 
 L'appui sur le bouton "Editer" fait apparaître un formulaire en haut de la
 page ; les champs "Nom" et "Prenom" sont préremplis avec le nom de le prénom
 de l'auteur édité et peuvent être modifié.
 
 Par la suite, l'appui sur le bouton "Valider" applique les modifications mais
-ne fait pas disparaître le formulaire apparu pour des raisons de convenance.
+ne fait pas disparaître le formulaire apparu pour des raisons de convenance
+mais il est néanmoins mis à jour pour rendre compte des modifications
+apportées à la base.
 Il est en effet pratique de pouvoir appliquer un ensemble de modifications
 sans avoir à réappuyer sur le bouton "Editer" à chaque fois.
 Par exemple, pour la table histoire, de nombreuses modifications différentes
