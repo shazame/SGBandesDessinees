@@ -166,6 +166,33 @@ if (isset($_POST['action'])) {
 	   . "<input type='submit' value='Valider'> </form> </td>\n"
 	   . "</form>";
 
+	// liste des histoires
+	echo "<h3>Liste des histoires</h3>";
+	echo "<table border=1 cellpadding=5>"
+	   . "<tr>"
+	   . "<th>Titre</th>"
+	   . "</tr>";
+
+	$query = sprintf("SELECT * FROM histoires_et_auteurs WHERE no_histoire = %d", $r['no_histoire']);
+	$rv = mysql_query($query);
+	if (!$rv) { die(mysql_error()); }
+
+	while($r = mysql_fetch_array($rv)) {
+		echo "<tr>\n";
+		echo "<td>" . $r['nom_auteur'] . "</td>\n";
+		echo "<td>" . $r['prenom_auteur'] . "</td>\n";
+		echo "<td>" . $r['nom_role'] . "</td>\n";
+		echo "<td>";
+		button('story.php',
+			array('no_histoire' => $r['no_histoire'],
+				  'no_role' => $r['no_role'],
+				  'no_auteur' => $r['no_auteur']),
+			'deleteauthors',
+			'Supprimer');
+		echo "</td>";
+	}
+	echo "</table>";
+
 	echo "<hr>";
 }
 ?>
