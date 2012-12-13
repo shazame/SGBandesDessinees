@@ -109,6 +109,31 @@ function editform () {
 	}
 	echo "</table>";
 
+	// liste des series
+	echo "<h3>Liste des auteurs</h3>";
+	echo "<table border=1 cellpadding=5>"
+	   . "<tr>"
+	   . "<th>Nom serie</th>"
+	   . "</tr>";
+
+	$query = sprintf("SELECT * FROM histoires_et_series WHERE no_histoire = %d", $r['no_histoire']);
+	$rv = mysql_query($query);
+	if (!$rv) { die(mysql_error()); }
+
+	while($r = mysql_fetch_array($rv)) {
+		echo "<tr>\n";
+		echo "<td>" . $r['titre_serie'] . "</td>\n";
+		echo "<td>";
+		button('story.php',
+			array('no_histoire' => $r['no_histoire'],
+				  'no_role' => $r['no_role'],
+				  'no_auteur' => $r['no_auteur']),
+			'deleteauthor',
+			'Supprimer');
+		echo "</td>";
+		echo "</tr>";
+	}
+	echo "</table>";
 	echo "<hr>";
 }
 

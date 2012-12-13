@@ -20,8 +20,8 @@ SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
 			 nom_role, no_serie, no_ds_serie
 FROM
 	  (SELECT tmp.no_histoire, titre, annee_parution,
-						nom_auteur, prenom_auteur, ai.nom_role
-		  	 FROM auteur a, auteuriser_et_role ai, role r,
+						nom_auteur, prenom_auteur, nom_role
+		  	 FROM auteur a, auteuriser_et_role ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = 1

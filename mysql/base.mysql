@@ -15,8 +15,10 @@ drop table if exists role cascade;
 drop view if exists histoires_et_auteurs;
 drop view if exists albums_et_collections;
 drop view if exists albums_et_editeurs;
-drop view if exists albums_et_histoires;
 drop view if exists volumes_et_histoires;
+drop view if exists auteuriser_et_role;
+drop view if exists volumes_revues;
+drop view if exists histoires_et_series;
 
 create table volume (
    no_volume     int           not null auto_increment,
@@ -205,3 +207,9 @@ create or replace view auteuriser_et_role as
 create or replace view volumes_revues as
 	select RE.no_revue, RE.no_editeur, V.titre, V.annee_edition
 	from revue RE inner join volume V on RE.no_volume = V.no_volume;
+
+-- associe les histoires avec leurs series
+create or replace view histoires_et_series as
+	select S.no_serie, S.titre_serie, A.no_ds_serie, H.no_histoire, H.titre
+	from (serie S inner join appartenance_serie A on S.no_serie = A.no_serie)
+	inner join histoire H on H.no_histoire = A.no_histoire;
