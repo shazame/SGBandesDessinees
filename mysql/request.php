@@ -54,7 +54,7 @@ FROM
 		  	 FROM auteur a, auteuriser ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
-			 				 				WHERE ai.no_auteur = " . $no_auteur . "
+			 				 				WHERE ai.no_auteur = " . $no_author . "
 			 				 				AND ai.no_histoire = h.no_histoire) tmp
 			    WHERE tmp.no_histoire = ai.no_histoire
 			    AND ai.no_auteur = a.no_auteur) b

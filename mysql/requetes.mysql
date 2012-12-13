@@ -5,8 +5,8 @@ SELECT * FROM auteuriser ai, histoire h
 
 -- Bibliographie avec co-auteurs trié par année de parution
 SELECT tmp.no_histoire, titre, annee_parution,
-			 nom_auteur, prenom_auteur, role
-			 FROM auteur a, auteuriser ai,
+			 nom_auteur, prenom_auteur, nom_role
+			 FROM auteur a, auteuriser_et_role ai,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = 1
@@ -17,11 +17,11 @@ SELECT tmp.no_histoire, titre, annee_parution,
 
 -- Bibliographie avec co-auteurs trié par serie
 SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
-			 role, no_serie, no_ds_serie
+			 nom_role, no_serie, no_ds_serie
 FROM
 	  (SELECT tmp.no_histoire, titre, annee_parution,
-						nom_auteur, prenom_auteur, role
-		  	 FROM auteur a, auteuriser ai,
+						nom_auteur, prenom_auteur, ai.nom_role
+		  	 FROM auteur a, auteuriser_et_role ai, role r,
 			 	 			(SELECT h.no_histoire, h.titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = 1

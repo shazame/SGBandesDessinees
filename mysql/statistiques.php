@@ -9,7 +9,7 @@ function getNbHistoryByAuthor($no_auteur){
 	$query = "SELECT count(*) as nb_histoires
               FROM (SELECT DISTINCT no_histoire
                       FROM auteuriser
-					            WHERE no_auteur" . $no_auteur . " = 5) t;";
+					            WHERE no_auteur = " . $no_auteur . " ) t;";
 	$result = mysql_query($query);
 
 	if (!$result){

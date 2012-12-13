@@ -1,6 +1,6 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<h1>Requêtes</h1>
+<h1>Statistiques</h1>
 <?php
 require "include.php"; // globals
 try{
@@ -10,67 +10,58 @@ try{
 }
 ?>
 <?php
-require "request.php";
-$selected_action = "getBibliography";
+require "statistiques.php";
+$selected_action = "getNbHistoryByAuthor";
 
 $formular_needed = True;
 $no_author_needed = False;
 $revue_title_needed = False;
 $starting_year_needed = False;
 $ending_year_needed = False;
-$no_history_needed = False;
 
 
 if (isset($_POST['action'])) {
 	
 	$selected_action = $_POST['request'];
 	
-	if ($_POST['request'] == "getBibliography"){
+	if ($_POST['request'] == "getNbHistoryByAuthor"){
 		if ($_POST['no_author'] == ''){
 			$no_author_needed = True;
 		}
 		else{
 			try{
-				$result = getBibliography($_POST['no_author']);
-			}catch (Exception $e){
+				$result = getNbHistoryByAuthor($_POST['no_author']);
+			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
-			formattable($result);
+			echo "L'auteur spécifié a écrit " . $result . " histoire";
+			if ($result > 1) { echo "s";}
+			echo ".";
 			$formular_needed = False;
 		}
 	}
 	
-	if ($_POST['request'] == "getBibliographyOrderedByYear"){
-		if ($_POST['no_author'] == ''){
-			$no_author_needed = True;
-		}
-		else{
+	if ($_POST['request'] == "getSerieWithMostAuthor"){
 			try{
-				$result = getBibliographyOrderedByYear($_POST['no_author']);
-			}catch (Exception $e){
+				$result = getSerieWithMostAuthor();
+			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
 			formattable($result);
-			$formular_needed = False;
-		}
+		$formular_needed = False;
 	}
 	
-	if ($_POST['request'] == "getBibliographyOrderedBySerie"){
-		if ($_POST['no_author'] == ''){
-			$no_author_needed = True;
-		}
-		else{
+	if ($_POST['request'] == "getHistoryRankedByNbAlbums"){
 			try{
-				$result = getBibliographyOrderedBySerie($_POST['no_author']);
-			}catch (Exception $e){
+				$result = getHistoryRankedByNbAlbums();
+			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
 			formattable($result);
-			$formular_needed = False;
-		}
+		$formular_needed = False;
 	}
 	
-	if ($_POST['request'] == "getAuthorParticipatingToRevue"){
+	if ($_POST['request'] == "getAverageAuthor"){
 		if ($_POST['revue_title'] == '' ||
 				$_POST['starting_year'] == '' ||
 				$_POST['ending_year'] == ''){
@@ -80,59 +71,34 @@ if (isset($_POST['action'])) {
 		}
 		else{
 			try{
-				$result = getAuthorParticipatingToRevue($_POST['revue_title'],
-																								$_POST['starting_year'],
-																								$_POST['ending_year']);
-			}catch (Exception $e){
+				$result = getAverageAuthor($_POST['revue_title'] == '',
+																	 $_POST['starting_year'] == '',
+																	 $_POST['ending_year'] == '');
+			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
-			formattable($result);
+			echo "La moyenne d'auteur participant à la revue "
+				 . $_POST['revue_title']
+				 . " de " . $_POST['starting_year']
+				 . " à " . $_POST['ending_year']
+				 . " est de " . $result . ".";
 			$formular_needed = False;
 		}
-	}
-	
-	if ($_POST['request'] == "getHistoryOfStory"){
-		if ($_POST['no_history'] == ''){
-			$no_history_needed = True;
-		}
-		else{
-			try{
-				$result = getHistoryOfStory($_POST['no_history']);
-			}catch (Exception $e){
-				die('Caught exception: ' . $e->getMessage() . "\n");
-			}
-			formattable($result);
-			$formular_needed = False;
-		}
-	}
-	
-	if ($_POST['request'] == "getStoriesSharingTitle"){
-			try{
-				$result = getStoriesSharingTitle($_POST['no_history']);
-			}catch (Exception $e){
-				die('Caught exception: ' . $e->getMessage() . "\n");
-			}
-			formattable($result);
-		$formular_needed = False;
 	}
 
 
 }
 if ($formular_needed){
-	$actionValues = array("getBibliography",
-												"getBibliographyOrderedByYear",
-												"getBibliographyOrderedBySerie",
-												"getAuthorParticipatingToRevue",
-												"getHistoryOfStory",
-												"getStoriesSharingTitle");
-	$actionDescription = array("Bibliographie",
-														 "Bibliographie triée par date",
-														 "Bibliographie triée par série",
-														 "Auteurs participants à la revue",
-														 "Historique d'une histoire",
-														 "Histoire différentes portant le même nom");
+	$actionValues = array("getNbHistoryByAuthor",
+												"getSerieWithMostAuthor",
+												"getHistoryRankedByNbAlbums",
+												"getAverageAuthor");
+	$actionDescription = array("Le nombre d'histoire auxquels participe un auteur",
+														 "La série comportant le plus d'auteurs",
+														 "Les histoires triées par nombre d'albums",
+														 "La moyenne d'auteur participant à une revue");
 	$nb_actions = count($actionValues);
-	echo "<form action='test_request.php' method='post'>"
+	echo "<form action='test_statistiques.php' method='post'>"
 	   . "La requête désirée est :"
 		 . "<select name='request'>";
 	for ($i = 0; $i < $nb_actions; $i++){
@@ -179,16 +145,6 @@ if ($formular_needed){
 	}
 	else{
 		echo "<input type='hidden' name='ending_year' value=''>";
-	}
-	if ($no_history_needed){
-			echo " pour "
-	       . "<select name='no_history'>"
-				 . "<option value=''>---</option>";
-			optionselect("histoire", qw("no_histoire titre"), "");
-		  echo "</select>";
-	}
-	else{
-		echo "<input type='hidden' name='no_history' value=''>";
 	}
 	echo "<input type='hidden' name='action' value='request'>"
 		 . "<input type='submit' value='Valider'> </form> </td>\n"
