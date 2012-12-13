@@ -93,8 +93,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_serie'] . "</td>\n";
 	echo "<td>" . $r['titre_serie'] . "</td>\n";
 	echo "<td>";
-	button('serie.php', array('no_serie' => $r['no_serie'], 'edit', 'Editer'));
-	button('serie.php', array('no_serie' => $r['no_serie'], 'delete', 'Supprimer'));
+	button('serie.php', array('no_serie' => $r['no_serie']), 'edit', 'Editer');
+	button('serie.php', array('no_serie' => $r['no_serie']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }
