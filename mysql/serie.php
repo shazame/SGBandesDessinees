@@ -41,11 +41,54 @@ function editform () {
 
 	// Edit form
 	echo "<form action='serie.php' method='post'>";
-	echo "titre <input type='text' name='titre_serie' value='".$r['titre_serie']."'>";
+	echo "Titre <input type='text' name='titre_serie' value='".$r['titre_serie']."'>";
 	echo "<input type='hidden' name='no_serie' value='".$r['no_serie']."'>";
 	echo "<input type='hidden' name='action' value='edit'>";
 	echo "<input type='submit' value='Valider'> </form> </td>";
 	echo "</form>";
+
+	// Ajout d'une histoire
+	echo "<form action='serie.php' method='post'>"
+	   . "<select name='no_histoire'>"
+	   . "<option value=''>---</option>";
+	optionselect("histoire", qw("no_histoire titre"), "");
+	echo "</select>"
+	   . " numéro de série "
+	   . "<select name='no_ds_serie'>";
+		optionrange(0, 2000, 0);
+	echo "</select>"
+	   . " est dans cette serie. "
+	   . "<input type='hidden' name='no_serie' value='".$r['no_serie']."'>"
+	   . "<input type='hidden' name='action' value='addstory'>"
+	   . "<input type='submit' value='Valider'>"
+	   . "</form>";
+
+	// liste des histoires
+	echo "<h3>Liste des histoires</h3>";
+	echo "<table border=1 cellpadding=5>"
+	   . "<tr>"
+	   . "<th>No dans la serie</th>"
+	   . "<th>Titre</th>"
+	   . "</tr>";
+
+	$query = sprintf("SELECT * FROM histoires_et_series WHERE no_serie = %d", $r['no_serie']);
+	$rv = mysql_query($query);
+	if (!$rv) { die("Requête invalide " . mysql_error()); }
+
+	while($r = mysql_fetch_array($rv)) {
+		echo "<tr>\n";
+		echo "<td>" . $r['no_ds_serie'] . "</td>\n";
+		echo "<td>" . $r['titre'] . "</td>\n";
+		echo "<td>";
+		button('serie.php',
+			array('no_histoire' => $r['no_histoire'],
+				  'no_serie' => $r['no_serie']),
+			'deletestory',
+			'Supprimer');
+		echo "</td>";
+		echo "</tr>";
+	}
+	echo "</table>";
 
 	echo "<hr>";
 }	
@@ -61,6 +104,30 @@ if (isset($_POST['action'])) {
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
 		deleterow('serie',
 			qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])));
+	}
+
+	else if ($_POST['action'] == "deletestory") {
+
+		if (isset($_POST['no_histoire'])) {
+			deleterow('appartenance_serie',
+				qw('no_histoire no_serie'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_serie'])));
+		}
+
+		editform();
+	}
+
+	else if ($_POST['action'] == "addstory") {
+		if (isset($_POST['no_histoire']) && $_POST['no_histoire'] && isset($_POST['no_ds_serie'])) {
+			addrow('appartenance_serie',
+				qw("no_serie no_histoire no_ds_serie"),
+				array(sprintf("%d", $_POST['no_serie']),
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_ds_serie'])));
+		}
+
+		editform();
 	}
 
 	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
