@@ -71,3 +71,13 @@ FROM (SELECT no_volume, count(*) as nb_auteurs
       		      	AND c.no_volume = v.no_volume
       		      	AND c.no_histoire = a.no_histoire) t
       GROUP BY no_volume) t;
+
+
+-- classement par décade
+-- source : http://stackoverflow.com/questions/6687534/group-by-range-in-mysql
+SELECT concat(10*floor(annee_parution/10), '-',
+			 			  10*floor(annee_parution/10) + 9) as `decade`,
+			 count(*) as `nb_history`
+FROM histoire
+GROUP BY 1
+ORDER BY count(*) desc;
