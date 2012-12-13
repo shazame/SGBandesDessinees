@@ -71,9 +71,9 @@ if (isset($_POST['action'])) {
 		}
 		else{
 			try{
-				$result = getAverageAuthor($_POST['revue_title'] == '',
-																	 $_POST['starting_year'] == '',
-																	 $_POST['ending_year'] == '');
+				$result = getAverageAuthor($_POST['revue_title'],
+																	 $_POST['starting_year'],
+																	 $_POST['ending_year']);
 			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
@@ -124,7 +124,7 @@ if ($formular_needed){
 			echo " pour "
 	       . "<select name='revue_title'>"
 				 . "<option value=''>---</option>";
-			optionselect("volumes_revues", qw("no_revue titre_revue"), "");
+			optionselect("volumes_revues", qw("titre"), "");
 		  echo "</select>";
 	}
 	else{
