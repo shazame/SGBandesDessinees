@@ -28,34 +28,9 @@ try{
 
 
 <?php
+function editform () {
 
-if (isset($_POST['action'])) {
-
-	if (isset($_POST['titre_serie']) && $_POST['action'] == "add") {
-		addrow('serie',
-			qw("titre_serie"),
-			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
-
-		return;
-	}
-
-	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
-		deleterow('serie',
-			qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>\n";
-
-		if (isset($_POST['titre_serie'])) {
-			updaterow('serie',
-				qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])),
-				qw("titre_serie"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
-		}
-	}
-
+	echo "<h3>Edition</h3>\n";
 
 	// Select serie
 	$query = sprintf("SELECT * FROM serie WHERE no_serie = %d", $_POST['no_serie']);
@@ -73,6 +48,32 @@ if (isset($_POST['action'])) {
 	echo "</form>";
 
 	echo "<hr>";
+}	
+
+if (isset($_POST['action'])) {
+
+	if (isset($_POST['titre_serie']) && $_POST['action'] == "add") {
+		addrow('serie',
+			qw("titre_serie"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
+	}
+
+	else if (isset($_POST['no_serie']) && $_POST['action'] == "delete") {
+		deleterow('serie',
+			qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])));
+	}
+
+	else if (isset($_POST['no_serie']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['titre_serie'])) {
+			updaterow('serie',
+				qw('no_serie'), array(sprintf("%d", $_POST['no_serie'])),
+				qw("titre_serie"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre_serie']))));
+		}
+
+		editform();
+	}
+
 }
 ?>
 

@@ -35,41 +35,10 @@ try{
 
 
 <?php
+function editform () {
 
-if (isset($_POST['action'])) {
-
-	if ($_POST['action'] == "add") {
-		addrow('collection',
-			qw("nom_collection no_editeur"),
-			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection'])),
-			      sprintf("%d", $_POST['no_editeur'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_collection']) && $_POST['action'] == "delete") {
-		deleterow('collection',
-			qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_collection']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>";
-
-		if (isset($_POST['nom_collection'])) {
-			updaterow('collection',
-				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
-				qw("nom_collection"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection']))));
-		}
-
-		if (isset($_POST['no_editeur'])) {
-			updaterow('collection',
-				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
-				qw("no_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['no_editeur']))));
-		}
-	}
-
+	echo "<h3>Edition</h3>\n";
+	
 	// Select collection
 	$query = sprintf("SELECT * FROM collection WHERE no_collection = %d", $_POST['no_collection']);
 
@@ -97,6 +66,39 @@ if (isset($_POST['action'])) {
 	   . "</form>";
 
 	echo "<hr>";
+}
+
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+		addrow('collection',
+			qw("nom_collection no_editeur"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection'])),
+			      sprintf("%d", $_POST['no_editeur'])));
+	}
+
+	else if (isset($_POST['no_collection']) && $_POST['action'] == "delete") {
+		deleterow('collection',
+			qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])));
+	}
+
+	else if (isset($_POST['no_collection']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['nom_collection'])) {
+			updaterow('collection',
+				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
+				qw("nom_collection"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection']))));
+		}
+
+		if (isset($_POST['no_editeur'])) {
+			updaterow('collection',
+				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
+				qw("no_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['no_editeur']))));
+		}
+
+		editform();
+	}
 }
 ?>
 

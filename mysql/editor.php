@@ -28,34 +28,10 @@ try{
 
 
 <?php
+function editform () {
 
-if (isset($_POST['action'])) {
-
-	if ($_POST['action'] == "add") {
-		addrow('editeur',
-			qw("nom_editeur"),
-			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
-
-		return;
-	}
-
-	else if (isset($_POST['no_editeur']) && $_POST['action'] == "delete") {
-		deleterow('editeur',
-			qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
-		echo "<h3>Edition</h3>\n";
-
-		if (isset($_POST['nom_editeur'])) {
-			updaterow('editeur',
-				qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])),
-				qw("nom_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
-		}
-	}
-
+	echo "<h3>Edition</h3>\n";
+	
 	// Select author
 	$query = sprintf("SELECT * FROM editeur WHERE no_editeur = %d", $_POST['no_editeur']);
 
@@ -72,6 +48,31 @@ if (isset($_POST['action'])) {
 	echo "</form>";
 
 	echo "<hr>";
+}
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+		addrow('editeur',
+			qw("nom_editeur"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
+	}
+
+	else if (isset($_POST['no_editeur']) && $_POST['action'] == "delete") {
+		deleterow('editeur',
+			qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])));
+	}
+
+	else if (isset($_POST['no_editeur']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['nom_editeur'])) {
+			updaterow('editeur',
+				qw('no_editeur'), array(sprintf("%d", $_POST['no_editeur'])),
+				qw("nom_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_editeur']))));
+		}
+
+		editform();
+	}
 }
 ?>
 

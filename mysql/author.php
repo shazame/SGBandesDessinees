@@ -30,39 +30,7 @@ try{
 
 
 <?php
-if (isset($_POST['action'])) {
-
-	if ($_POST['action'] == "add") {
-		// Adding an author
-		addrow('auteur',
-			qw("nom_auteur prenom_auteur"),
-			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur'])), 
-			      sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
-
-		return;
-	}
-
-	else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
-		deleterow('auteur',
-			qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])));
-
-		return;
-	}
-
-	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-
-		if (isset($_POST['nom_auteur'])) {
-			updaterow('auteur',
-				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
-				qw("nom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur']))));
-		}
-
-		if (isset($_POST['prenom_auteur'])) {
-			updaterow('auteur',
-				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
-				qw("prenom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
-		}
-	}
+function editform () {
 
 	echo "<h3>Edition</h3>\n";
 
@@ -91,6 +59,39 @@ if (isset($_POST['action'])) {
 	   . "</form>";
 
 	echo "<hr>";
+}
+	
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+		// Adding an author
+		addrow('auteur',
+			qw("nom_auteur prenom_auteur"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur'])), 
+			      sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
+	}
+
+	else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
+		deleterow('auteur',
+			qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])));
+	}
+
+	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['nom_auteur'])) {
+			updaterow('auteur',
+				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
+				qw("nom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur']))));
+		}
+
+		if (isset($_POST['prenom_auteur'])) {
+			updaterow('auteur',
+				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
+				qw("prenom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
+		}
+
+		editform();
+	}
 }
 ?>
 

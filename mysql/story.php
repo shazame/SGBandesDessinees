@@ -35,59 +35,7 @@ try{
 
 <?php
 
-if (isset($_POST['action'])) {
-
-	if ($_POST['action'] == "add") {
-		addrow('histoire',
-			qw("titre annee_parution"),
-			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre'])),
-			      sprintf("%d", $_POST['annee_parution'])));
-
-		return;
-	}
-
-	else if ($_POST['action'] == "delete") {
-		deleterow('histoire',
-			qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])));
-
-		return;
-	}
-
-	else if ($_POST['action'] == "deleteauthor") {
-
-		if (isset($_POST['no_auteur']) && isset($_POST['no_role'])) {
-			deleterow('auteuriser',
-				qw('no_histoire no_auteur no_role'),
-				array(sprintf("%d", $_POST['no_histoire']),
-				      sprintf("%d", $_POST['no_auteur']),
-				      sprintf("%d", $_POST['no_role'])));
-		}
-	}
-
-	else if ($_POST['action'] == "addauthor") {
-		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur'] && $_POST['no_role']) {
-			addrow('auteuriser',
-				qw("no_auteur no_histoire no_role"),
-				array(sprintf("%d", $_POST['no_auteur']),
-				      sprintf("%d", $_POST['no_histoire']),
-				      sprintf("%d", $_POST['no_role'])));
-		}
-	}
-
-	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
-
-		if (isset($_POST['titre'])) {
-			updaterow('histoire',
-				qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])),
-				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
-		}
-
-		if (isset($_POST['annee_parution'])) {
-			updaterow('histoire',
-				qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])),
-				qw("annee_parution"), array(sprintf("%d", $_POST['annee_parution'])));
-		}
-	}
+function editform () {
 
 	echo "<h3>Edition</h3>\n";
 
@@ -110,8 +58,8 @@ if (isset($_POST['action'])) {
 	optionrange(1900, 2050, $r['annee_parution']);
 	echo "</select> </td> </tr>"
 	   . "</table>"
-	   . "<input type='hidden' name='action' value='edit'>";
-	   . "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>";
+	   . "<input type='hidden' name='action' value='edit'>"
+	   . "<input type='hidden' name='no_histoire' value='".$r['no_histoire']."'>"
 	   . "<input type='submit' value='Valider'>"
 	   . "</form>";
 
@@ -162,6 +110,64 @@ if (isset($_POST['action'])) {
 	echo "</table>";
 
 	echo "<hr>";
+}
+
+if (isset($_POST['action'])) {
+
+	if ($_POST['action'] == "add") {
+		addrow('histoire',
+			qw("titre annee_parution"),
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre'])),
+			      sprintf("%d", $_POST['annee_parution'])));
+	}
+
+	else if ($_POST['action'] == "delete") {
+		deleterow('histoire',
+			qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])));
+	}
+
+	else if ($_POST['action'] == "deleteauthor") {
+
+		if (isset($_POST['no_auteur']) && isset($_POST['no_role'])) {
+			deleterow('auteuriser',
+				qw('no_histoire no_auteur no_role'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_role'])));
+		}
+
+		editform();
+	}
+
+	else if ($_POST['action'] == "addauthor") {
+		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur'] && $_POST['no_role']) {
+			addrow('auteuriser',
+				qw("no_auteur no_histoire no_role"),
+				array(sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_role'])));
+		}
+
+		editform();
+	}
+
+	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
+
+		if (isset($_POST['titre'])) {
+			updaterow('histoire',
+				qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
+		}
+
+		if (isset($_POST['annee_parution'])) {
+			updaterow('histoire',
+				qw('no_histoire'), array(sprintf("%d", $_POST['no_histoire'])),
+				qw("annee_parution"), array(sprintf("%d", $_POST['annee_parution'])));
+		}
+
+		editform();
+	}
+
 }
 
 ?>
