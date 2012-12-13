@@ -84,6 +84,17 @@ if (isset($_POST['action'])) {
 		return;
 	}
 
+	else if ($_POST['action'] == "deletestory") {
+		echo "<h3>Edition</h3>\n";
+
+		if (isset($_POST['no_histoire'])) {
+			deleterow('contenir',
+				qw('no_histoire no_volume'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_volume'])));
+		}
+	}
+
 	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
 		deleterow('volume',
 			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
@@ -173,23 +184,22 @@ if (isset($_POST['action'])) {
 	   . "<th>Titre</th>"
 	   . "</tr>";
 
-	$query = sprintf("SELECT * FROM histoires_et_auteurs WHERE no_histoire = %d", $r['no_histoire']);
+	$query = sprintf("SELECT * FROM volumes_et_histoires WHERE no_volume = %d", $r['no_volume']);
 	$rv = mysql_query($query);
-	if (!$rv) { die(mysql_error()); }
+	if (!$rv) { die("Requête invalide " . mysql_error()); }
 
 	while($r = mysql_fetch_array($rv)) {
 		echo "<tr>\n";
-		echo "<td>" . $r['nom_auteur'] . "</td>\n";
-		echo "<td>" . $r['prenom_auteur'] . "</td>\n";
-		echo "<td>" . $r['nom_role'] . "</td>\n";
+		echo "<td>" . $r['titre'] . "</td>\n";
 		echo "<td>";
-		button('story.php',
+		button('album.php',
 			array('no_histoire' => $r['no_histoire'],
-				  'no_role' => $r['no_role'],
-				  'no_auteur' => $r['no_auteur']),
-			'deleteauthors',
+			      'type_album' => $_POST['type_album'],
+				  'no_volume' => $r['no_volume']),
+			'deletestory',
 			'Supprimer');
 		echo "</td>";
+		echo "</tr>";
 	}
 	echo "</table>";
 
