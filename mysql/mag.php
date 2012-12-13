@@ -152,6 +152,8 @@ if (isset($_POST['action'])) {
 				array(sprintf("%d", $_POST['no_histoire']),
 				      sprintf("%d", $_POST['no_volume'])));
 		}
+
+		editform();
 	}
 
 	else if ($_POST['action'] == "addstory") {
@@ -209,12 +211,13 @@ if (isset($_POST['action'])) {
 <th>Numero revue</th>
 <th>Titre</th>
 <th>Annee edition</th>
+<th>Editeur</th>
 </tr>
 
 <?php
-$query = "SELECT V.*, R.no_revue "
-	   . "FROM volume as V inner join revue as R "
-	   . "on V.no_volume = R.no_volume";
+$query = "SELECT V.*, R.no_revue, E.nom_editeur "
+	. "FROM (volume as V inner join revue as R on V.no_volume = R.no_volume) "
+	. "inner join editeur E on E.no_editeur = R.no_editeur";
 
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
@@ -225,6 +228,7 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_revue'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
+	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
 	button('mag.php', array('no_volume' => $r['no_volume']), 'edit', 'Editer');
 	button('mag.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');

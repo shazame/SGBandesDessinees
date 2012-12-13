@@ -56,7 +56,7 @@ function optionselect($from, $attr, $selected) {
 	// attr is an array containing all attributes to retrieve
 	// first attribute must be the key as it will be used for each 
 	// option's value
-	$query = "SELECT DISTINCT " . $attr[0];
+	$query = "SELECT " . $attr[0];
 	for ($i = 1; $i < count($attr); ++$i) {
 		$query .= ", " . $attr[$i];
 	}
@@ -137,6 +137,8 @@ function formattable($resource) {
 	echo "<table>";
 
 	$r = mysql_fetch_assoc($resource);
+
+	if (!$r) { die("Ressource vide " . mysql_error()); }	
 
 	// column titles
 	foreach($r as $i => $val) { echo "<th>$i</th>"; }
