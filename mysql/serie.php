@@ -61,7 +61,7 @@ if (isset($_POST['action'])) {
 	$query = sprintf("SELECT * FROM serie WHERE no_serie = %d", $_POST['no_serie']);
 
 	$rv = mysql_query($query);
-	if (!$result) { die('Requête invalide : ' . mysql_error()); }
+	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 	$r = mysql_fetch_array($rv);
 
 	// Edit form
