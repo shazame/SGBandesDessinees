@@ -20,6 +20,10 @@
 			//die("Can't connect: " . mysql_error());
 		}
 
+		if (!mysql_set_charset('utf8', $con)) {
+			echo "Error : Impossible to define charset.\n";
+		}
+
 		if (!mysql_select_db($bdd, $con)) {
 			mysql_close($con);
 		  throw new Exception("Can't select db");
