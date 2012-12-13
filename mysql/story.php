@@ -11,6 +11,10 @@ try{
 ?>
 
 <h1>Histoires</h1>
+<a href="index.php">Retour à l'index</a>
+
+
+<h3>Ajout</h3>
 
 <table>
 <form action="story.php" method="post">
@@ -36,11 +40,12 @@ if (isset($_POST['action'])) {
 	if ($_POST['action'] == "add") {
 		addrow('histoire',
 			qw("titre annee_parution"),
-			array("'".$_POST['titre']."'", $_POST['annee_parution']));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['titre'])),
+			      sprintf("%d", $_POST['annee_parution'])));
 	}
 
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "delete") {
-		deleterow('histoire', 'no_histoire', $_POST['no_histoire']);
+		deleterow('histoire', 'no_histoire', sprintf("%d", $_POST['no_histoire']));
 	}
 
 	else if (isset($_POST['no_histoire']) && $_POST['action'] == "edit") {
@@ -48,26 +53,27 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre'])) {
 			updaterow('histoire',
-				'no_histoire', $_POST['no_histoire'],
-				qw("titre"), array("'". $_POST['titre']."'"));
+				'no_histoire', sprintf("%d", $_POST['no_histoire']),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
 		}
 
 		if (isset($_POST['annee_parution'])) {
 			updaterow('histoire',
-				'no_histoire', $_POST['no_histoire'],
-				qw("annee_parution"), array($_POST['annee_parution']));
+				'no_histoire', sprintf("%d", $_POST['no_histoire']),
+				qw("annee_parution"), array(sprintf("%d", $_POST['annee_parution'])));
 		}
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_auteur']) && $_POST['no_auteur']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-			array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+				array(sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("'%s'", mysql_real_escape_string($_POST['no_role']."'"))));
 		}
 
 		// Select story
-		$query = "SELECT * FROM histoire "
-			   . "WHERE no_histoire = " . $_POST['no_histoire'];
+		$query = sprintf("SELECT * FROM histoire WHERE no_histoire = %d", $_POST['no_histoire']);
 
 		$rv = mysql_query($query);
 		$r = mysql_fetch_array($rv);
@@ -91,15 +97,38 @@ if (isset($_POST['action'])) {
 		optionselect("auteur", qw("no_auteur nom_auteur prenom_auteur"), "");
 		echo "</select>"
 		   . " est "
-		   . "<select name='role'>"
-		   . "<option value='drawing'>dessinateur</option>"
-		   . "<option value='script'>scenariste</option>"
-		   . "<option value='both'>les deux</option>"
-		   . "</select>"
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
 		   . " pour cette histoire." 
 		   . "<br/>"
 		   . "<input type='submit' value='Valider'> </form> </td>"
 		   . "</form>";
+
+
+		// liste des auteurs
+		echo "<h3>Liste des auteurs</h3>";
+		echo "<table border=1 cellpadding=5>"
+		   . "<tr>"
+		   . "<th>Nom</th>"
+		   . "<th>Prenom</th>"
+		   . "<th>Role</th>"
+		   . "</tr>";
+
+		$query = sprintf("SELECT * FROM histoires_et_auteurs WHERE no_histoire = %d", $r['no_histoire']);
+		$rv = mysql_query($query);
+		if (!$rv) { die(mysql_error()); }
+
+		while($r = mysql_fetch_array($rv)) {
+			echo "<tr>\n";
+			echo "<td>" . $r['nom_auteur'] . "</td>\n";
+			echo "<td>" . $r['prenom_auteur'] . "</td>\n";
+			echo "<td>" . $r['nom_role'] . "</td>\n";
+			echo "<td>";
+			//deletebutton('story.php', 'no_histoire', $r['no_histoire']);
+			echo "</td>";
+		}
+		echo "</table>";
 
 		echo "<hr>";
 	}
@@ -137,4 +166,6 @@ while($r = mysql_fetch_array($result)) {
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
 </html>

@@ -11,6 +11,7 @@ try{
 ?>
 
 <h1>Auteurs</h1>
+<a href="index.php">Retour à l'index</a>
 
 <h3>Ajout</h3>
 
@@ -35,43 +36,43 @@ if (isset($_POST['action'])) {
 		// Adding an author
 		addrow('auteur',
 			qw("nom_auteur prenom_auteur"),
-			array("'".$_POST['nom_auteur']."'", "'".$_POST['prenom_auteur']."'"));
+			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur'])), 
+			      sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
-		deleterow('auteur', 'no_auteur', $_POST['no_auteur']);
+		deleterow('auteur', 'no_auteur', sprintf("%d", $_POST['no_auteur']));
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
-		echo "<h3>edition</h3>\n";
+		echo "<h3>Edition</h3>\n";
 
 		// auteuriser
-		if (isset($_POST['role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
+		if (isset($_POST['no_role']) && isset($_POST['no_histoire']) && $_POST['no_histoire']) {
 			addrow('auteuriser',
-				qw("no_auteur no_histoire role"),
-				array($_POST['no_auteur'], $_POST['no_histoire'], "'".$_POST['role']."'"));
+				qw("no_auteur no_histoire no_role"),
+				array(sprintf("%d", $_POST['no_auteur']),
+				      sprintf("%d", $_POST['no_histoire']),
+			   	      sprintf("'%s'", mysql_real_escape_string($_POST['no_role']))));
 		}
 
 		if (isset($_POST['nom_auteur'])) {
 			updaterow('auteur',
-				'no_auteur', $_POST['no_auteur'],
-				qw("nom_auteur"), array("'". $_POST['nom_auteur']."'"));
+				'no_auteur', sprintf("%d", $_POST['no_auteur']),
+				qw("nom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur']))));
 		}
 
 		if (isset($_POST['prenom_auteur'])) {
 			updaterow('auteur',
-				'no_auteur', $_POST['no_auteur'],
-				qw("prenom_auteur"), array("'". $_POST['prenom_auteur']."'"));
+				'no_auteur', sprintf("%d", $_POST['no_auteur']),
+				qw("prenom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
 		}
 
 		// Select author
-		$query = "SELECT * FROM auteur "
-			   . "WHERE no_auteur = " . $_POST['no_auteur'];
+		$query = sprintf("SELECT * FROM auteur WHERE no_auteur = %d", $_POST['no_auteur']);
 
 		$rv = mysql_query($query);
-		if (!$rv) {
-			die('Requête invalide : ' . mysql_error());
-		}
+		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 		$r = mysql_fetch_array($rv);
 
 		// Edit form
@@ -87,11 +88,9 @@ if (isset($_POST['action'])) {
 		   . "</tr>"
 		   . "</table>"
 		   . "Cet auteur est "
-		   . "<select name='role'>"
-		   . "<option value='drawing'>dessinateur</option>"
-		   . "<option value='script'>scenariste</option>"
-		   . "<option value='both'>les deux</option>"
-		   . "</select>"
+		   . "<select name='no_role'>";
+			optionselect("role", qw("no_role nom_role"), "");
+		echo "</select>"
 		   . " pour "
 		   . "<select name='no_histoire'>"
 		   . "<option value=''>---</option>";
@@ -120,9 +119,7 @@ if (isset($_POST['action'])) {
 $query = "SELECT * FROM auteur";
 
 $result = mysql_query($query);
-if (!$result) {
-    die('Requête invalide : ' . mysql_error());
-}
+if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
 while($r = mysql_fetch_array($result)) {
 	echo "<tr>\n";
@@ -130,18 +127,18 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	echo "<td>";
-	// edit button
 	editbutton('author.php', array('no_auteur' => $r['no_auteur']));
-	// delete button
 	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
 	echo "</td>";
 	echo "</tr>\n";
 }
 ?>
-</table>";
+</table>
 
 <?php
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
 </html>

@@ -11,6 +11,8 @@ try{
 ?>
 
 <h1>Revues</h1>
+<a href="index.php">Retour à l'index</a>
+
 
 <h3>Ajout</h3>
 
@@ -45,24 +47,25 @@ if (isset($_POST['action'])) {
 
 		addrow('volume',
 			qw("titre annee_edition"),
-			array("'".$_POST['titre']."'", $_POST['annee_edition']));
+			array(sprintf('%s', mysql_real_escape_string($_POST['titre'])),
+			      sprintf('%d', $_POST['annee_edition'])));
 
 		// get last entry's id
 		$id = mysql_insert_id();
 
 		addrow('revue',
 			qw("no_volume no_revue"),
-			array($id, $_POST['no_revue']));
+			array($id, sprintf('%d', $_POST['no_revue'])));
 
 		if ($_POST['no_editeur'] > 0) {
 			addrow('edition_des_revues',
 				qw("no_volume no_editeur"),
-				array($id, $_POST['no_editeur']));
+				array($id, sprintf("%d", $_POST['no_editeur'])));
 		}
 	}
 
 	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
-		deleterow('Volume', 'no_volume', $_POST['no_volume']);
+		deleterow('Volume', 'no_volume', sprintf("%d", $_POST['no_volume']));
 	}
 
 	else if (isset($_POST['no_volume']) && $_POST['action'] == "edit") {
@@ -70,37 +73,37 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['titre'])) {
 			updaterow('volume',
-				'no_volume', $_POST['no_volume'],
-				qw("titre"), array("'". $_POST['titre']."'"));
+				'no_volume', sprintf("%d", $_POST['no_volume']),
+				qw("titre"), array(sprintf("'%s'", mysql_real_escape_string($_POST['titre']))));
 		}
 
 		if (isset($_POST['annee_edition'])) {
 			updaterow('volume',
-				'no_volume', $_POST['no_volume'],
-				qw("annee_edition"), array("'". $_POST['annee_edition']."'"));
+				'no_volume', sprintf("%d", $_POST['no_volume']),
+				qw("annee_edition"), array(sprintf("%d", $_POST['annee_edition'])));
 		}
 
 		if (isset($_POST['no_revue'])) {
 			updaterow('revue',
-				'no_volume', $_POST['no_volume'],
-				qw("no_revue"), array("'". $_POST['no_revue']."'"));
+				'no_volume', sprintf("%d", $_POST['no_volume']),
+				qw("no_revue"), array(sprintf("%d", $_POST['no_revue'])));
 		}
 
 		if (isset($_POST['no_editeur'])) {
 			updaterow('revue',
-				'no_volume', $_POST['no_volume'],
-				qw("no_editeur"), array("'". $_POST['no_editeur']."'"));
+				'no_volume', sprintf("%d", $_POST['no_volume']),
+				qw("no_editeur"), array(sprintf("%d", $_POST['no_editeur'])));
 		}
 
 		// Select mag
-		$query = "SELECT * FROM volume as V, revue as R "
-		       . "WHERE V.no_volume = " . $_POST['no_volume'] . " "
-		       . "AND R.no_volume = " . $_POST['no_volume'];
+		$query = sprintf (
+			     "SELECT * FROM volume as V, revue as R "
+		       . "WHERE V.no_volume = %d "
+			   . "AND R.no_volume = %d",
+			   $_POST['no_volume'], $_POST['no_volume']);
 
 		$rv = mysql_query($query);
-		if (!$rv) {
-			die('Requête invalide : ' . mysql_error());
-		}
+		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
 		$r = mysql_fetch_array($rv);
 
 		// Edit form
@@ -172,3 +175,6 @@ while($r = mysql_fetch_array($result)) {
 disconnectdb();
 ?>
 
+<a href="index.php">Retour à l'index</a>
+</body>
+</html>
