@@ -178,7 +178,7 @@ Les requêtes correspondant à ces opérations sont décrites plus bas.
 
 \emph{Lister les requetes importantes}
 
-\section{Utilisation :}
+\section{Utilisation}
 
 \subsection{Description de l'environnement d'exécution}
 
@@ -200,6 +200,51 @@ de la variable \verb!$bdd! avec \verb!nom_de_la_bdd! dans la fonction
 \verb!$passwd! utilisés pour la connexion à la base peut être changé au même
 endroit.
 
-\subsection{Description des interfaces éventuelles (Shell, JDBC, PHP, etc.)}
+\subsection{Description de l'interface}
+
+Le langage PHP a été utilisé pour réaliser l'interface utilisateur avec la
+base. La page d'accueil permet d'accéder aux pages des différentes entités en
+cliquant sur les liens correspondants. Il est à chaque fois possible de
+revenir à la page d'accueil via un lien se situant en haut de la page. En
+cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé vers
+une page listant le contenu de la table des auteurs, c'est-à-dire leur nom,
+leur prénom et un numéro les identifiant. Il est possible d'effectuer des
+insertions dans la table au moyens d'un formulaire d'ajout dans lequel le nom
+et le prénom des auteurs sont à remplir :
+
+\begin{figure}[h!]
+\begin{center}
+\noindent\includegraphics[]{formulaire-ajout-auteur}
+  \caption{Formulaire d'ajout d'un auteur}
+\end{center}
+\end{figure}
+
+Le numéro d'identification de l'auteur est automatiquement affecté de manière
+à être unique : c'est un numéro incrémenté en interne à chaque ajout d'un
+auteur.
+
+Pour chaque auteur, deux actions sont proposées : leur suppression de la table
+et leur édition. L'appui sur les boutons associés, situés sur chaque ligne
+d'auteur, permet d'effectuer ces actions. L'appui sur le bouton "Supprimer" va
+directement lancer l'exécution de la requête supprimant l'auteur de la table,
+sans demander confirmation.
+
+L'appui sur le bouton "Editer" fait apparaître un formulaire en haut de la
+page ; les champs "Nom" et "Prenom" sont préremplis avec le nom de le prénom
+de l'auteur édité et peuvent être modifié.
+
+Par la suite, l'appui sur le bouton "Valider" applique les modifications mais
+ne fait pas disparaître le formulaire apparu pour des raisons de convenance.
+Il est en effet pratique de pouvoir appliquer un ensemble de modifications
+sans avoir à réappuyer sur le bouton "Editer" à chaque fois.
+Par exemple, pour la table histoire, de nombreuses modifications différentes
+peuvent être effectuées suite à l'appui sur le bouton "Editer" d'une histoire
+: 
+\begin{itemize}
+	\item modification du titre et de l'année de parution ;
+	\item ajouts d'auteurs ;
+	\item suppression d'auteurs.
+\end{itemize}
+Devoir appuyer sur éditer à chaque ajout d'un auteur, par exemple, aurait été contraignant.
 
 \end{document}
