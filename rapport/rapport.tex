@@ -287,4 +287,12 @@ peuvent être effectuées suite à l'appui sur le bouton "Editer" d'une histoire
 Devoir appuyer sur éditer à chaque ajout d'un auteur, par exemple, aurait été
 contraignant.
 
+\paragraph{}
+La possibilité d'effectuer des injections SQL a été prévenue en sécurisant les
+entrée de l'utilisateur. Pour cela, l'utilisation de la fonction "sprintf"
+permet de forcer l'entrée de l'utilisateur à être traitée comme un nombre
+lorsque cela doit être le cas. Lorsque l'utilisateur a la possibilité d'entrer
+des chaînes de caractères, la fonction "mysql\_real\_escape\_string" a été
+employé afin de protéger les requêtes SQL de caractères spéciaux.
+
 \end{document}
