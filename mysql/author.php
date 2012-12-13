@@ -38,10 +38,15 @@ if (isset($_POST['action'])) {
 			qw("nom_auteur prenom_auteur"),
 			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur'])), 
 			      sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
+
+		return;
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
-		deleterow('auteur', 'no_auteur', sprintf("%d", $_POST['no_auteur']));
+		deleterow('auteur',
+			qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "edit") {
@@ -58,51 +63,51 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['nom_auteur'])) {
 			updaterow('auteur',
-				'no_auteur', sprintf("%d", $_POST['no_auteur']),
+				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
 				qw("nom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur']))));
 		}
 
 		if (isset($_POST['prenom_auteur'])) {
 			updaterow('auteur',
-				'no_auteur', sprintf("%d", $_POST['no_auteur']),
+				qw('no_auteur'), array(sprintf("%d", $_POST['no_auteur'])),
 				qw("prenom_auteur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
 		}
-
-		// Select author
-		$query = sprintf("SELECT * FROM auteur WHERE no_auteur = %d", $_POST['no_auteur']);
-
-		$rv = mysql_query($query);
-		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
-		$r = mysql_fetch_array($rv);
-
-		// Edit form
-		echo "<form action='author.php' method='post'>"
-		   . "<table>"
-		   . "<tr>"
-		   . "<td>Nom</td>"
-		   . "<td><input type='text' name='nom_auteur' value='".$r['nom_auteur']."'></td>"
-		   . "</tr>"
-		   . "<tr>"
-		   . "<td>Prenom</td>"
-		   . "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
-		   . "</tr>"
-		   . "</table>"
-		   . "Cet auteur est "
-		   . "<select name='no_role'>";
-			optionselect("role", qw("no_role nom_role"), "");
-		echo "</select>"
-		   . " pour "
-		   . "<select name='no_histoire'>"
-		   . "<option value=''>---</option>";
-			optionselect("histoire", qw("no_histoire titre"), "");
-		echo "</select>"
-		   . "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
-		   . "<input type='hidden' name='action' value='edit'>"
-		   . "<input type='submit' value='Valider'> </form> </td>\n"
-		   . "</form>";
-
-		echo "<hr>";
 	}
+
+	// Select author
+	$query = sprintf("SELECT * FROM auteur WHERE no_auteur = %d", $_POST['no_auteur']);
+
+	$rv = mysql_query($query);
+	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
+	$r = mysql_fetch_array($rv);
+
+	// Edit form
+	echo "<form action='author.php' method='post'>"
+	   . "<table>"
+	   . "<tr>"
+	   . "<td>Nom</td>"
+	   . "<td><input type='text' name='nom_auteur' value='".$r['nom_auteur']."'></td>"
+	   . "</tr>"
+	   . "<tr>"
+	   . "<td>Prenom</td>"
+	   . "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
+	   . "</tr>"
+	   . "</table>"
+	   . "Cet auteur est "
+	   . "<select name='no_role'>";
+		optionselect("role", qw("no_role nom_role"), "");
+	echo "</select>"
+	   . " pour "
+	   . "<select name='no_histoire'>"
+	   . "<option value=''>---</option>";
+		optionselect("histoire", qw("no_histoire titre"), "");
+	echo "</select>"
+	   . "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
+	   . "<input type='hidden' name='action' value='edit'>"
+	   . "<input type='submit' value='Valider'> </form> </td>\n"
+	   . "</form>";
+
+	echo "<hr>";
 }
 ?>
 
@@ -127,8 +132,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	echo "<td>";
-	editbutton('author.php', array('no_auteur' => $r['no_auteur']));
-	deletebutton('author.php', 'no_auteur', $r['no_auteur']);
+	button('author.php', array('no_auteur' => $r['no_auteur']), 'edit', 'Editer');
+	button('author.php', array('no_auteur' => $r['no_auteur']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>\n";
 }

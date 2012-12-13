@@ -172,7 +172,7 @@ insert into role (nom_role) values ('coloriste');
 -- Vues
 -- selectionne les auteurs pour chaque histoire avec leur role
 create or replace view histoires_et_auteurs as
-	select AR.no_histoire, A.nom_auteur, A.prenom_auteur, R.nom_role
+	select AR.no_histoire, A.no_auteur, A.nom_auteur, A.prenom_auteur, R.no_role, R.nom_role
 	from (auteur A inner join auteuriser AR on A.no_auteur = AR.no_auteur)
 	inner join role R on AR.no_role = R.no_role;
 

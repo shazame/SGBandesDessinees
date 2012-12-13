@@ -43,10 +43,15 @@ if (isset($_POST['action'])) {
 			qw("nom_collection no_editeur"),
 			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection'])),
 			      sprintf("%d", $_POST['no_editeur'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_collection']) && $_POST['action'] == "delete") {
-		deleterow('collection', 'no_collection', sprintf("%d", $_POST['no_collection']));
+		deleterow('collection',
+			qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])));
+
+		return;
 	}
 
 	else if (isset($_POST['no_collection']) && $_POST['action'] == "edit") {
@@ -54,44 +59,44 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['nom_collection'])) {
 			updaterow('collection',
-				'no_collection', sprintf("%d", $_POST['no_collection']),
+				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
 				qw("nom_collection"), array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_collection']))));
 		}
 
 		if (isset($_POST['no_editeur'])) {
 			updaterow('collection',
-				'no_collection', sprintf("%d", $_POST['no_collection']),
+				qw('no_collection'), array(sprintf("%d", $_POST['no_collection'])),
 				qw("no_editeur"), array(sprintf("'%s'", mysql_real_escape_string($_POST['no_editeur']))));
 		}
-
-		// Select collection
-		$query = sprintf("SELECT * FROM collection WHERE no_collection = %d", $_POST['no_collection']);
-
-		$rv = mysql_query($query);
-		if (!$rv) { die('Requête invalide : ' . mysql_error()); }
-		$r = mysql_fetch_array($rv);
-
-		// Edit form
-		echo "<form action='collection.php' method='post'>"
-		   . "<table>"
-		   . "<tr>"
-		   . "<td>Nom</td>"
-		   . "<td><input type='text' name='nom_collection' value='".$r['nom_collection']."'></td>"
-		   . "</tr>"
-		   . "<tr>"
-		   . "<td>Editeur</td>"
-		   . "<td><select name='no_editeur'>";
-			optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
-		echo "</select></td>"
-		   . "</tr>"
-		   . "</table>"
-		   . "<input type='hidden' name='no_collection' value='".$r['no_collection']."'>"
-		   . "<input type='hidden' name='action' value='edit'>"
-		   . "<input type='submit' value='Valider'> </form> </td>\n"
-		   . "</form>";
-
-		echo "<hr>";
 	}
+
+	// Select collection
+	$query = sprintf("SELECT * FROM collection WHERE no_collection = %d", $_POST['no_collection']);
+
+	$rv = mysql_query($query);
+	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
+	$r = mysql_fetch_array($rv);
+
+	// Edit form
+	echo "<form action='collection.php' method='post'>"
+	   . "<table>"
+	   . "<tr>"
+	   . "<td>Nom</td>"
+	   . "<td><input type='text' name='nom_collection' value='".$r['nom_collection']."'></td>"
+	   . "</tr>"
+	   . "<tr>"
+	   . "<td>Editeur</td>"
+	   . "<td><select name='no_editeur'>";
+		optionselect("editeur", qw("no_editeur nom_editeur"), $r['no_editeur']);
+	echo "</select></td>"
+	   . "</tr>"
+	   . "</table>"
+	   . "<input type='hidden' name='no_collection' value='".$r['no_collection']."'>"
+	   . "<input type='hidden' name='action' value='edit'>"
+	   . "<input type='submit' value='Valider'> </form> </td>\n"
+	   . "</form>";
+
+	echo "<hr>";
 }
 ?>
 
@@ -116,8 +121,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_collection'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
-	editbutton('collection.php', array('no_collection' => $r['no_collection']));
-	deletebutton('collection.php', 'no_collection', $r['no_collection']);
+	button('collection.php', array('no_collection' => $r['no_collection']), 'edit', 'Editer');
+	button('collection.php', array('no_collection' => $r['no_collection']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }
