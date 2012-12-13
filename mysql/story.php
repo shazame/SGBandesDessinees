@@ -151,6 +151,7 @@ if (isset($_POST['action'])) {
 			'deleteauthors',
 			'Supprimer');
 		echo "</td>";
+		echo "</tr>";
 	}
 	echo "</table>";
 

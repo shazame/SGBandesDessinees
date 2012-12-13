@@ -39,7 +39,7 @@ function getSerieWithMostAuthor(){
                         							 WHERE ai.no_histoire = a.no_histoire) t
                         		      GROUP BY no_serie) t) t2
                   WHERE nb_auteur = nb_auteur_max) t
-            WHERE s.no_serie = t.no_serie;"
+            WHERE s.no_serie = t.no_serie;";
 	$result = mysql_query($query);
 
 	if (!$result){
@@ -64,7 +64,7 @@ function getHistoryRankedByNbAlbums(){
                   WHERE v.no_volume = c.no_volume
                   GROUP BY no_histoire
                   ORDER BY count(*) desc) t
-            WHERE h.no_histoire = t.no_histoire;"
+            WHERE h.no_histoire = t.no_histoire;";
 	$result = mysql_query($query);
 
 	if (!$result){
@@ -85,13 +85,13 @@ function getAverageAuthor($title,$starting_year, $ending_year){
                   				 			 contenir c,
                   				 			 revue r,
                   				 			 volume v
-                  		      WHERE v.titre = '" . $title . "'"
-                  		      " AND v.annee_edition >= '" . $starting_year . "'"
-                  		      "	AND v.annee_edition <= '" . $ending_year . "'"
+                  		      WHERE v.titre = '" . $title . "'" .
+                  		      " AND v.annee_edition >= " . $starting_year .
+                  		      "	AND v.annee_edition <= " . $ending_year .
                   		      " AND r.no_volume = v.no_volume
                   		      	AND c.no_volume = v.no_volume
                   		      	AND c.no_histoire = a.no_histoire) t
-                  GROUP BY no_volume) t;"
+                  GROUP BY no_volume) t;";
 	$result = mysql_query($query);
 
 	if (!$result){

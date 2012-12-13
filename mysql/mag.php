@@ -66,6 +66,18 @@ if (isset($_POST['action'])) {
 		return;
 	}
 
+
+	else if ($_POST['action'] == "deletestory") {
+		echo "<h3>Edition</h3>\n";
+
+		if (isset($_POST['no_histoire'])) {
+			deleterow('contenir',
+				qw('no_histoire no_volume'),
+				array(sprintf("%d", $_POST['no_histoire']),
+				      sprintf("%d", $_POST['no_volume'])));
+		}
+	}
+
 	else if (isset($_POST['no_volume']) && $_POST['action'] == "delete") {
 		deleterow('volume',
 			qw('no_volume'), array(sprintf("%d", $_POST['no_volume'])));
@@ -140,6 +152,32 @@ if (isset($_POST['action'])) {
 	   . "<input type='submit' value='Valider'> </form> </td>\n"
 	   . "</form>";
 
+
+	// liste des histoires
+	echo "<h3>Liste des histoires</h3>";
+	echo "<table border=1 cellpadding=5>"
+	   . "<tr>"
+	   . "<th>Titre</th>"
+	   . "</tr>";
+
+	$query = sprintf("SELECT * FROM volumes_et_histoires WHERE no_volume = %d", $r['no_volume']);
+	$rv = mysql_query($query);
+	if (!$rv) { die("Requête invalide " . mysql_error()); }
+
+	while($r = mysql_fetch_array($rv)) {
+		echo "<tr>\n";
+		echo "<td>" . $r['titre'] . "</td>\n";
+		echo "<td>";
+		button('mag.php',
+			array('no_histoire' => $r['no_histoire'],
+				  'no_volume' => $r['no_volume']),
+			'deletestory',
+			'Supprimer');
+		echo "</td>";
+		echo "</tr>";
+	}
+	echo "</table>";
+
 	echo "<hr>";
 }
 ?>
@@ -168,8 +206,8 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>";
-	button('mag.php', array('no_volume' => $r['no_volume'], 'edit', 'Editer'));
-	button('mag.php', array('no_volume' => $r['no_volume'], 'delete', 'Supprimer'));
+	button('mag.php', array('no_volume' => $r['no_volume']), 'edit', 'Editer');
+	button('mag.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
 }
