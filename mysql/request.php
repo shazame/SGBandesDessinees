@@ -1,6 +1,9 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <h1>Requêtes</h1>
+<a href="index.php">Retour à l'index</a>
+<br> <br>
+
 <?php
 require "include.php"; // globals
 try{

@@ -258,7 +258,7 @@ possible de revenir à la page d'accueil via un lien se situant en haut de la
 page. En cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé
 vers une page listant le contenu de la table des auteurs, c'est-à-dire leur
 nom, leur prénom et un numéro les identifiant. Il est possible d'effectuer des
-insertions dans la table au moyens d'un formulaire d'ajout dans lequel le nom
+insertions dans la table au moyen d'un formulaire d'ajout dans lequel le nom
 et le prénom des auteurs sont à remplir :
 
 \begin{figure}[h!]
@@ -305,6 +305,27 @@ peuvent être effectuées suite à l'appui sur le bouton "Editer" d'une histoire
 
 Devoir appuyer sur éditer à chaque ajout d'un auteur, par exemple, aurait été
 contraignant.
+
+Depuis la page d'accueil il est également possible d'accéder aux pages
+permettant d'effectuer les différentes requêtes. La page "Requêtes spéciales"
+permet d'accéder aux requêtes de consultation et la page "Statistiques" permet
+d'effectuer les requêtes de statistiques. Dans ces deux pages, le principe est
+identique pour effectuer une requête : 
+\begin{itemize}
+	\item un menu déroulant permet de choisir la requête voulu ;
+	\item l'appui sur le bouton "Valider" fait apparaître le choix des paramètres de cette
+		requête ;
+	\item une fois les paramètres choisis, l'appui sur le nouveau bouton
+		"Valider" donne le résultat sous la forme d'une table. Si la table de
+		résultat est vide alors le message "Ressource vide" est affiché.
+\end{itemize}
+
+\begin{figure}[h!]
+\begin{center}
+\noindent\includegraphics[]{choix-requete}
+  \caption{Menu de choix des requêtes}
+\end{center}
+\end{figure}
 
 \paragraph{Remarque}
 Un effort a été fait pour essayer empêcher les injections SQL en formatant
