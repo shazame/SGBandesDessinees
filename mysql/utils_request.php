@@ -111,7 +111,7 @@ WHERE t.no_auteur = a.no_auteur;";
 // of the story specified by the number of history
 function getHistoryOfStory($no_history){
 	$query = "
-SELECT v.no_volume, titre, annee_edition
+SELECT v.no_volume, titre, annee_edition, annotation
   FROM contenir c, volume v
   WHERE c.no_histoire = 1
     AND c.no_volume = v.no_volume
