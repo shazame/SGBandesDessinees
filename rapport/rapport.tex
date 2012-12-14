@@ -171,10 +171,23 @@ Les informations suivantes sont notamment fournies :
 	\item la bibliographie d’un auteur, soit par ordre chronologique, soit classé par séries, en tant que
 		scénariste, dessinateur ou auteur complet, en indiquant ses co-auteurs et leurs rôles.
 	\item la liste des auteurs collaborant à une revue durant une certaine période, avec le nombre de
-		numéros auxquels ils ont participé ;
-	\item l'historique de la publication d’une histoire ;
+		numéros auxquels ils ont participé.
+	\item l'historique de la publication d’une histoire.
 	\item les histoires différentes ayant le même titre.
 \end{itemize}
+
+L'implémentation des requêtes permettant d'obtenir ces informations a été effectué en deux phases :
+\begin{itemize}
+  \item Écriture de requête non paramètrées dans un fichier sql et test du résultat.
+  \item Inclusion des requêtes dans des fonctions php, en utilisant des paramètres.
+\end{itemize}
+
+Cette démarche a permis de concevoir et d'affiner les requêtes dans un cas assez simple pour
+ensuite pouvoir les intégrer de manière efficace à notre interface. Certaines requêtes étant
+compliquées, elles ont été conçues étape après étape, en s'approchant peu à peu du résultat. Il est évident
+que pour ce genre de procédure, il est plus simple d'affiner le résultat en exécutant un fichier sql qu'en
+passant directement par du php.
+
 
 \paragraph{Statistiques}
 Les statistiques suivantes peuvent être prélevées grâce aux requêtes
@@ -185,9 +198,17 @@ implémentée :
 	\item les histoires classées selon le nombre de fois où elles apparaissent en album ;
 	\item le nombre moyen d’auteurs participant à une revue pendant une période donnée.
 \end{itemize}
-%En plus de ces statistiques, il est possible de classer les auteurs selon la
-%décade durant laquelle ils ont créé le plus d’histoires (1910-1919, 1920-1929,
-%etc.).
+
+Les méthodes utilisées pour le développement des requêtes de statistiques sont
+les mêmes que celles utilisées pour les requêtes de consultation. La requête
+permettant de classer les auteurs selon la décade durant laquelle ils ont créé
+le plus d'histoires n'a pas été développée, notre compréhension du résultat
+attendu n'étant pas des plus précises. Cependant, nous avons tout de même
+testé la possibilité d'afficher le nombre d'histoires ayant été écrites pour
+chaque décade, il ne nous serait donc pas particulièrement difficile
+d'afficher la décade durant laquelle un auteur spécifique a créé le plus
+d'histoires. En revanche, il nous semble bien plus complexe d'effectuer cette
+opération pour tous les auteurs simultanément.
 
 \paragraph{Mise à jour}
 Il est possible d'appliquer les opérations de modification de la tables
