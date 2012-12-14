@@ -72,9 +72,9 @@ function getHistoryRankedByNbAlbums(){
                   			SELECT no_volume
                   			FROM album_avec_collection) v
                   WHERE v.no_volume = c.no_volume
-                  GROUP BY no_histoire
-                  ORDER BY count(*) desc) t
-            WHERE h.no_histoire = t.no_histoire;";
+                  GROUP BY no_histoire) t
+            WHERE h.no_histoire = t.no_histoire
+            ORDER BY nb_albums desc;";
 	$result = mysql_query($query);
 
 	if (!$result){
