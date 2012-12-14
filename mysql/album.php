@@ -56,7 +56,7 @@ function editform () {
 	echo "<h3>Edition</h3>";
 
 	// Select album
-	$query = sprintf("SELECT * FROM volume V inner join contenir C on C.no_volume = V.no_volume "
+	$query = sprintf("SELECT * FROM volume V left outer join contenir C on C.no_volume = V.no_volume "
 	               . "inner join %s A on A.no_volume = %d",
 		   mysql_real_escape_string($_POST['type_album']), $_POST['no_volume']);
 

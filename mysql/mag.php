@@ -46,11 +46,8 @@ function editform () {
 	echo "<h3>Edition</h3>\n";
 
 	// Select mag
-	$query = sprintf (
-			 "SELECT * FROM volume as V, revue as R "
-		   . "WHERE V.no_volume = %d "
-		   . "AND R.no_volume = %d",
-		   $_POST['no_volume'], $_POST['no_volume']);
+	$query = sprintf("SELECT * FROM volume V left outer join contenir C on C.no_volume = V.no_volume "
+	               . "inner join revue R on R.no_volume = %d", $_POST['no_volume']);
 
 	$rv = mysql_query($query);
 	if (!$rv) { die('Requête invalide : ' . mysql_error()); }
@@ -86,11 +83,16 @@ function editform () {
 
 	// Ajout d'une histoire
 	echo "<form action='mag.php' method='post'>"
+	   . "L'histoire "
 	   . "<select name='no_histoire'>"
 	   . "<option value=''>---</option>";
 	optionselect("histoire", qw("no_histoire titre"), "");
 	echo "</select>"
 	   . " est dans ce volume. "
+	   . "<br>"
+	   . "Annotation : "
+	   . "<input type='text' name='annotation' value='".$r['annotation']."'>"
+	   . "<br>"
 	   . "<input type='hidden' name='no_volume' value='".$r['no_volume']."'>"
 	   . "<input type='hidden' name='type_album' value='".$_POST['type_album']."'>"
 	   . "<input type='hidden' name='action' value='addstory'>"
@@ -102,6 +104,7 @@ function editform () {
 	echo "<table border=1 cellpadding=5>"
 	   . "<tr>"
 	   . "<th>Titre</th>"
+	   . "<th>Annotation</th>"
 	   . "</tr>";
 
 	$query = sprintf("SELECT * FROM volumes_et_histoires WHERE no_volume = %d", $r['no_volume']);
@@ -111,6 +114,7 @@ function editform () {
 	while($r = mysql_fetch_array($rv)) {
 		echo "<tr>\n";
 		echo "<td>" . $r['titre'] . "</td>\n";
+		echo "<td>" . $r['annotation'] . "</td>\n";
 		echo "<td>";
 		button('mag.php',
 			array('no_histoire' => $r['no_histoire'],
@@ -148,9 +152,9 @@ if (isset($_POST['action'])) {
 
 		if (isset($_POST['no_histoire'])) {
 			deleterow('contenir',
-				qw('no_histoire no_volume'),
-				array(sprintf("%d", $_POST['no_histoire']),
-				      sprintf("%d", $_POST['no_volume'])));
+				qw("no_volume no_histoire"),
+				array(sprintf("%d", $_POST['no_volume']),
+				      sprintf("%d", $_POST['no_histoire'])));
 		}
 
 		editform();
@@ -159,9 +163,10 @@ if (isset($_POST['action'])) {
 	else if ($_POST['action'] == "addstory") {
 		if (isset($_POST['no_histoire']) && $_POST['no_histoire']) {
 			addrow('contenir',
-				qw("no_volume no_histoire"),
+				qw("no_volume no_histoire annotation"),
 				array(sprintf("%d", $_POST['no_volume']),
-				      sprintf("%d", $_POST['no_histoire'])));
+				      sprintf("%d", $_POST['no_histoire']),
+				      sprintf("'%s'", $_POST['annotation'])));
 		}
 
 		editform();
