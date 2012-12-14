@@ -394,6 +394,60 @@ garantit que la première ligne sera la série avec le plus d'auteurs et le
 le plus d'auteurs. Le reste de la requête sert uniquement à récupérer le
 titre de la série en question.
 
+\subsubsection*{Les histoires triées par nombre d'albums}
+\begin{lstlisting}
+SELECT h.*, nb_albums
+  FROM histoire h,
+  		 (SELECT no_histoire, count(*) as nb_albums
+          FROM contenir c,
+          		 (SELECT no_volume
+          		    FROM album_sans_collection
+          			  UNION
+          			  SELECT no_volume
+          			  FROM album_avec_collection) v
+          WHERE v.no_volume = c.no_volume
+          GROUP BY no_histoire) t
+  WHERE h.no_histoire = t.no_histoire
+  ORDER BY nb_albums desc;";
+\end{lstlisting}
+Pour cette requête, le premier pas est d'obtenir les numéros de volumes
+présent dans album\_sans\_collection ou album\_avec\_collection, ce qui ce
+fait naturellement avec une union. Pour ce genre de cas, l'utilisation d'une
+vue serait parfaitement pertinente. En combinant les numéros obtenus avec
+la relation c et en utilisant le bon ``GROUP BY'', on obtient le nombre
+d'albums correspondant à chaque histoire. Avec le premier SELECT, on obtient
+les autres champs d'histoires (tel que le titre) et grâce au ``ORDER BY'' on
+assure que les entrées seront classées de manière décroissantes par rapport
+au nombre d'albums.
+
+\subsubsection*{Le nombre moyen d'auteurs participant à une revue durant
+une période donnée}
+\begin{lstlisting}
+SELECT avg(nb_auteurs) as nb_moyen_auteurs
+  FROM (SELECT no_volume, count(*) as nb_auteurs
+          FROM (SELECT DISTINCT no_auteur, c.no_volume
+                    FROM auteuriser a,
+                         contenir c,
+                         revue r,
+                         volume v
+                    WHERE v.titre = 'Revue_1'
+                      AND v.annee_edition >= 1996
+                      AND v.annee_edition <= 1998
+                      AND r.no_volume = v.no_volume
+                      AND c.no_volume = v.no_volume
+                      AND c.no_histoire = a.no_histoire) t
+          GROUP BY no_volume) t;
+\end{lstlisting}
+Pour obtenir le nombre moyen d'auteurs participant à une revue durant une
+période donnée, il est tout d'abord nécessaire d'obtenir tous les auteurs
+ayant participé à chaque volume correspondant aux conditions spécifiées. En
+groupant les données par volume on peut ensuite obtenir le nombre d'auteurs
+ayant collaboré à chaque volume. Il suffit ensuite de faire la moyenne entre
+ces différents nombre pour obtenir la donnée souhaitée. Cette requête peut
+aisément être paramétrée en php afin de répondre à la question posée pour
+n'importe quelle revue, n'importe quelle année minimale d'édition et
+n'importe quelle année maximale d'édition.
+
 
 \section{Utilisation}
 
