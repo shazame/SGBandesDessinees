@@ -7,6 +7,7 @@
 
 \usepackage{graphicx}
 \usepackage{lmodern}
+\usepackage{listings}
 
 \geometry{margin=2cm}
 
@@ -218,6 +219,115 @@ suivantes :
 		d'albums avec collection.
 	\item Association d'histoires à des séries et à des auteurs.
 \end{itemize}
+
+\subsection{Explication détaillée des requêtes}
+
+\subsubsection*{La bibliographie d'un auteur par ordre chronologique}
+\begin{lstlisting}
+SELECT DISTINCT *
+ FROM auteuriser ai, histoire h
+ WHERE ai.no_auteur = 2
+ AND ai.no_histoire = h.no_histoire;
+\end{lstlisting}
+Cette requête consiste simplement à conserver les différentes histoires pour
+lesquels une entrée contient le numéro d'auteur approprié dans la table
+auteuriser. Dans ce cas, le numéro d'auteur est le 2, mais il est possible
+de le paramétrer simplement en php. Le ``DISTINCT'' permet d'éviter les
+répétitions dans le cas ou un auteur a rempli plusieurs rôles dans la
+création d'une histoire.
+
+\subsubsection*{La bibliographie d'un auteur triée par année de parution
+comprenant ses collaborateurs}
+\begin{lstlisting}
+SELECT DISTINCT tmp.no_histoire, titre, annee_parution,
+                nom_auteur, prenom_auteur, nom_role
+  FROM auteur a, auteuriser_et_role ai,
+       (SELECT DISTINCT h.no_histoire, titre, annee_parution
+          FROM auteuriser ai, histoire h
+          WHERE ai.no_auteur = 2
+          AND ai.no_histoire = h.no_histoire) tmp
+  WHERE tmp.no_histoire = ai.no_histoire
+  AND ai.no_auteur = a.no_auteur
+  ORDER BY annee_parution;";
+\end{lstlisting}
+À partir des numéros d'histoire auquels l'auteur spécifié a participé, il
+suffit de faire le lien entre les auteurs et les histoires à l'aide de la vue
+auteuriser\_et\_role \footnote{Il est nécessaire d'avoir accès au rôle pour
+les afficher, ce qui est préférable si l'on souhaite afficher les
+collaborateurs, il est intéressant de savoir quel rôle ils ont tenu dans la
+création de l'histoire.}. Le tri se fait simplement par
+``ORDER BY annee\_parution''. À nouveau, dans ce cas le numéro d'auteur
+choisi est deux, mais il est facile d'adapter la requête pour qu'elle soit
+paramétrable en php.
+
+\subsubsection*{La bibliographie d'un auteur triée par série
+comprenant ses collaborateurs}
+\begin{lstlisting}
+SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
+       nom_role, titre_serie, s.no_serie, no_ds_serie
+  FROM (SELECT b.no_histoire, titre, annee_parution, nom_auteur,
+               prenom_auteur, nom_role, no_serie, no_ds_serie
+          FROM (SELECT tmp.no_histoire, titre, annee_parution,
+                       nom_auteur, prenom_auteur, nom_role
+                  FROM auteur a, auteuriser_et_role ai,
+                       (SELECT h.no_histoire, h.titre, annee_parution
+                          FROM auteuriser ai, histoire h
+                          WHERE ai.no_auteur = 2
+                          AND ai.no_histoire = h.no_histoire) tmp
+                  WHERE tmp.no_histoire = ai.no_histoire
+                  AND ai.no_auteur = a.no_auteur) b
+          LEFT OUTER JOIN appartenance_serie a
+          ON a.no_histoire = b.no_histoire) b
+  LEFT OUTER JOIN serie s
+  ON s.no_serie = b.no_serie
+  ORDER BY no_serie, no_ds_serie;
+\end{lstlisting}
+Cette requête est très proche de la précédente, la principale différence
+réside dans le fait qu'il est nécessaire de récupérer les données des séries
+afin d'afficher leur nom et de pouvoir les trier. Il est très important ici
+de bien utiliser une jointure externe gauche, car des histoires peuvent ne
+pas être présentes dans des séries, or dans ce cas, on désire tout de même
+les conserver \footnote{Avec une jointure naturelle, les histoires qui ne
+sont pas présentes dans la table appartenance\_serie ne sont pas
+conservées.}. À nouveau, le numéro du client est facilement paramétrable en
+php. Et cette fois l'ordre est imposé par le numéro de série ainsi que par le
+numéro interne à la série.
+
+\subsubsection*{Les auteurs participants à une revue durant une période
+donnée}
+\begin{lstlisting}
+SELECT nom_auteur, prenom_auteur, nb_revues
+  FROM auteur a,
+       (SELECT no_auteur, count(*) as nb_revues
+          FROM (SELECT DISTINCT no_auteur, no_revue
+                  FROM auteuriser a,
+                       (SELECT no_histoire, no_revue
+                          FROM contenir c,
+                               (SELECT v.no_volume, no_revue
+                                  FROM volume v, revue r
+                                  WHERE v.no_volume = r.no_volume
+                                  AND titre = 'Revue_1'
+                                  AND annee_edition >= 1996
+                                  AND annee_edition <= 1998) r
+                          WHERE c.no_volume = r.no_volume) h
+                  WHERE a.no_histoire = h.no_histoire) t
+          GROUP BY no_auteur) t
+  WHERE t.no_auteur = a.no_auteur;
+\end{lstlisting}
+Pour cette requête, nous avons d'abord cherché à obtenir les numéros de
+volume et les numéros de revue des volumes correspondant aux conditions
+spécifiées, cette partie est celle présente dans le select le plus imbriqué.
+Il faut ensuite obtenir les numéros des histoires écrites dans ces revues et
+combiner cette information avec la table auteuriser pour obtenir une table
+comportant les auteurs associés aux numéros de revue auxquels ils ont
+participé. Ayant assuré qu'il n'y a pas de doublons grâce au
+``SELECT DISTINCT no\_auteur, no\_revue'', il est possible d'associer au
+numéro d'auteur le nombre de revues auquelles il a participé à l'aide du
+``GROUP BY no\_auteur''. Il ne reste plus qu'à ajouter les noms et prénoms
+des auteurs en se servant de la table auteur. Cette requête possède trois
+paramètres, le titre de la revue choisie, l'année d'édition minimale et
+l'année d'édition maximale, ils sont tous les trois faciles à paramétrer en
+php.
 
 
 \section{Utilisation}
