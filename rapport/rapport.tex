@@ -43,8 +43,6 @@ M. Mohamed Mosbah}\\
 
 \section{Introduction}
 
-\emph{re-decrire le sujet en detaillant}
-
 L'objectif du projet est de mettre en œuvre, sur un cas pratique, les notions
 et les méthodes vues dans le module de SGBD. L'application effectuée ici est
 liée à la gestion de bandes dessinées.
@@ -90,7 +88,7 @@ La lecture de ces informations fait ressortir les entités suivantes :
 	\item collection ;
 	\item histoire ;
 	\item série d'histoires ;
-	\item role d'un auteur ;
+	\item rôle d'un auteur ;
 	\item auteur.
 \end{itemize}
 
@@ -106,19 +104,19 @@ La lecture de ces informations fait ressortir les entités suivantes :
 \end{itemize}
 
 
-\section{Schéma entité-association :}
+\section{Schéma conceptuel}
 
-Le schéma entité-association suivant montre les relations entre ces
+Le schéma conceptuel suivant montre les relations entre ces
 différentes entités :
 
-\noindent\includegraphics[width=\textwidth]{schema-entite-association}
+\noindent\includegraphics[width=\textwidth]{schema-conceptuel}
 
 
-\section{Schéma relationnel :}
+\section{Schéma relationnel}
 
 \noindent\includegraphics[width=\textwidth]{schema-relation}
 
-\section{Implémentation }
+\section{Implémentation}
 
 La base a été implémentée en utilisant MySQL. Ce SGBD a été choisi pour sa
 simplicité d'installation et de configuration.
@@ -178,7 +176,7 @@ Les informations suivantes sont notamment fournies :
 
 L'implémentation des requêtes permettant d'obtenir ces informations a été effectué en deux phases :
 \begin{itemize}
-  \item Écriture de requête non paramètrées dans un fichier sql et test du résultat.
+  \item Écriture de requête non paramétrées dans un fichier sql et test du résultat.
   \item Inclusion des requêtes dans des fonctions php, en utilisant des paramètres.
 \end{itemize}
 
@@ -308,12 +306,12 @@ peuvent être effectuées suite à l'appui sur le bouton "Editer" d'une histoire
 Devoir appuyer sur éditer à chaque ajout d'un auteur, par exemple, aurait été
 contraignant.
 
-\paragraph{}
-La possibilité d'effectuer des injections SQL a été prévenue en sécurisant les
-entrée de l'utilisateur. Pour cela, l'utilisation de la fonction "sprintf"
+\paragraph{Remarque}
+Un effort a été fait pour essayer empêcher les injections SQL en formatant
+les entrée de l'utilisateur. Pour cela, l'utilisation de la fonction "sprintf"
 permet de forcer l'entrée de l'utilisateur à être traitée comme un nombre
-lorsque cela doit être le cas. Lorsque l'utilisateur a la possibilité d'entrer
-des chaînes de caractères, la fonction "mysql\_real\_escape\_string" a été
-employé afin de protéger les requêtes SQL de caractères spéciaux.
+lorsque cela doit être le cas. Lorsque l'utilisateur a la possibilité
+d'entrer des chaînes de caractères, la fonction "mysql\_real\_escape\_string"
+a été employé afin de protéger les requêtes SQL de caractères spéciaux.
 
 \end{document}
