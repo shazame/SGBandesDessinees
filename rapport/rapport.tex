@@ -372,26 +372,28 @@ facilement être paramétré en fonction du numéro d'auteur souhaité.
 
 \subsubsection*{La série avec le plus d'auteurs}
 \begin{lstlisting}
-SELECT s.*
+SELECT s.no_serie, titre_serie, nb_auteur
   FROM serie s,
-       (SELECT no_serie
-          FROM (SELECT no_serie, count(*) as nb_auteur
-                  FROM (SELECT DISTINCT no_auteur, no_serie
-                          FROM auteuriser ai, appartenance_serie a
-                          WHERE ai.no_histoire = a.no_histoire) t
-                          GROUP BY no_serie) t,
-                       (SELECT max(nb_auteur) as nb_auteur_max
-                          FROM (SELECT no_serie, count(*) as nb_auteur
-                                  FROM (SELECT DISTINCT no_auteur,
-                                                        no_serie
-                                          FROM auteuriser ai,
-                                               appartenance_serie a
-                                          WHERE ai.no_histoire =
-                                                a.no_histoire) t
-                                  GROUP BY no_serie) t) t2
-          WHERE nb_auteur = nb_auteur_max) t
-  WHERE s.no_serie = t.no_serie;
+       (SELECT no_serie, count(*) as nb_auteur
+          FROM (SELECT DISTINCT no_auteur, no_serie
+                  FROM auteuriser ai, appartenance_serie a
+                  WHERE ai.no_histoire = a.no_histoire) t
+          GROUP BY no_serie
+          ORDER BY count(*) desc
+          LIMIT 1) t
+  WHERE s.no_serie = t. no_serie";
 \end{lstlisting}
+Pour cette requête, il a été nécessaire d'obtenir en premier lieu une liste
+des auteurs ayant participé à chaque série. Dans ce cas, le ``DISTINCT'' est
+indispensable, car il est fortement probable que certains auteurs aient
+participé à plusieurs histoire appartenant à une même série, on évite ainsi
+les doublons. À l'aide du ``GROUP BY no\_serie'', on obtient le nombre
+d'auteurs ayant participé à chaque série, le ``ORDER BY count(*) desc''
+garantit que la première ligne sera la série avec le plus d'auteurs et le
+``LIMIT 1'' permet de ne prendre que la première ligne, donc la série avec
+le plus d'auteurs. Le reste de la requête sert uniquement à récupérer le
+titre de la série en question.
+
 
 \section{Utilisation}
 
