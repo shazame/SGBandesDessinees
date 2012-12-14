@@ -61,9 +61,9 @@ FROM (SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
         			    WHERE tmp.no_histoire = ai.no_histoire
         			    AND ai.no_auteur = a.no_auteur) b
         LEFT OUTER JOIN appartenance_serie a
-        ON a.no_histoire = b.no_histoire) b,
-      serie s
-WHERE s.no_serie = b.no_serie
+        ON a.no_histoire = b.no_histoire) b
+LEFT OUTER JOIN serie s
+ON s.no_serie = b.no_serie
 ORDER BY no_serie, no_ds_serie;";
 	
 	$result = mysql_query($query);
