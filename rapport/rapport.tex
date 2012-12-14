@@ -229,7 +229,7 @@ suivantes :
 SELECT DISTINCT *
  FROM auteuriser ai, histoire h
  WHERE ai.no_auteur = 2
- AND ai.no_histoire = h.no_histoire;
+   AND ai.no_histoire = h.no_histoire;
 \end{lstlisting}
 Cette requête consiste simplement à conserver les différentes histoires pour
 lesquels une entrée contient le numéro d'auteur approprié dans la table
@@ -247,9 +247,9 @@ SELECT DISTINCT tmp.no_histoire, titre, annee_parution,
        (SELECT DISTINCT h.no_histoire, titre, annee_parution
           FROM auteuriser ai, histoire h
           WHERE ai.no_auteur = 2
-          AND ai.no_histoire = h.no_histoire) tmp
+            AND ai.no_histoire = h.no_histoire) tmp
   WHERE tmp.no_histoire = ai.no_histoire
-  AND ai.no_auteur = a.no_auteur
+    AND ai.no_auteur = a.no_auteur
   ORDER BY annee_parution;";
 \end{lstlisting}
 À partir des numéros d'histoire auquels l'auteur spécifié a participé, il
@@ -275,9 +275,9 @@ SELECT b.no_histoire, titre, annee_parution, nom_auteur, prenom_auteur,
                        (SELECT h.no_histoire, h.titre, annee_parution
                           FROM auteuriser ai, histoire h
                           WHERE ai.no_auteur = 2
-                          AND ai.no_histoire = h.no_histoire) tmp
+                            AND ai.no_histoire = h.no_histoire) tmp
                   WHERE tmp.no_histoire = ai.no_histoire
-                  AND ai.no_auteur = a.no_auteur) b
+                    AND ai.no_auteur = a.no_auteur) b
           LEFT OUTER JOIN appartenance_serie a
           ON a.no_histoire = b.no_histoire) b
   LEFT OUTER JOIN serie s
@@ -308,9 +308,9 @@ SELECT nom_auteur, prenom_auteur, nb_revues
                                (SELECT v.no_volume, no_revue
                                   FROM volume v, revue r
                                   WHERE v.no_volume = r.no_volume
-                                  AND titre = 'Revue_1'
-                                  AND annee_edition >= 1996
-                                  AND annee_edition <= 1998) r
+                                    AND titre = 'Revue_1'
+                                    AND annee_edition >= 1996
+                                    AND annee_edition <= 1998) r
                           WHERE c.no_volume = r.no_volume) h
                   WHERE a.no_histoire = h.no_histoire) t
           GROUP BY no_auteur) t
@@ -331,6 +331,67 @@ paramètres, le titre de la revue choisie, l'année d'édition minimale et
 l'année d'édition maximale, ils sont tous les trois faciles à paramétrer en
 php.
 
+\subsubsection*{L'historique des publications d'une histoire}
+\begin{lstlisting}
+SELECT v.no_volume, titre, annee_edition, annotation
+  FROM contenir c, volume v
+  WHERE c.no_histoire = 1
+    AND c.no_volume = v.no_volume
+  ORDER BY annee_edition
+\end{lstlisting}
+Cette requête nécessite simplement d'obtenir les volumes présent dans la
+relation contenir avec le numéro d'histoire approprié. Inclure les
+annotations permet d'avoir une meilleure vision de la différence entre deux
+publications dans la même revue la même année par exemple. Une fois de plus,
+il est facile de paramétrer cette requête avec un numéro d'histoire choisi.
+
+
+\subsubsection*{Les histoires différentes portant le même titre}
+\begin{lstlisting}
+SELECT h1.no_histoire, h1.titre
+  FROM histoire h1, histoire h2
+  WHERE h1.no_histoire <> h2.no_histoire
+    AND h1.titre = h2.titre
+  ORDER BY titre , h1.no_histoire;
+\end{lstlisting}
+Cette requête nécessite d'avoir deux alias défini pour la même table, si
+elles n'ont pas le même numéro d'histoire mais le même titre, c'est qu'elles
+sont différentes tout en portant le même titre. Cette requêtes n'est pas
+paramétrable étant donné qu'elle est de type général.
+
+\subsubsection*{Le nombre d'histoires écrites par un auteur}
+\begin{lstlisting}
+SELECT count(*) as nb_histoires
+  FROM (SELECT DISTINCT no_histoire
+          FROM auteuriser
+	        WHERE no_auteur = 2) t;
+\end{lstlisting}
+Pour obtenir le nombre d'histoires écrites par un auteur il suffit de compter
+le nombre d'histoires différentes auquels il a participé. Cette requête peut
+facilement être paramétré en fonction du numéro d'auteur souhaité.
+
+\subsubsection*{La série avec le plus d'auteurs}
+\begin{lstlisting}
+SELECT s.*
+  FROM serie s,
+       (SELECT no_serie
+          FROM (SELECT no_serie, count(*) as nb_auteur
+                  FROM (SELECT DISTINCT no_auteur, no_serie
+                          FROM auteuriser ai, appartenance_serie a
+                          WHERE ai.no_histoire = a.no_histoire) t
+                          GROUP BY no_serie) t,
+                       (SELECT max(nb_auteur) as nb_auteur_max
+                          FROM (SELECT no_serie, count(*) as nb_auteur
+                                  FROM (SELECT DISTINCT no_auteur,
+                                                        no_serie
+                                          FROM auteuriser ai,
+                                               appartenance_serie a
+                                          WHERE ai.no_histoire =
+                                                a.no_histoire) t
+                                  GROUP BY no_serie) t) t2
+          WHERE nb_auteur = nb_auteur_max) t
+  WHERE s.no_serie = t.no_serie;
+\end{lstlisting}
 
 \section{Utilisation}
 
