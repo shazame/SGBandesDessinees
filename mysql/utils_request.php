@@ -6,7 +6,7 @@
 // return the result of a mysql query containing the bibliography of the
 // author specified by number of author
 function getBibliography($no_author){
-	$query = "SELECT *
+	$query = "SELECT DISTINCT *
               FROM auteuriser ai, histoire h
 			        WHERE ai.no_auteur = " . $no_author .
 		" AND ai.no_histoire = h.no_histoire;";
@@ -23,10 +23,10 @@ function getBibliography($no_author){
 // author specified by number of author, the datas are ordered by Year
 function getBibliographyOrderedByYear($no_author){
 	$query = "
-SELECT tmp.no_histoire, titre, annee_parution,
+SELECT DISTINCT tmp.no_histoire, titre, annee_parution,
 			 nom_auteur, prenom_auteur, nom_role
 			 FROM auteur a, auteuriser_et_role ai,
-			 	 			(SELECT h.no_histoire, h.titre, annee_parution
+			 	 			(SELECT DISTINCT h.no_histoire, titre, annee_parution
 							 				FROM auteuriser ai, histoire h
 			 				 				WHERE ai.no_auteur = " . $no_author .
 			 				 				" AND ai.no_histoire = h.no_histoire) tmp
