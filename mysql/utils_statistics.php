@@ -23,23 +23,33 @@ function getNbHistoryByAuthor($no_auteur){
 // most author. If more than one serie have the max number of author,
 // more than one entry might be returned
 function getSerieWithMostAuthor(){
-	$query = "SELECT s.*
-            FROM serie s,
-            		 (SELECT no_serie
-                  FROM (SELECT no_serie, count(*) as nb_auteur
-                       	    FROM (SELECT DISTINCT no_auteur, no_serie
-                  				  		 		  FROM auteuriser ai, appartenance_serie a
-                  										WHERE ai.no_histoire = a.no_histoire) t
-                  					GROUP BY no_serie) t,
-                  					-- Cacul du nb_auteur max
-                       (SELECT max(nb_auteur) as nb_auteur_max
-                        FROM (SELECT no_serie, count(*) as nb_auteur
-                                  FROM (SELECT DISTINCT no_auteur, no_serie
-                        				  		 FROM auteuriser ai, appartenance_serie a
-                        							 WHERE ai.no_histoire = a.no_histoire) t
-                        		      GROUP BY no_serie) t) t2
-                  WHERE nb_auteur = nb_auteur_max) t
-            WHERE s.no_serie = t.no_serie;";
+// 	$query = "SELECT s.*
+//             FROM serie s,
+//             		 (SELECT no_serie
+//                   FROM (SELECT no_serie, count(*) as nb_auteur
+//                        	    FROM (SELECT DISTINCT no_auteur, no_serie
+//                   				  		 		  FROM auteuriser ai, appartenance_serie a
+//                   										WHERE ai.no_histoire = a.no_histoire) t
+//                   					GROUP BY no_serie) t,
+//                   					-- Cacul du nb_auteur max
+//                        (SELECT max(nb_auteur) as nb_auteur_max
+//                         FROM (SELECT no_serie, count(*) as nb_auteur
+//                                   FROM (SELECT DISTINCT no_auteur, no_serie
+//                         				  		 FROM auteuriser ai, appartenance_serie a
+//                         							 WHERE ai.no_histoire = a.no_histoire) t
+//                         		      GROUP BY no_serie) t) t2
+//                   WHERE nb_auteur = nb_auteur_max) t
+//             WHERE s.no_serie = t.no_serie;";SELECT no_serie, count(*) as nb_auteur
+	$query = "SELECT s.no_serie, titre_serie, nb_auteur
+              FROM serie s,
+                   (SELECT no_serie, count(*) as nb_auteur
+                      FROM (SELECT DISTINCT no_auteur, no_serie
+                              FROM auteuriser ai, appartenance_serie a
+                              WHERE ai.no_histoire = a.no_histoire) t
+                      GROUP BY no_serie
+                      ORDER BY count(*) desc
+                      LIMIT 1) t
+              WHERE s.no_serie = t. no_serie";
 	$result = mysql_query($query);
 
 	if (!$result){
