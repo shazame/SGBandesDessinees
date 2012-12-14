@@ -10,7 +10,7 @@ try{
 }
 ?>
 <?php
-require "request.php";
+require "utils_request.php";
 $selected_action = "getBibliography";
 
 $formular_needed = True;
@@ -138,7 +138,7 @@ if ($formular_needed){
 														 "Historique d'une histoire",
 														 "Histoire différentes portant le même nom");
 	$nb_actions = count($actionValues);
-	echo "<form action='test_request.php' method='post'>"
+	echo "<form action='request.php' method='post'>"
 	   . "La requête désirée est :"
 		 . "<select name='request'>";
 	for ($i = 0; $i < $nb_actions; $i++){

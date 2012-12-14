@@ -19,8 +19,8 @@
 </ul>
 
 
-<li><a href="test_request.php">Requêtes spéciales</a></li>
-<li><a href="test_statistiques.php">Statistiques</a></li>
+<li><a href="request.php">Requêtes spéciales</a></li>
+<li><a href="statistics.php">Statistiques</a></li>
 
 </body>
 </html>

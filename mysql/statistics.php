@@ -10,7 +10,7 @@ try{
 }
 ?>
 <?php
-require "statistiques.php";
+require "utils_statistics.php";
 $selected_action = "getNbHistoryByAuthor";
 
 $formular_needed = True;
@@ -98,7 +98,7 @@ if ($formular_needed){
 														 "Les histoires triées par nombre d'albums",
 														 "La moyenne d'auteur participant à une revue");
 	$nb_actions = count($actionValues);
-	echo "<form action='test_statistiques.php' method='post'>"
+	echo "<form action='statistics.php' method='post'>"
 	   . "La requête désirée est :"
 		 . "<select name='request'>";
 	for ($i = 0; $i < $nb_actions; $i++){
