@@ -250,7 +250,7 @@ SELECT DISTINCT tmp.no_histoire, titre, annee_parution,
             AND ai.no_histoire = h.no_histoire) tmp
   WHERE tmp.no_histoire = ai.no_histoire
     AND ai.no_auteur = a.no_auteur
-  ORDER BY annee_parution;";
+  ORDER BY annee_parution;
 \end{lstlisting}
 À partir des numéros d'histoire auquels l'auteur spécifié a participé, il
 suffit de faire le lien entre les auteurs et les histoires à l'aide de la vue
@@ -337,7 +337,7 @@ SELECT v.no_volume, titre, annee_edition, annotation
   FROM contenir c, volume v
   WHERE c.no_histoire = 1
     AND c.no_volume = v.no_volume
-  ORDER BY annee_edition
+  ORDER BY annee_edition;
 \end{lstlisting}
 Cette requête nécessite simplement d'obtenir les volumes présent dans la
 relation contenir avec le numéro d'histoire approprié. Inclure les
