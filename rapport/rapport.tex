@@ -381,7 +381,7 @@ SELECT s.no_serie, titre_serie, nb_auteur
           GROUP BY no_serie
           ORDER BY count(*) desc
           LIMIT 1) t
-  WHERE s.no_serie = t. no_serie";
+  WHERE s.no_serie = t. no_serie;
 \end{lstlisting}
 Pour cette requête, il a été nécessaire d'obtenir en premier lieu une liste
 des auteurs ayant participé à chaque série. Dans ce cas, le ``DISTINCT'' est
@@ -408,7 +408,7 @@ SELECT h.*, nb_albums
           WHERE v.no_volume = c.no_volume
           GROUP BY no_histoire) t
   WHERE h.no_histoire = t.no_histoire
-  ORDER BY nb_albums desc;";
+  ORDER BY nb_albums desc;
 \end{lstlisting}
 Pour cette requête, le premier pas est d'obtenir les numéros de volumes
 présent dans album\_sans\_collection ou album\_avec\_collection, ce qui ce
