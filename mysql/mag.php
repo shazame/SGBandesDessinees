@@ -256,8 +256,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('mag.php', array('no_volume' => $r['no_volume']), 'edit', 'Editer');
+	echo "</td><td>";
 	button('mag.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>";
 	$i++;

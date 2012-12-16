@@ -299,8 +299,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('album.php', array('no_volume' => $r['no_volume'], 'type_album' => 'album_sans_collection'), 'edit', 'Editer');
+	echo "</td><td>";
 	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>";
 	$i++;
@@ -339,8 +342,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_collection'] . " #" . $r['no_ds_collection'] . " </td>\n";
 	echo "<td>";
 	// delete button
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('album.php', array('no_volume' => $r['no_volume'], 'type_album' => 'album_avec_collection'), 'edit', 'Editer');
+	echo "</td><td>";
 	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>";
 	$i++;

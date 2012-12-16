@@ -34,7 +34,7 @@
 <tr> <td> Editeur : </td>
 	 <td> <select name="no_editeur">
 	      <option value="-1">Inconnu</option>
-	<?php optionselect("editeur", qw("no_editeur nom_editeur")); ?>
+	<?php optionselect("editeur", qw("no_editeur nom_editeur"), "Inconnu"); ?>
 	</select> 
 	</td> </tr>
 
@@ -140,8 +140,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['nom_collection'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('collection.php', array('no_collection' => $r['no_collection']), 'edit', 'Editer');
+	echo "</td><td>";
 	button('collection.php', array('no_collection' => $r['no_collection']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>";
 	$i++;

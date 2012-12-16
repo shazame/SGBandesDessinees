@@ -89,7 +89,20 @@ function button($action, $attrs, $val, $txt) {
 	foreach($attrs as $i => $val) {
 	   echo "<input type='hidden' name='" . $i . "' value='" . $val . "'>";
 	}
-	echo "<input type='submit' value='".$txt."'> </form>\n";
+	if ($txt == 'Supprimer') {
+		echo " <input type=\"image\" title=\"" . $txt . 
+			"\" name=\"Delete\" border=\"0\" src=\"delete-icon.png\" 
+			width=\"16px\" height=\"16px\">";
+	}
+	else if ($txt == 'Editer') {
+		echo " <input type=\"image\" title=\"" . $txt . 
+			"\" name=\"Edit\" border=\"0\" src=\"edit-icon.png\" 
+			width=\"16px\" height=\"16px\">";
+	}
+	else {
+		echo "<input type='submit' value='".$txt."'>";
+	}
+	echo "</form>\n";
 }
 
 

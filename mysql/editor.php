@@ -109,8 +109,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['no_editeur'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('editor.php', array('no_editeur' => $r['no_editeur']), 'edit', 'Editer');
+	echo "</td><td>";
 	button('editor.php', array('no_editeur' => $r['no_editeur']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>";
 	$i++;

@@ -128,13 +128,15 @@ while($r = mysql_fetch_array($result)) {
 	} else {
 		echo "<tr class=\"alt\">\n";
 	}
-	echo "<tr>\n";
 	echo "<td>" . $r['no_auteur'] . "</td>\n";
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
 	echo "<td>" . $r['prenom_auteur'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('author.php', array('no_auteur' => $r['no_auteur']), 'edit', 'Editer');
+	echo "</td><td>";
 	button('author.php', array('no_auteur' => $r['no_auteur']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	echo "</tr>\n";
 	$i++;

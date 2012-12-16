@@ -213,8 +213,11 @@ while($r = mysql_fetch_array($result)) {
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_parution'] . "</td>\n";
 	echo "<td>";
+	echo "<table class=\"innerTable\"><tr><td>";
 	button('story.php', array('no_histoire' => $r['no_histoire']), 'edit', 'Editer');
+	echo "</td><td>";
 	button('story.php', array('no_histoire' => $r['no_histoire']), 'delete', 'Supprimer');
+	echo "</td></tr></table>";
 	echo "</td>";
 	$i++;
 }
