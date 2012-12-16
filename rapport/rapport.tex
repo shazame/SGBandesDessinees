@@ -398,23 +398,23 @@ titre de la série en question.
 \begin{lstlisting}
 SELECT h.*, nb_albums
   FROM histoire h,
-  		 (SELECT no_histoire, count(*) as nb_albums
+       (SELECT no_histoire, count(*) as nb_albums
           FROM contenir c,
-          		 (SELECT no_volume
-          		    FROM album_sans_collection
-          			  UNION
-          			  SELECT no_volume
-          			  FROM album_avec_collection) v
+               (SELECT no_volume
+                  FROM album_sans_collection
+                UNION
+                SELECT no_volume
+                  FROM album_avec_collection) v
           WHERE v.no_volume = c.no_volume
           GROUP BY no_histoire) t
   WHERE h.no_histoire = t.no_histoire
   ORDER BY nb_albums desc;
 \end{lstlisting}
 Pour cette requête, le premier pas est d'obtenir les numéros de volumes
-présent dans album\_sans\_collection ou album\_avec\_collection, ce qui ce
-fait naturellement avec une union. Pour ce genre de cas, l'utilisation d'une
-vue serait parfaitement pertinente. En combinant les numéros obtenus avec
-la relation c et en utilisant le bon ``GROUP BY'', on obtient le nombre
+présent dans la table album\_sans\_collection ou album\_avec\_collection, ce
+qui se fait naturellement avec une union. Pour ce genre de cas, l'utilisation
+d'une vue serait parfaitement pertinente. En combinant les numéros obtenus
+avec la relation c et en utilisant le bon ``GROUP BY'', on obtient le nombre
 d'albums correspondant à chaque histoire. Avec le premier SELECT, on obtient
 les autres champs d'histoires (tel que le titre) et grâce au ``ORDER BY'' on
 assure que les entrées seront classées de manière décroissantes par rapport
