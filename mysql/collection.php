@@ -1,22 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SGBandeDessinées</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+	<?php
+	require "include.php"; // globals
+	try{
+		connectdb();
+	}catch (Exception $e){
+		die('Caught exception: ' . $e->getMessage() . "\n");
+	}
+	?>
+
+</head>
+
+<body>
 
 <?php
-require "include.php"; // globals
-try{
-	 connectdb();
-}catch (Exception $e){
-    die('Caught exception: ' . $e->getMessage() . "\n");
-}
+	beginBody();
 ?>
 
 <h1>Collections</h1>
-<a href="index.php">Retour à l'index</a>
 
 <h3>Ajout</h3>
 
-<table>
 <form action="collection.php" method="post">
+<table>
 <input type="hidden" name="action" value="add">
 <tr> <td> Nom </td> <td> <input type="text" name="nom_collection"> </td> </tr>
 
@@ -28,8 +39,8 @@ try{
 	</td> </tr>
 
 <tr> <td> <input type="submit" value="Ajouter"> <td> <tr>
-</form>
 </table>
+</form>
 
 <hr>
 
@@ -62,7 +73,7 @@ function editform () {
 	   . "</table>"
 	   . "<input type='hidden' name='no_collection' value='".$r['no_collection']."'>"
 	   . "<input type='hidden' name='action' value='edit'>"
-	   . "<input type='submit' value='Valider'> </form> </td>\n"
+	   . "<input type='submit' value='Valider'>\n"
 	   . "</form>";
 
 	echo "<hr>";
@@ -134,8 +145,8 @@ while($r = mysql_fetch_array($result)) {
 
 <?php
 disconnectdb();
+endBody();
 ?>
 
-<a href="index.php">Retour à l'index</a>
 </body>
 </html>

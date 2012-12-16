@@ -155,4 +155,52 @@ function formattable($resource) {
 
 	echo "</table>";
 }
+
+function beginBody() {
+	echo "
+		<header>
+		<h1 id=\"nav\"><a href=\"index.php\">SGBandeDessinées</a></h1>
+		</header>
+
+		<table id=\"bodytotal\">
+		<tbody>
+		<tr>
+		<td id=\"colonne\">
+		<dl class=\"menubordure\">
+		<dt>Tables</dt>
+		<dd> <ul>
+		<li><a href=\"author.php\">Auteurs</a></li>
+		<li><a href=\"editor.php\">Editeurs</a></li>
+		<li><a href=\"collection.php\">Collection</a></li>
+		<li><a href=\"serie.php\">Series</a></li>
+		<li><a href=\"mag.php\">Revues</a></li>
+		<li><a href=\"album.php\">Albums</a></li>
+		<li><a href=\"story.php\">Histoires</a></li>
+		</ul> </dd>
+		</dl>
+
+		<dl class=\"menubordure\">
+		<dt>Requêtes</dt>
+		<dd> <ul>
+		<li><a href=\"request.php\">Consultation</a></li>
+		<li><a href=\"statistics.php\">Statistiques</a></li>
+		</ul> </dd>
+		</dl>
+		</td>
+
+		<td id=\"mainbordure\">
+		<div id=\"mainframe\">
+		";
+}
+
+function endBody() {
+	echo "
+		</div>
+		</td>
+		</tr>
+		</tbody>
+		</table>
+		";
+}
+
 ?>

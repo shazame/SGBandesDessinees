@@ -1,30 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SGBandeDessinées</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+
+	<?php
+	require "include.php"; // globals
+	try{
+		connectdb();
+	}catch (Exception $e){
+		die('Caught exception: ' . $e->getMessage() . "\n");
+	}
+	?>
+
+</head>
+
+<body>
 
 <?php
-require "include.php"; // globals
-try{
-	 connectdb();
-}catch (Exception $e){
-    die('Caught exception: ' . $e->getMessage() . "\n");
-}
+	beginBody();
 ?>
 
 <h1>Auteurs</h1>
-<a href="index.php">Retour à l'index</a>
 
 <h3>Ajout</h3>
 
-<table>
 <form action="author.php" method="post">
+<table>
 <input type="hidden" name="action" value="add">
 <tr> <td> Nom </td>
-     <td> <input type="text" name="nom_auteur"> </td> </tr>
+	 <td> <input type="text" name="nom_auteur"> </td> </tr>
 <tr> <td> Prenom </td>
-     <td> <input type="text" name="prenom_auteur"> </td> </tr>
+	 <td> <input type="text" name="prenom_auteur"> </td> </tr>
 <tr> <td> <input type="submit" value="Ajouter"> <td> </tr>
-</form>
 </table>
+</form>
 
 <hr>
 
@@ -43,24 +54,24 @@ function editform () {
 
 	// Edit form
 	echo "<form action='author.php' method='post'>"
-	   . "<table>"
-	   . "<tr>"
-	   . "<td>Nom</td>"
-	   . "<td><input type='text' name='nom_auteur' value='".$r['nom_auteur']."'></td>"
-	   . "</tr>"
-	   . "<tr>"
-	   . "<td>Prenom</td>"
-	   . "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
-	   . "</tr>"
-	   . "</table>"
-	   . "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
-	   . "<input type='hidden' name='action' value='edit'>"
-	   . "<input type='submit' value='Valider'> </form> </td>\n"
-	   . "</form>";
+		. "<table>"
+		. "<tr>"
+		. "<td>Nom</td>"
+		. "<td><input type='text' name='nom_auteur' value='".$r['nom_auteur']."'></td>"
+		. "</tr>"
+		. "<tr>"
+		. "<td>Prenom</td>"
+		. "<td><input type='text' name='prenom_auteur' value='".$r['prenom_auteur']."'></td>"
+		. "</tr>"
+		. "</table>"
+		. "<input type='hidden' name='no_auteur' value='".$r['no_auteur']."'>"
+		. "<input type='hidden' name='action' value='edit'>"
+		. "<input type='submit' value='Valider'>\n"
+		. "</form>";
 
 	echo "<hr>";
 }
-	
+
 if (isset($_POST['action'])) {
 
 	if ($_POST['action'] == "add") {
@@ -68,7 +79,7 @@ if (isset($_POST['action'])) {
 		addrow('auteur',
 			qw("nom_auteur prenom_auteur"),
 			array(sprintf("'%s'", mysql_real_escape_string($_POST['nom_auteur'])), 
-			      sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
+			sprintf("'%s'", mysql_real_escape_string($_POST['prenom_auteur']))));
 	}
 
 	else if (isset($_POST['no_auteur']) && $_POST['action'] == "delete") {
@@ -126,8 +137,8 @@ while($r = mysql_fetch_array($result)) {
 
 <?php
 disconnectdb();
+endBody();
 ?>
 
-<a href="index.php">Retour à l'index</a>
 </body>
 </html>

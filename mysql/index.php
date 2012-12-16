@@ -1,26 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-	<title>SGBandeDessinees</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>SGBandeDessinées</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<?php require "include.php" ?>
 </head>
 
-
 <body>
-<h1>SGBandeDessinees</h1>
 
-<ul>
-<li><a href="author.php">Auteurs</a></li>
-<li><a href="editor.php">Editeurs</a></li>
-<li><a href="collection.php">Collection</a></li>
-<li><a href="serie.php">Series</a></li>
-<li><a href="mag.php">Revues</a></li>
-<li><a href="album.php">Albums</a></li>
-<li><a href="story.php">Histoires</a></li>
-</ul>
+<?php beginBody() ?>
 
+	<p>Projet de SGBD réalisé par : David Bitonneau, Ludovic Hofer et Benoît 
+	Ruelle.</p>
 
-<li><a href="request.php">Requêtes spéciales</a></li>
-<li><a href="statistics.php">Statistiques</a></li>
+<?php endBody() ?>
 
 </body>
 </html>
