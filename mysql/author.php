@@ -107,7 +107,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Nom</th>
@@ -121,7 +121,13 @@ $query = "SELECT * FROM auteur";
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<tr>\n";
 	echo "<td>" . $r['no_auteur'] . "</td>\n";
 	echo "<td>" . $r['nom_auteur'] . "</td>\n";
@@ -131,6 +137,7 @@ while($r = mysql_fetch_array($result)) {
 	button('author.php', array('no_auteur' => $r['no_auteur']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>\n";
+	$i++;
 }
 ?>
 </table>

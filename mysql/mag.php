@@ -111,7 +111,7 @@ function editform () {
 
 	// liste des histoires
 	echo "<h3>Liste des histoires</h3>";
-	echo "<table border=1 cellpadding=5>"
+	echo "<table class=\"mysqlTable\" border=1 cellpadding=5>"
 	   . "<tr>"
 	   . "<th>Titre</th>"
 	   . "<th>Annotation</th>"
@@ -121,8 +121,13 @@ function editform () {
 	$rv = mysql_query($query);
 	if (!$rv) { die("Requête invalide " . mysql_error()); }
 
+	$i = 0;
 	while($r = mysql_fetch_array($rv)) {
-		echo "<tr>\n";
+		if ($i%2 == 0) {
+			echo "<tr>\n";
+		} else {
+			echo "<tr class=\"alt\">\n";
+		}
 		echo "<td>" . $r['titre'] . "</td>\n";
 		echo "<td>" . $r['annotation'] . "</td>\n";
 		echo "<td>";
@@ -133,6 +138,7 @@ function editform () {
 			'Supprimer');
 		echo "</td>";
 		echo "</tr>";
+		$i++;
 	}
 	echo "</table>";
 
@@ -220,7 +226,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 <tr>
 <th>Numero volume</th>
 <th>Numero revue</th>
@@ -237,8 +243,13 @@ $query = "SELECT V.*, R.no_revue, E.nom_editeur "
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_volume'] . "</td>\n";
 	echo "<td>" . $r['no_revue'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
@@ -249,6 +260,7 @@ while($r = mysql_fetch_array($result)) {
 	button('mag.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>

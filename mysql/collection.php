@@ -114,7 +114,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Nom</th>
@@ -129,8 +129,13 @@ $query = "SELECT C.*, E.nom_editeur FROM collection as C "
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_collection'] . "</td>\n";
 	echo "<td>" . $r['nom_collection'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
@@ -139,6 +144,7 @@ while($r = mysql_fetch_array($result)) {
 	button('collection.php', array('no_collection' => $r['no_collection']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>

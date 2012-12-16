@@ -138,7 +138,7 @@ function deleterow($from, $keys, $vals) {
 
 
 function formattable($resource) {
-	echo "<table>";
+	echo "<table class=\"mysqlTable\" border=1 >";
 
 	$r = mysql_fetch_assoc($resource);
 
@@ -147,10 +147,16 @@ function formattable($resource) {
 	// column titles
 	foreach($r as $i => $val) { echo "<th>$i</th>"; }
 
+	$k = 0;
 	do {
-		echo "<tr>";
+		if ($k%2 == 0) {
+			echo "<tr>\n";
+		} else {
+			echo "<tr class=\"alt\">\n";
+		}
 		foreach($r as $i => $val) { echo "<td>$val</td>"; }
 		echo "</tr>";
+		$k++;
 	} while ($r = mysql_fetch_assoc($resource));
 
 	echo "</table>";

@@ -75,7 +75,7 @@ function editform () {
 
 	// liste des histoires
 	echo "<h3>Liste des histoires</h3>";
-	echo "<table border=1 cellpadding=5>"
+	echo "<table class=\"mysqlTable\" border=1 cellpadding=5>"
 	   . "<tr>"
 	   . "<th>No dans la serie</th>"
 	   . "<th>Titre</th>"
@@ -85,8 +85,13 @@ function editform () {
 	$rv = mysql_query($query);
 	if (!$rv) { die("Requête invalide " . mysql_error()); }
 
+	$i = 0;
 	while($r = mysql_fetch_array($rv)) {
-		echo "<tr>\n";
+		if ($i%2 == 0) {
+			echo "<tr>\n";
+		} else {
+			echo "<tr class=\"alt\">\n";
+		}
 		echo "<td>" . $r['no_ds_serie'] . "</td>\n";
 		echo "<td>" . $r['titre'] . "</td>\n";
 		echo "<td>";
@@ -97,10 +102,12 @@ function editform () {
 			'Supprimer');
 		echo "</td>";
 		echo "</tr>";
+		$i++;
 	}
 	echo "</table>";
 
 	echo "<hr>";
+
 }	
 
 if (isset($_POST['action'])) {
@@ -155,7 +162,7 @@ if (isset($_POST['action'])) {
 ?>
 
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Titre</th>
@@ -166,8 +173,13 @@ if (isset($_POST['action'])) {
 $query = "SELECT * FROM serie";
 $result = mysql_query($query);
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_serie'] . "</td>\n";
 	echo "<td>" . $r['titre_serie'] . "</td>\n";
 	echo "<td>";
@@ -175,6 +187,7 @@ while($r = mysql_fetch_array($result)) {
 	button('serie.php', array('no_serie' => $r['no_serie']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>

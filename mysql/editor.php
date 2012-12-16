@@ -86,7 +86,7 @@ if (isset($_POST['action'])) {
 }
 ?>
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 	<tr>
 	<th>Numero</th>
 	<th>Prenom</th>
@@ -99,8 +99,13 @@ $query = "SELECT * FROM editeur";
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_editeur'] . "</td>\n";
 	echo "<td>" . $r['nom_editeur'] . "</td>\n";
 	echo "<td>";
@@ -108,6 +113,7 @@ while($r = mysql_fetch_array($result)) {
 	button('editor.php', array('no_editeur' => $r['no_editeur']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>

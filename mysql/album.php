@@ -134,7 +134,7 @@ function editform () {
 
 	// liste des histoires
 	echo "<h3>Liste des histoires</h3>";
-	echo "<table border=1 cellpadding=5>"
+	echo "<table class=\"mysqlTable\" border=1 cellpadding=5>"
 	   . "<tr>"
 	   . "<th>Titre</th>"
 	   . "<th>Annotation</th>"
@@ -144,8 +144,13 @@ function editform () {
 	$rv = mysql_query($query);
 	if (!$rv) { die("Requête invalide " . mysql_error()); }
 
+	$i = 0;
 	while($r = mysql_fetch_array($rv)) {
-		echo "<tr>\n";
+		if ($i%2 == 0) {
+			echo "<tr>\n";
+		} else {
+			echo "<tr class=\"alt\">\n";
+		}
 		echo "<td>" . $r['titre'] . "</td>\n";
 		echo "<td>" . $r['annotation'] . "</td>\n";
 		echo "<td>";
@@ -157,6 +162,7 @@ function editform () {
 			'Supprimer');
 		echo "</td>";
 		echo "</tr>";
+		$i++;
 	}
 	echo "</table>";
 
@@ -267,7 +273,7 @@ if (isset($_POST['action'])) {
 
 <h3>Sans collection</h3>
 
-<table border=1 cellpadding=5>
+<table class="mysqlTable" border=1 cellpadding=5>
 <tr>
 <th>Numero</th>
 <th>Titre</th>
@@ -281,8 +287,13 @@ $query = "SELECT * from albums_et_editeurs";
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_volume'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
@@ -292,6 +303,7 @@ while($r = mysql_fetch_array($result)) {
 	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>
@@ -300,7 +312,7 @@ while($r = mysql_fetch_array($result)) {
 
 <h3>Avec collection</h3>
 
-<table border=1 cellpadding=10>
+<table class="mysqlTable" border=1 cellpadding=10>
 <tr>
 <th>Numero</th>
 <th>Titre</th>
@@ -314,8 +326,13 @@ $query = "SELECT * from albums_et_collections";
 $result = mysql_query($query);
 if (!$result) { die('Requête invalide : ' . mysql_error()); }
 
+$i = 0;
 while($r = mysql_fetch_array($result)) {
-	echo "<tr>\n";
+	if ($i%2 == 0) {
+		echo "<tr>\n";
+	} else {
+		echo "<tr class=\"alt\">\n";
+	}
 	echo "<td>" . $r['no_volume'] . "</td>\n";
 	echo "<td>" . $r['titre'] . "</td>\n";
 	echo "<td>" . $r['annee_edition'] . "</td>\n";
@@ -326,6 +343,7 @@ while($r = mysql_fetch_array($result)) {
 	button('album.php', array('no_volume' => $r['no_volume']), 'delete', 'Supprimer');
 	echo "</td>";
 	echo "</tr>";
+	$i++;
 }
 ?>
 </table>
