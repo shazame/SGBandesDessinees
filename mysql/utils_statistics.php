@@ -109,7 +109,11 @@ function getAverageAuthor($title,$starting_year, $ending_year){
 	}
 	
 	$r = mysql_fetch_array($result);
-	return $r['nb_moyen_auteurs'];
+	if (!$result) {
+		return false;
+	} else {
+		return $r['nb_moyen_auteurs'];
+	}
 }
 
 ?>

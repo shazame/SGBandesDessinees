@@ -92,11 +92,21 @@ if (isset($_POST['action'])) {
 			}catch(Exception $e){
 				die('Caught exception: ' . $e->getMessage() . "\n");
 			}
-			echo "La moyenne d'auteur participant à la revue "
-				 . $_POST['revue_title']
-				 . " de " . $_POST['starting_year']
-				 . " à " . $_POST['ending_year']
-				 . " est de " . $result . ".";
+			if (!$result) {
+				echo "Aucun auteur n'a participé à la revue "
+					. $_POST['revue_title']
+					. " entre "
+					. $_POST['starting_year']
+					. " et "
+					. $_POST['ending_year']
+					. ".";
+			} else {
+				echo "La moyenne d'auteur participant à la revue "
+					. $_POST['revue_title']
+					. " de " . $_POST['starting_year']
+					. " à " . $_POST['ending_year']
+					. " est de " . $result . ".";
+			}
 			$formular_needed = False;
 		}
 	}
