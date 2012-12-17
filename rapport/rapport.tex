@@ -9,7 +9,7 @@
 \usepackage{lmodern}
 \usepackage{color}
 \usepackage{listings}
-\lstset{language=SQL, frame=shadowbox, rulesepcolor=\color{blue}}
+\lstset{language=SQL, frame=shadowbox, rulesepcolor=\color{white}}
 
 \geometry{margin=2cm}
 
@@ -47,7 +47,7 @@ M. Mohamed Mosbah}\\
 \section{Introduction}
 
 L'objectif du projet est de mettre en œuvre, sur un cas pratique, les notions
-et les méthodes vues dans le module de SGBD. L'application effectuée ici est
+et les méthodes vues dans le module de SGBD. L'application réalisée ici est
 liée à la gestion de bandes dessinées.
 
 Dans ce rapport, la base de données est décrite de sa conception à son
@@ -119,6 +119,14 @@ différentes entités :
 
 \noindent\includegraphics[width=\textwidth]{schema-relation}
 
+Nous avons utilisé les méthodes vues en cours pour le passage du schéma
+conceptuel au schéma relationnel. Nous avons été forcé de rajouter des tables
+de manière à assurer la troisième forme normale de la base. Nous avons
+préféré utiliser des relations 0,N plutôt que 1,N pour faciliter l'insertion
+d'entrées dans la base, ainsi il est possible d'ajouter des histoires sans
+volume les contenant par exemple.
+
+
 \section{Implémentation}
 
 La base a été implémentée en utilisant MySQL. Ce SGBD a été choisi pour sa
@@ -133,6 +141,8 @@ Des contraintes d'intégrité sont réalisées au niveau de la plupart des clés
 		exemple de la suppression automatique de relations 'contenir'
 		lorsqu'un album ou une histoire est supprimée ou de relations
 		'auteuriser' dans le cas de la suppression d'auteurs ou d'histoires.
+/bin/bash: e: command not found
+		ou d'un album pour retirer automatiquement de l'entrée volume associée.
 	\item Mettre des valeurs par défaut (null) dans les attributs concernant les
 		éditeurs (album sans collection, collection, revue) lorsqu'un éditeur
 		est supprimé.
@@ -144,12 +154,14 @@ Pour alléger le code de l'interface et limiter la duplication, des vues ont ét
 par exemple d'associer des histoires à leurs auteurs en une requête simple sur
 laquelle il suffit d'appliquer une condition supplémentaire pour isoler un
 auteur particulier. La même chose est faite pour associer des albums à leur
-collection ou leur éditeur, des volumes à leurs histoires etc.
+collection ou leur éditeur, des volumes à leurs histoires, etc.
 
-Si la base devait gérer un très grand nombre d'entrées, il serait possible
-d'améliorer les performances de ces requêtes en les construisant directement
-dans l'interface en s'assurant de manipuler des tables moins grosses en
-faisant une sélection dès le début.
+En termes de performances, cette approche n'a pas d'effet négatif car les vues
+dans MySQL sont par défaut utilisées comme des alias et ne sont pas
+précompilées (algorithme 'merge'). Cela signifie que l'optimiseur aura
+l'occasion de réaliser la sélection dès le début de la requête et n'aura pas à
+construire la table regroupant toutes les associations avant de faire la
+sélection.
 
 
 \section{Opérations possibles sur la base}
@@ -185,14 +197,14 @@ L'implémentation des requêtes permettant d'obtenir ces informations a été ef
 
 Cette démarche a permis de concevoir et d'affiner les requêtes dans un cas assez simple pour
 ensuite pouvoir les intégrer de manière efficace à notre interface. Certaines requêtes étant
-compliquées, elles ont été conçues étape après étape, en s'approchant peu à peu du résultat. Il est évident
-que pour ce genre de procédure, il est plus simple d'affiner le résultat en exécutant un fichier sql qu'en
-passant directement par du php.
+compliquées, elles ont été conçues étape après étape, en s'approchant peu à
+peu du résultat. Il est plus simple, pour ce genre de procédure, d'affiner le
+résultat en exécutant un fichier sql plutôt qu'en passant directement par du php.
 
 
 \paragraph{Statistiques}
 Les statistiques suivantes peuvent être prélevées grâce aux requêtes
-implémentée :
+implémentées :
 \begin{itemize}
 	\item le nombre d’histoires auxquelles un auteur a participé ;
 	\item la série ayant le plus grand nombre d’auteurs ;
@@ -204,7 +216,7 @@ Les méthodes utilisées pour le développement des requêtes de statistiques so
 les mêmes que celles utilisées pour les requêtes de consultation. La requête
 permettant de classer les auteurs selon la décade durant laquelle ils ont créé
 le plus d'histoires n'a pas été développée, notre compréhension du résultat
-attendu n'étant pas des plus précises. Cependant, nous avons tout de même
+attendu n'étant pas précise. Cependant, nous avons tout de même
 testé la possibilité d'afficher le nombre d'histoires ayant été écrites pour
 chaque décade, il ne nous serait donc pas particulièrement difficile
 d'afficher la décade durant laquelle un auteur spécifique a créé le plus
@@ -235,7 +247,7 @@ Cette requête consiste simplement à conserver les différentes histoires pour
 lesquels une entrée contient le numéro d'auteur approprié dans la table
 auteuriser. Dans ce cas, le numéro d'auteur est le 2, mais il est possible
 de le paramétrer simplement en php. Le ``DISTINCT'' permet d'éviter les
-répétitions dans le cas ou un auteur a rempli plusieurs rôles dans la
+répétitions dans le cas où un auteur a rempli plusieurs rôles dans la
 création d'une histoire.
 
 \subsubsection*{La bibliographie d'un auteur triée par année de parution
@@ -259,7 +271,7 @@ les afficher, ce qui est préférable si l'on souhaite afficher les
 collaborateurs, il est intéressant de savoir quel rôle ils ont tenu dans la
 création de l'histoire.}. Le tri se fait simplement par
 ``ORDER BY annee\_parution''. À nouveau, dans ce cas le numéro d'auteur
-choisi est deux, mais il est facile d'adapter la requête pour qu'elle soit
+choisi est 2, mais il est facile d'adapter la requête pour qu'elle soit
 paramétrable en php.
 
 \subsubsection*{La bibliographie d'un auteur triée par série
@@ -291,7 +303,7 @@ de bien utiliser une jointure externe gauche, car des histoires peuvent ne
 pas être présentes dans des séries, or dans ce cas, on désire tout de même
 les conserver \footnote{Avec une jointure naturelle, les histoires qui ne
 sont pas présentes dans la table appartenance\_serie ne sont pas
-conservées.}. À nouveau, le numéro du client est facilement paramétrable en
+conservées.}. À nouveau, le numéro de l'auteur est facilement paramétrable en
 php. Et cette fois l'ordre est imposé par le numéro de série ainsi que par le
 numéro interne à la série.
 
@@ -318,7 +330,7 @@ SELECT nom_auteur, prenom_auteur, nb_revues
 \end{lstlisting}
 Pour cette requête, nous avons d'abord cherché à obtenir les numéros de
 volume et les numéros de revue des volumes correspondant aux conditions
-spécifiées, cette partie est celle présente dans le select le plus imbriqué.
+spécifiées, cette partie est celle présente dans le \emph{select} le plus imbriqué.
 Il faut ensuite obtenir les numéros des histoires écrites dans ces revues et
 combiner cette information avec la table auteuriser pour obtenir une table
 comportant les auteurs associés aux numéros de revue auxquels ils ont
@@ -342,8 +354,7 @@ SELECT v.no_volume, titre, annee_edition, annotation
 Cette requête nécessite simplement d'obtenir les volumes présent dans la
 relation contenir avec le numéro d'histoire approprié. Inclure les
 annotations permet d'avoir une meilleure vision de la différence entre deux
-publications dans la même revue la même année par exemple. Une fois de plus,
-il est facile de paramétrer cette requête avec un numéro d'histoire choisi.
+publications dans la même revue la même année par exemple.
 
 
 \subsubsection*{Les histoires différentes portant le même titre}
@@ -354,7 +365,7 @@ SELECT h1.no_histoire, h1.titre
     AND h1.titre = h2.titre
   ORDER BY titre , h1.no_histoire;
 \end{lstlisting}
-Cette requête nécessite d'avoir deux alias défini pour la même table, si
+Cette requête nécessite d'avoir deux alias définis pour la même table, si
 elles n'ont pas le même numéro d'histoire mais le même titre, c'est qu'elles
 sont différentes tout en portant le même titre. Cette requêtes n'est pas
 paramétrable étant donné qu'elle est de type général.
@@ -367,8 +378,8 @@ SELECT count(*) as nb_histoires
 	        WHERE no_auteur = 2) t;
 \end{lstlisting}
 Pour obtenir le nombre d'histoires écrites par un auteur il suffit de compter
-le nombre d'histoires différentes auquels il a participé. Cette requête peut
-facilement être paramétré en fonction du numéro d'auteur souhaité.
+le nombre d'histoires différentes auxquelles il a participé. Cette requête peut
+facilement être paramétrée en fonction du numéro d'auteur souhaité.
 
 \subsubsection*{La série avec le plus d'auteurs}
 \begin{lstlisting}
@@ -453,7 +464,7 @@ n'importe quelle année maximale d'édition.
 
 \subsection{Notice d'utilisation}
 
-L'interface peut être utilisée en plaçant les fichiers php dans un répertoire
+L'interface peut être utilisée en plaçant les fichiers php, css et png dans un répertoire
 connu d'un serveur http équipé d'un module php. Les requêtes sont envoyées à
 MySQL via les fonctions du types \verb!mysql_*!. Il peut être nécessaire
 d'installer les bibliothèques nécessaires et/ou activer ce jeu de fonctions
@@ -481,10 +492,10 @@ d'utilisateur après une installation fraîche de MySQL) est utilisée.
 \subsection{Description de l'interface}
 
 Le langage PHP a été utilisé pour réaliser l'interface utilisateur avec la
-base. La page d'accueil permet d'accéder aux pages des différentes entités
+base. Le menu à gauche permet d'accéder aux pages des différentes entités
 principales en cliquant sur les liens correspondants. Il est à chaque fois
-possible de revenir à la page d'accueil via un lien se situant en haut de la
-page. En cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé
+possible de revenir à la page d'accueil en cliquant sur le titre.
+En cliquant sur le lien "Auteurs", par exemple, l'utilisateur est dirigé
 vers une page listant le contenu de la table des auteurs, c'est-à-dire leur
 nom, leur prénom et un numéro les identifiant. Il est possible d'effectuer des
 insertions dans la table au moyen d'un formulaire d'ajout dans lequel le nom
@@ -507,7 +518,7 @@ d'auteur, permet d'effectuer ces actions. L'appui sur le bouton "Supprimer" va
 lancera l'exécution de la requête supprimant l'auteur de la table.
 
 L'appui sur le bouton "Editer" fait apparaître un formulaire en haut de la
-page ; les champs "Nom" et "Prenom" sont préremplis avec le nom de le prénom
+page ; les champs "Nom" et "Prenom" sont pré-remplis avec le nom de le prénom
 de l'auteur édité et peuvent être modifié.
 
 Par la suite, l'appui sur le bouton "Valider" applique les modifications mais
@@ -515,7 +526,7 @@ ne fait pas disparaître le formulaire apparu pour des raisons de convenance
 mais il est néanmoins mis à jour pour rendre compte des modifications
 apportées à la base.
 Il est en effet pratique de pouvoir appliquer un ensemble de modifications
-sans avoir à réappuyer sur le bouton "Editer" à chaque fois.
+sans avoir à appuyer sur le bouton "Editer" à chaque fois.
 Par exemple, pour la table histoire, de nombreuses modifications différentes
 peuvent être effectuées suite à l'appui sur le bouton "Editer" d'une histoire
 : 
@@ -536,7 +547,7 @@ Devoir appuyer sur éditer à chaque ajout d'un auteur, par exemple, aurait ét�
 contraignant.
 
 Depuis la page d'accueil il est également possible d'accéder aux pages
-permettant d'effectuer les différentes requêtes. La page "Requêtes spéciales"
+permettant d'effectuer les différentes requêtes. La page "Consultation"
 permet d'accéder aux requêtes de consultation et la page "Statistiques" permet
 d'effectuer les requêtes de statistiques. Dans ces deux pages, le principe est
 identique pour effectuer une requête : 
@@ -562,6 +573,19 @@ les entrée de l'utilisateur. Pour cela, l'utilisation de la fonction "sprintf"
 permet de forcer l'entrée de l'utilisateur à être traitée comme un nombre
 lorsque cela doit être le cas. Lorsque l'utilisateur a la possibilité
 d'entrer des chaînes de caractères, la fonction "mysql\_real\_escape\_string"
-a été employé afin de protéger les requêtes SQL de caractères spéciaux.
+a été employée afin de protéger les requêtes SQL de caractères spéciaux.
 
+
+\section{Conclusion}
+
+Ce projet nous a permis de comprendre plus précisément le déroulement de la
+création de bases de données dans son intégralité et nous a fait nous poser
+des questions sur l'optimisation des requêtes (notamment sur l'utilisation des
+vues). Des questions sur le bon rapport entre le recours au php pour réaliser certaines tâches
+contre une approche purement SQL ont été levées et nous avons préféré recourir
+le moins possible aux manipulations faites par l'interface et privilégier les
+contraintes d'intégrité.
+
+L'utilisation de MySQL nous a permis de découvrir une alternative au SGBD
+proposé en TD.
 \end{document}
